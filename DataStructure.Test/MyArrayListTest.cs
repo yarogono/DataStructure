@@ -117,68 +117,74 @@ namespace DataStructure.Test
         //  /**
         //   * Test method for {@link MyArrayList#get(int)}.
         //   */
-        //  [Fact]
-        //  public void testGet()
-        //  {
-        //      Assert.Equal(myList.get(1), is (new Integer(2)));
-        //  }
+        [Fact]
+        public void testGet()
+        {
+            Assert.Equal(myList[1], 2);
+        }
 
         //  /**
         //   * Test method for {@link MyArrayList#indexOf(Object)}.
         //   */
-        //  [Fact]
-        //  public void testIndexOf()
-        //  {
-        //      Assert.Equal(myList.indexOf(1), is (0));
-        //      Assert.Equal(myList.indexOf(2), is (1));
-        //      Assert.Equal(myList.indexOf(3), is (2));
-        //      Assert.Equal(myList.indexOf(4), is (-1));
-        //  }
+        [Fact]
+        public void testIndexOf()
+        {
+            Assert.Equal(myList.IndexOf(1), 0);
+            Assert.Equal(myList.IndexOf(2), 1);
+            Assert.Equal(myList.IndexOf(3), 2);
+            Assert.Equal(myList.IndexOf(4), -1);
+        }
 
         //  /**
         //   * Test method for {@link MyArrayList#indexOf(Object)}.
         //   */
-        //  [Fact]
-        //  public void testIndexOfNull()
-        //  {
-        //      Assert.Equal(myList.indexOf(null), is (-1));
-        //      myList.add(null);
-        //      Assert.Equal(myList.indexOf(null), is (3));
-        //  }
+        [Fact]
+        public void testIndexOfNull()
+        {
+            Assert.Equal(myList.IndexOf(null), -1);
+            myList.Add(null);
+            Assert.Equal(myList.IndexOf(null), 3);
+        }
 
         //  /**
         //   * Test method for {@link MyArrayList#isEmpty()}.
         //   */
-        //  [Fact]
-        //  public void testIsEmpty()
-        //  {
-        //      Assert.Equal(myList.isEmpty(), equalTo(false));
-        //      myList.clear();
-        //      Assert.Equal(myList.isEmpty(), equalTo(true));
-        //  }
+        [Fact]
+        public void testIsEmpty()
+        {
+            Assert.Equal(myList.Any(), false);
+            myList.Clear();
+            Assert.Equal(myList.Any(), true);
+        }
 
         //  /**
         //   * Test method for {@link MyArrayList#iterator()}.
         //   */
-        //  [Fact]
-        //  public void testIterator()
-        //  {
-        //      Iterator<Integer> iter = myList.iterator();
-        //      Assert.Equal(iter.next(), is (new Integer(1)));
-        //      Assert.Equal(iter.next(), is (new Integer(2)));
-        //      Assert.Equal(iter.next(), is (new Integer(3)));
-        //      Assert.Equal(iter.hasNext(), equalTo(false));
-        //  }
+        [Fact]
+        public void testIterator()
+        {
+            var iter = myList.GetEnumerator();
+            Assert.Equal(iter.Current, 1);
+            iter.MoveNext();
+
+            Assert.Equal(iter.Current, 2);
+            iter.MoveNext();
+
+            Assert.Equal(iter.Current, 3);
+            iter.MoveNext();
+
+            Assert.Equal(iter.MoveNext(), false);
+        }
 
         //  /**
         //   * Test method for {@link MyArrayList#lastIndexOf(Object)}.
         //   */
-        //  [Fact]
-        //  public void testLastIndexOf()
-        //  {
-        //      myList.add(2);
-        //      Assert.Equal(myList.lastIndexOf(new Integer(2)), is (3));
-        //  }
+        [Fact]
+        public void testLastIndexOf()
+        {
+            myList.Add(2);
+            Assert.Equal(myList.LastIndexOf(2), 3);
+        }
 
         //  /**
         //   * Test method for {@link MyArrayList#remove(Object)}.
