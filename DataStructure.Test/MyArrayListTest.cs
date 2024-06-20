@@ -189,54 +189,55 @@ namespace DataStructure.Test
         //  /**
         //   * Test method for {@link MyArrayList#remove(Object)}.
         //   */
-        //  [Fact]
-        //  public void testRemoveObject()
-        //  {
-        //      boolean flag = myList.remove(new Integer(2));
-        //      Assert.Equal(flag, equalTo(true));
-        //      Assert.Equal(myList.size(), is (2));
-        //      Assert.Equal(myList.get(1), is (new Integer(3)));
-        //      //System.out.println(Arrays.toString(mal.toArray()));
+        [Fact]
+        public void testRemoveObject()
+        {
+            bool flag = myList.Remove(2);
+            Assert.Equal(flag, true);
+            Assert.Equal(myList.Count, 2);
+            Assert.Equal(myList[1], 3));
+            //System.out.println(Arrays.toString(mal.toArray()));
 
-        //      flag = myList.remove(new Integer(1));
-        //      Assert.Equal(flag, equalTo(true));
-        //      Assert.Equal(myList.size(), is (1));
-        //      Assert.Equal(myList.get(0), is (new Integer(3)));
-        //      //System.out.println(Arrays.toString(mal.toArray()));
+            flag = myList.Remove(1);
+            Assert.Equal(flag, true);
+            Assert.Equal(myList.Count, 1);
+            Assert.Equal(myList[0], 3);
+            //System.out.println(Arrays.toString(mal.toArray()));
 
-        //      flag = myList.remove(new Integer(5));
-        //      Assert.Equal(flag, equalTo(false));
-        //      Assert.Equal(myList.size(), is (1));
-        //      Assert.Equal(myList.get(0), is (new Integer(3)));
-        //      //System.out.println(Arrays.toString(mal.toArray()));
+            flag = myList.Remove(5);
+            Assert.Equal(flag, false);
+            Assert.Equal(myList.Count, 1);
+            Assert.Equal(myList[0], 3);
+            //System.out.println(Arrays.toString(mal.toArray()));
 
-        //      flag = myList.remove(new Integer(3));
-        //      Assert.Equal(flag, equalTo(true));
-        //      Assert.Equal(myList.size(), is (0));
-        //      //System.out.println(Arrays.toString(mal.toArray()));
-        //  }
+            flag = myList.Remove(3);
+            Assert.Equal(flag, true);
+            Assert.Equal(myList.Count, 0);
+            //System.out.println(Arrays.toString(mal.toArray()));
+        }
 
         //  /**
         //   * Test method for {@link MyArrayList#remove(int)}.
         //   */
-        //  [Fact]
-        //  public void testRemoveInt()
-        //  {
-        //      Integer val = myList.remove(1);
-        //      Assert.Equal(val, is (new Integer(2)));
-        //      Assert.Equal(myList.size(), is (2));
-        //      Assert.Equal(myList.get(1), is (new Integer(3)));
-        //  }
+        [Fact]
+        public void testRemoveInt()
+        {
+            int val = myList.IndexOf(1);
+            myList.Remove(1);
+            Assert.Equal(val, 2);
+            Assert.Equal(myList.Count, 2);
+            Assert.Equal(myList[1], 3);
+        }
 
         //  /**
         //   * Test method for {@link MyArrayList#removeAll(java.util.Collection)}.
         //   */
-        //  [Fact]
-        //  public void testRemoveAll()
-        //  {
-        //      myList.removeAll(list);
-        //      Assert.Equal(myList.size(), is (0));
-        //  }
+        [Fact]
+        public void testRemoveAll()
+        {
+            myList.Except(list);
+            Assert.Equal(myList.Count, 0);
+        }
 
         //  /**
         //   * Test method for {@link MyArrayList#set(int, Object)}.
