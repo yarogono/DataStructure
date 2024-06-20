@@ -242,69 +242,69 @@ namespace DataStructure.Test
         //  /**
         //   * Test method for {@link MyArrayList#set(int, Object)}.
         //   */
-        //  [Fact]
-        //  public void testSet()
-        //  {
-        //      Integer val = myList.set(1, 5);
-        //      Assert.Equal(val, is (new Integer(2)));
+        [Fact]
+        public void testSet()
+        {
+            Integer val = myList.set(1, 5);
+            Assert.Equal(val, is (new Integer(2)));
 
-        //      val = myList.set(0, 6);
-        //      Assert.Equal(val, is (new Integer(1)));
+            val = myList.set(0, 6);
+            Assert.Equal(val, is (new Integer(1)));
 
-        //      val = myList.set(2, 7);
-        //      Assert.Equal(val, is (new Integer(3)));
+            val = myList.set(2, 7);
+            Assert.Equal(val, is (new Integer(3)));
 
-        //      // return value should be 2
-        //      // list should be [6, 5, 7]
-        //      Assert.Equal(myList.get(0), is (new Integer(6)));
-        //      Assert.Equal(myList.get(1), is (new Integer(5)));
-        //      Assert.Equal(myList.get(2), is (new Integer(7)));
-        //      //System.out.println(Arrays.toString(mal.toArray()));
+            // return value should be 2
+            // list should be [6, 5, 7]
+            Assert.Equal(myList.get(0), is (new Integer(6)));
+            Assert.Equal(myList.get(1), is (new Integer(5)));
+            Assert.Equal(myList.get(2), is (new Integer(7)));
+            //System.out.println(Arrays.toString(mal.toArray()));
 
-        //      try
-        //      {
-        //          myList.set(-1, 0);
-        //          fail();
-        //      }
-        //      catch (IndexOutOfBoundsException e) { } // good
+            try
+            {
+                myList.set(-1, 0);
+                fail();
+            }
+            catch (IndexOutOfBoundsException e) { } // good
 
-        //      try
-        //      {
-        //          myList.set(4, 0);
-        //          fail();
-        //      }
-        //      catch (IndexOutOfBoundsException e) { } // good
-        //  }
+            try
+            {
+                myList.set(4, 0);
+                fail();
+            }
+            catch (IndexOutOfBoundsException e) { } // good
+        }
 
         //  /**
         //   * Test method for {@link MyArrayList#size()}.
         //   */
-        //  [Fact]
-        //  public void testSize()
-        //  {
-        //      Assert.Equal(myList.size(), is (3));
-        //  }
+        [Fact]
+        public void testSize()
+        {
+            Assert.Equal(myList.Count, 3);
+        }
 
         //  /**
         //   * Test method for {@link MyArrayList#subList(int, int)}.
         //   */
-        //  [Fact]
-        //  public void testSubList()
-        //  {
-        //      myList.addAll(list);
-        //      List<Integer> sub = myList.subList(1, 4);
-        //      Assert.Equal(sub.get(1), is (new Integer(3)));
-        //  }
+        [Fact]
+        public void testSubList()
+        {
+            myList.AddRange(list);
+            List<int?> sub = myList.GetRange(1, 3);
+            Assert.Equal(sub[1], 3);
+        }
 
         //  /**
         //   * Test method for {@link MyArrayList#toArray()}.
         //   */
-        //  [Fact]
-        //  public void testToArray()
-        //  {
-        //      Object[] array = myList.toArray();
-        //      Assert.Equal((Integer)array[0], is (new Integer(1)));
-        //  }
+        [Fact]
+        public void testToArray()
+        {
+            int?[] array = myList.ToArray();
+            Assert.Equal((int)array[0], 1);
+        }
 
     }
 }
