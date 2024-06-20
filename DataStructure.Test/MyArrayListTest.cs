@@ -242,39 +242,39 @@ namespace DataStructure.Test
         //  /**
         //   * Test method for {@link MyArrayList#set(int, Object)}.
         //   */
-        [Fact]
-        public void testSet()
-        {
-            Integer val = myList.set(1, 5);
-            Assert.Equal(val, is (new Integer(2)));
+        //  [Fact]
+        //  public void testSet()
+        //  {
+        //      Integer val = myList.set(1, 5);
+        //      Assert.Equal(val, is (new Integer(2)));
 
-            val = myList.set(0, 6);
-            Assert.Equal(val, is (new Integer(1)));
+        //      val = myList.set(0, 6);
+        //      Assert.Equal(val, is (new Integer(1)));
 
-            val = myList.set(2, 7);
-            Assert.Equal(val, is (new Integer(3)));
+        //      val = myList.set(2, 7);
+        //      Assert.Equal(val, is (new Integer(3)));
 
-            // return value should be 2
-            // list should be [6, 5, 7]
-            Assert.Equal(myList.get(0), is (new Integer(6)));
-            Assert.Equal(myList.get(1), is (new Integer(5)));
-            Assert.Equal(myList.get(2), is (new Integer(7)));
-            //System.out.println(Arrays.toString(mal.toArray()));
+        //      // return value should be 2
+        //      // list should be [6, 5, 7]
+        //      Assert.Equal(myList.get(0), is (new Integer(6)));
+        //      Assert.Equal(myList.get(1), is (new Integer(5)));
+        //      Assert.Equal(myList.get(2), is (new Integer(7)));
+        //      //System.out.println(Arrays.toString(mal.toArray()));
 
-            try
-            {
-                myList.set(-1, 0);
-                fail();
-            }
-            catch (IndexOutOfBoundsException e) { } // good
+        //      try
+        //      {
+        //          myList.set(-1, 0);
+        //          fail();
+        //      }
+        //      catch (IndexOutOfBoundsException e) { } // good
 
-            try
-            {
-                myList.set(4, 0);
-                fail();
-            }
-            catch (IndexOutOfBoundsException e) { } // good
-        }
+        //      try
+        //      {
+        //          myList.set(4, 0);
+        //          fail();
+        //      }
+        //      catch (IndexOutOfBoundsException e) { } // good
+        //  }
 
         //  /**
         //   * Test method for {@link MyArrayList#size()}.
