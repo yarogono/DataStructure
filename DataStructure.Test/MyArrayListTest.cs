@@ -195,7 +195,7 @@ namespace DataStructure.Test
             bool flag = myList.Remove(2);
             Assert.Equal(flag, true);
             Assert.Equal(myList.Count, 2);
-            Assert.Equal(myList[1], 3));
+            Assert.Equal(myList[1], 3);
             //System.out.println(Arrays.toString(mal.toArray()));
 
             flag = myList.Remove(1);
@@ -242,39 +242,40 @@ namespace DataStructure.Test
         //  /**
         //   * Test method for {@link MyArrayList#set(int, Object)}.
         //   */
-        //  [Fact]
-        //  public void testSet()
-        //  {
-        //      Integer val = myList.set(1, 5);
-        //      Assert.Equal(val, is (new Integer(2)));
+        [Fact]
+        public void testSet()
+        {
+            int? val = myList[1];
+            myList[1] = 5;
+            Assert.Equal(val, 2);
 
-        //      val = myList.set(0, 6);
-        //      Assert.Equal(val, is (new Integer(1)));
+            val = myList[0];
+            myList[0] = 6;
+            Assert.Equal(val, 1);
 
-        //      val = myList.set(2, 7);
-        //      Assert.Equal(val, is (new Integer(3)));
+            val = myList[2];
+            myList[2] = 7;
+            Assert.Equal(val, 3);
 
-        //      // return value should be 2
-        //      // list should be [6, 5, 7]
-        //      Assert.Equal(myList.get(0), is (new Integer(6)));
-        //      Assert.Equal(myList.get(1), is (new Integer(5)));
-        //      Assert.Equal(myList.get(2), is (new Integer(7)));
-        //      //System.out.println(Arrays.toString(mal.toArray()));
+            // return value should be 2
+            // list should be [6, 5, 7]
+            Assert.Equal(myList[0], 6);
+            Assert.Equal(myList[1], 5);
+            Assert.Equal(myList[2], 7);
+            //System.out.println(Arrays.toString(mal.toArray()));
 
-        //      try
-        //      {
-        //          myList.set(-1, 0);
-        //          fail();
-        //      }
-        //      catch (IndexOutOfBoundsException e) { } // good
+            try
+            {
+                myList[-1] = 0;
+            }
+            catch (IndexOutOfRangeException e) { } // good
 
-        //      try
-        //      {
-        //          myList.set(4, 0);
-        //          fail();
-        //      }
-        //      catch (IndexOutOfBoundsException e) { } // good
-        //  }
+            try
+            {
+                myList[4] = 0;
+            }
+            catch (IndexOutOfRangeException e) { } // good
+        }
 
         //  /**
         //   * Test method for {@link MyArrayList#size()}.
