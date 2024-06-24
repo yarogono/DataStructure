@@ -3,59 +3,73 @@ using System.Collections;
 
 public class MyArrayList<T> : List<T>, IList<T>
 {
-    public T this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    private T[] arrList;
 
-    public int Count => throw new NotImplementedException();
+    private int size;
+
+    public MyArrayList()
+    {
+        arrList = new T[10];
+        this.size = 0;
+    }
+
+    public T this[int index]
+    { 
+        get => throw new NotImplementedException(); 
+        set => throw new NotImplementedException(); 
+    }
+
+    public int Count => size;
 
     public bool IsReadOnly => throw new NotImplementedException();
 
     public void Add(T item)
     {
-        throw new NotImplementedException();
+        return;
     }
 
     public void Clear()
     {
-        throw new NotImplementedException();
+        return;
     }
 
     public bool Contains(T item)
     {
-        throw new NotImplementedException();
+        return false;
     }
 
     public void CopyTo(T[] array, int arrayIndex)
     {
-        throw new NotImplementedException();
+        return;
     }
 
     public IEnumerator<T> GetEnumerator()
     {
-        throw new NotImplementedException();
+        return null;
     }
 
     public int IndexOf(T item)
     {
-        throw new NotImplementedException();
+        return 0;
     }
 
     public void Insert(int index, T item)
     {
-        throw new NotImplementedException();
+        return;
     }
 
     public bool Remove(T item)
     {
-        throw new NotImplementedException();
+        return false;
     }
 
     public void RemoveAt(int index)
     {
-        throw new NotImplementedException();
+        return;
     }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-        throw new NotImplementedException();
+        return null;
     }
 }
