@@ -23,8 +23,19 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public bool IsReadOnly => throw new NotImplementedException();
 
-    public void Add(T item)
+    public void Add(T element)
     {
+        if (arrList.Length == arrList.Length - 1)
+        {
+            T[] newArr = new T[arrList.Length];
+            Array.Copy(arrList, newArr, arrList.Length);
+            arrList = new T[arrList.Length + arrList.Length];
+
+            Array.Copy(newArr, arrList, newArr.Length);
+        }
+
+        arrList[size] = element;
+        size++;
         return;
     }
 
