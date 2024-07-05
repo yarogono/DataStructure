@@ -39,48 +39,67 @@ public class MyArrayList<T> : List<T>, IList<T>
         return;
     }
 
+    public void Add(int index, T element)
+    {
+        // ToDo
+    }
+
+    public void AddRange()
+    {
+        // ToDo
+    }
+
     public void Clear()
     {
+        // ToDo
         return;
     }
 
     public bool Contains(T item)
     {
+        // ToDo
         return false;
     }
 
     public void CopyTo(T[] array, int arrayIndex)
     {
+        // ToDo
         return;
     }
 
     public IEnumerator<T> GetEnumerator()
     {
+        // ToDo
         return null;
     }
 
     public int IndexOf(T item)
     {
+        // ToDo
         return 0;
     }
 
     public void Insert(int index, T item)
     {
+        // ToDo
         return;
     }
 
     public bool Remove(T item)
     {
+        // ToDo
         return false;
     }
 
     public void RemoveAt(int index)
     {
+        // ToDo
         return;
     }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
+        // ToDo
         return null;
     }
 }

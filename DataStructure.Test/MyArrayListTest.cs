@@ -5,7 +5,7 @@ namespace DataStructure.Test
     public class MyArrayListTest
     {
         protected List<int?> list;
-        protected List<int?> myList;
+        protected MyArrayList<int?> myList;
 
         public MyArrayListTest()
         {
