@@ -15,7 +15,7 @@ namespace DataStructure.Test
             list.Add(3);
 
             myList = new MyArrayList<int?>();
-            //myList.Add((list);
+            myList.AddRange(list);
         }
 
         [Fact]
