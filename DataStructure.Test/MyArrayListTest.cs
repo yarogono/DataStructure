@@ -21,7 +21,7 @@ namespace DataStructure.Test
         [Fact]
         public void testmyList()
         {
-            //Assert(myList.size()), is(3));
+            Assert.Equal(myList.Count, 3);
         }
 
         // 
