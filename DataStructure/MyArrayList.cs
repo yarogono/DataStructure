@@ -36,12 +36,25 @@ public class MyArrayList<T> : List<T>, IList<T>
 
         arrList[size] = element;
         size++;
-        return;
     }
 
     public void Add(int index, T element)
     {
-        // ToDo
+        // 추가하려는 index의 값이 ArrayList의 범위를 벗어나는지 확인
+        if (index < 0 || index > size)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
+
+        // ArrayList의 index 위치에 값을 추가하기 위해 공간을 만든다.
+        // ArrayList index 위치 뒤에 있는 모든 값의 위치를 변경한다.
+        for (int i = size - 1; i > index; i--)
+        {
+            arrList[i] = arrList[i - 1];
+        }
+
+        // ArrayList의 index 위치에 element의 값을 할당한다.
+        arrList[index] = element;
     }
 
     public void AddRange()
@@ -52,7 +65,6 @@ public class MyArrayList<T> : List<T>, IList<T>
     public void Clear()
     {
         // ToDo
-        return;
     }
 
     public bool Contains(T item)
