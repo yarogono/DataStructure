@@ -64,7 +64,18 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public void Clear()
     {
-        // ToDo
+        if (arrList == null)
+        {
+            throw new NullReferenceException();
+        }
+
+        if (size <= 0)
+        {
+            return;
+        }
+
+        arrList = new T[10];
+        size = 0;
     }
 
     public bool Contains(T item)
