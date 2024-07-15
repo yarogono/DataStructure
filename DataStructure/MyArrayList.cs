@@ -57,9 +57,14 @@ public class MyArrayList<T> : List<T>, IList<T>
         arrList[index] = element;
     }
 
-    public void AddRange()
+    public void AddRange(List<T> list)
     {
-        // ToDo
+        arrList = new T[list.Count];
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            arrList[i] = list[i];
+        }
     }
 
     public void Clear()
@@ -80,14 +85,20 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public bool Contains(T item)
     {
-        // ToDo
+        for (int i = 0; i < arrList.Length;i++)
+        {
+            if (arrList[i].Equals(item))
+            {
+                return true;
+            }
+        }
+
         return false;
     }
 
     public void CopyTo(T[] array, int arrayIndex)
     {
         // ToDo
-        return;
     }
 
     public IEnumerator<T> GetEnumerator()
