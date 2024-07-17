@@ -21,7 +21,7 @@ namespace DataStructure.Test
         [Fact]
         public void testmyList()
         {
-            Assert.Equal(myList.Count, 3);
+            Assert.Equal(myList.Count(), 3);
         }
 
         // 
@@ -41,7 +41,7 @@ namespace DataStructure.Test
         {
             myList.Insert(1, 5);
             Assert.Equal(myList[1], 5);
-            Assert.Equal(myList.Count, 4);
+            Assert.Equal(myList.Count(), 4);
 
             try
             {
@@ -78,7 +78,7 @@ namespace DataStructure.Test
             myList.AddRange(list);
             myList.AddRange(list);
             myList.AddRange(list);
-            Assert.Equal(myList.Count, 12);
+            Assert.Equal(myList.Count(), 12);
             Assert.Equal(myList[5], 3);
         }
 
@@ -89,7 +89,7 @@ namespace DataStructure.Test
         public void testClear()
         {
             myList.Clear();
-            Assert.Equal(myList.Count, 0);
+            Assert.Equal(myList.Count(), 0);
         }
 
         //  /**
@@ -194,25 +194,25 @@ namespace DataStructure.Test
         {
             bool flag = myList.Remove(2);
             Assert.Equal(flag, true);
-            Assert.Equal(myList.Count, 2);
+            Assert.Equal(myList.Count(), 2);
             Assert.Equal(myList[1], 3);
             //System.out.println(Arrays.toString(mal.toArray()));
 
             flag = myList.Remove(1);
             Assert.Equal(flag, true);
-            Assert.Equal(myList.Count, 1);
+            Assert.Equal(myList.Count(), 1);
             Assert.Equal(myList[0], 3);
             //System.out.println(Arrays.toString(mal.toArray()));
 
             flag = myList.Remove(5);
             Assert.Equal(flag, false);
-            Assert.Equal(myList.Count, 1);
+            Assert.Equal(myList.Count(), 1);
             Assert.Equal(myList[0], 3);
             //System.out.println(Arrays.toString(mal.toArray()));
 
             flag = myList.Remove(3);
             Assert.Equal(flag, true);
-            Assert.Equal(myList.Count, 0);
+            Assert.Equal(myList.Count(), 0);
             //System.out.println(Arrays.toString(mal.toArray()));
         }
 
@@ -225,7 +225,7 @@ namespace DataStructure.Test
             int val = myList.IndexOf(1);
             myList.Remove(1);
             Assert.Equal(val, 2);
-            Assert.Equal(myList.Count, 2);
+            Assert.Equal(myList.Count(), 2);
             Assert.Equal(myList[1], 3);
         }
 
@@ -236,7 +236,7 @@ namespace DataStructure.Test
         public void testRemoveAll()
         {
             myList.Except(list);
-            Assert.Equal(myList.Count, 0);
+            Assert.Equal(myList.Count(), 0);
         }
 
         //  /**
@@ -283,7 +283,7 @@ namespace DataStructure.Test
         [Fact]
         public void testSize()
         {
-            Assert.Equal(myList.Count, 3);
+            Assert.Equal(myList.Count(), 3);
         }
 
         //  /**

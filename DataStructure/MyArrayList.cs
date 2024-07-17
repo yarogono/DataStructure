@@ -19,7 +19,10 @@ public class MyArrayList<T> : List<T>, IList<T>
         set => throw new NotImplementedException(); 
     }
 
-    public int Count => size;
+    public int Count()
+    {
+        return size;
+    }
 
     public bool IsReadOnly => throw new NotImplementedException();
 
@@ -65,6 +68,8 @@ public class MyArrayList<T> : List<T>, IList<T>
         {
             arrList[i] = list[i];
         }
+
+        size = arrList.Length;
     }
 
     public void Clear()
@@ -109,7 +114,19 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public int IndexOf(T item)
     {
-        // ToDo
+        if (arrList.Length <= 0)
+        {
+            return -1;
+        }
+
+        for (int i = 0; i < arrList.Length; i++)
+        {
+            if (arrList[i].Equals(item))
+            {
+                return i;
+            }
+        }
+
         return 0;
     }
 
