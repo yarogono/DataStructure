@@ -121,13 +121,20 @@ public class MyArrayList<T> : List<T>, IList<T>
 
         for (int i = 0; i < arrList.Length; i++)
         {
-            if (arrList[i].Equals(item))
+            if (Compare<T>(arrList[i], item))
             {
                 return i;
             }
         }
 
-        return 0;
+        return -1;
+    }
+
+
+    // https://stackoverflow.com/questions/390900/cant-operator-be-applied-to-generic-types-in-c 스택오버플로우 참고해서 해결
+    private bool Compare<T>(T x, T y)
+    {
+        return EqualityComparer<T>.Default.Equals(x, y);
     }
 
     public void Insert(int index, T item)
