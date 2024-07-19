@@ -15,8 +15,8 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public T this[int index]
     { 
-        get => throw new NotImplementedException(); 
-        set => throw new NotImplementedException(); 
+        get => arrList[index]; 
+        set => arrList[index] = value; 
     }
 
     public int Count()
@@ -145,8 +145,34 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public bool Remove(T item)
     {
-        // ToDo
-        return false;
+        if (arrList == null || arrList.Length == 0)
+        {
+            return false;
+        }
+
+        int findInedex = -1;
+        for (int i = 0; i < arrList.Length; i++)
+        {
+            if (findInedex!= -1)
+            {
+                arrList[i - 1]= arrList[i];
+                continue;
+            }
+
+            if (Compare<T>(arrList[i], item))
+            {
+                arrList[i] = default(T);
+                findInedex = i;
+                size--;
+            }
+        }
+
+        if (findInedex == -1)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     public void RemoveAt(int index)
