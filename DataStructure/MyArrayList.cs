@@ -28,7 +28,10 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public void Add(T element)
     {
-        if (arrList.Length == arrList.Length - 1)
+        if (arrList.Length == 0 || arrList == null)
+            return;
+
+        if (arrList.Length >= size)
         {
             T[] newArr = new T[arrList.Length];
             Array.Copy(arrList, newArr, arrList.Length);
@@ -121,6 +124,24 @@ public class MyArrayList<T> : List<T>, IList<T>
 
         for (int i = 0; i < arrList.Length; i++)
         {
+            if (Compare<T>(arrList[i], item))
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public int LastIndexOf(T item)
+    {
+        if (arrList.Length <= 0)
+        {
+            return -1;
+        }
+
+        for (int i = size; 0 < i; i--)
+        {     
             if (Compare<T>(arrList[i], item))
             {
                 return i;
