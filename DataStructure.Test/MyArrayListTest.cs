@@ -222,8 +222,7 @@ namespace DataStructure.Test
         [Fact]
         public void testRemoveInt()
         {
-            int val = myList.IndexOf(1);
-            myList.Remove(1);
+            int? val = myList.RemoveAt(1);
             Assert.Equal(val, 2);
             Assert.Equal(myList.Count(), 2);
             Assert.Equal(myList[1], 3);

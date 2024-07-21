@@ -184,7 +184,6 @@ public class MyArrayList<T> : List<T>, IList<T>
             {
                 arrList[i] = default(T);
                 findInedex = i;
-                size--;
             }
         }
 
@@ -193,13 +192,29 @@ public class MyArrayList<T> : List<T>, IList<T>
             return false;
         }
 
+        arrList[size - 1] = default(T);
+        size--;
+
         return true;
     }
 
-    public void RemoveAt(int index)
+    public T RemoveAt(int index)
     {
-        // ToDo
-        return;
+        if (arrList.Length <= 0 || arrList == null)
+            return default(T);
+
+        if (arrList.Length < index)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
+
+        T value = arrList[index];
+        bool isRemoved = Remove(arrList[index]);
+
+        if (isRemoved == false)
+            return default(T);
+
+        return value;
     }
 
     IEnumerator IEnumerable.GetEnumerator()
