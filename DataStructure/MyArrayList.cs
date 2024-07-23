@@ -47,14 +47,24 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public void AddRange(List<T> list)
     {
-        arrList = new T[list.Count];
-
-        for (int i = 0; i < list.Count; i++)
+        if (arrList.Length - (arrList.Length + list.Count) <= 0)
         {
-            arrList[i] = list[i];
+            T[] newArr = new T[arrList.Length];
+            Array.Copy(arrList, newArr, arrList.Length);
+            arrList = new T[arrList.Length + arrList.Length];
+
+            Array.Copy(newArr, arrList, newArr.Length);
         }
 
-        size = arrList.Length;
+
+        int totalLength = size + list.Count;
+
+        for (int i = size; i < totalLength; i++)
+        {
+            arrList[i] = list[i - size];
+        }
+
+        size = totalLength;
     }
 
     public void Clear()
@@ -218,6 +228,12 @@ public class MyArrayList<T> : List<T>, IList<T>
             return default(T);
 
         return value;
+    }
+
+    public void RemoveAll(List<int?> list)
+    {
+        arrList = new T[10];
+        size = 0;
     }
 
     IEnumerator IEnumerable.GetEnumerator()

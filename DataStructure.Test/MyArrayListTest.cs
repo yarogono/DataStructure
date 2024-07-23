@@ -234,7 +234,7 @@ namespace DataStructure.Test
         [Fact]
         public void testRemoveAll()
         {
-            myList.Except(list);
+            myList.RemoveAll(list);
             Assert.Equal(myList.Count(), 0);
         }
 
