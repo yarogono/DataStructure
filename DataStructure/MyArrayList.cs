@@ -85,7 +85,7 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public bool Contains(T item)
     {
-        for (int i = 0; i < arrList.Length;i++)
+        for (int i = 0; i < size; i++)
         {
             if (arrList[i].Equals(item))
             {
@@ -114,7 +114,7 @@ public class MyArrayList<T> : List<T>, IList<T>
             return -1;
         }
 
-        for (int i = 0; i < arrList.Length; i++)
+        for (int i = 0; i < size; i++)
         {
             if (Compare<T>(arrList[i], item))
             {
@@ -245,5 +245,10 @@ public class MyArrayList<T> : List<T>, IList<T>
     public bool IsEmpty()
     {
         return size == 0;
+    }
+
+    public T[] ToArray()
+    {
+        return arrList;
     }
 }
