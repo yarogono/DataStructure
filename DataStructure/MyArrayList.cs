@@ -241,4 +241,9 @@ public class MyArrayList<T> : List<T>, IList<T>
         // ToDo
         return null;
     }
+
+    public bool IsEmpty()
+    {
+        return size == 0;
+    }
 }

@@ -152,9 +152,9 @@ namespace DataStructure.Test
         [Fact]
         public void testIsEmpty()
         {
-            Assert.Equal(myList.Any(), false);
+            Assert.Equal(myList.IsEmpty(), false);
             myList.Clear();
-            Assert.Equal(myList.Any(), true);
+            Assert.Equal(myList.IsEmpty(), true);
         }
 
         //  /**
