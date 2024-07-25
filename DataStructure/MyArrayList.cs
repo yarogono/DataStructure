@@ -101,10 +101,14 @@ public class MyArrayList<T> : List<T>, IList<T>
         // ToDo
     }
 
-    public IEnumerator<T> GetEnumerator()
+    public IEnumerator GetEnumerator()
     {
-        // ToDo
-        return null;
+        T[] copiedArr = new T[size];
+        Array.Copy(arrList, copiedArr, size);
+
+        var enumerator = copiedArr.GetEnumerator();
+        enumerator.MoveNext();
+        return enumerator;
     }
 
     public int IndexOf(T item)
