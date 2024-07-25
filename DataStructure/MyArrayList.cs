@@ -32,7 +32,7 @@ public class MyArrayList<T> : List<T>, IList<T>
         if (arrList.Length == 0 || arrList == null)
             return;
 
-        if (arrList.Length >= size)
+        if (arrList.Length <= size)
         {
             T[] newArr = new T[arrList.Length];
             Array.Copy(arrList, newArr, arrList.Length);
@@ -250,5 +250,27 @@ public class MyArrayList<T> : List<T>, IList<T>
     public T[] ToArray()
     {
         return arrList;
+    }
+
+    public MyArrayList<T> SubList(int startIndex, int endIndex)
+    {
+        if (size == 0 || arrList == null)
+        {
+            throw new NullReferenceException();
+        }
+
+        if (size <= endIndex)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
+
+        MyArrayList<T> subMyArrayList = new();
+
+        for (int i = startIndex; i <= endIndex; i++)
+        {
+            subMyArrayList.Add(arrList[i]);
+        }
+
+        return subMyArrayList;
     }
 }

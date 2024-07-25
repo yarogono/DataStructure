@@ -292,7 +292,7 @@ namespace DataStructure.Test
         public void testSubList()
         {
             myList.AddRange(list);
-            List<int?> sub = myList.GetRange(1, 3);
+            MyArrayList<int?> sub = myList.SubList(1, 3);
             Assert.Equal(sub[1], 3);
         }
 
