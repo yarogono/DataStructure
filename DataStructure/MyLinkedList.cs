@@ -3,6 +3,11 @@
     public class MyLinkedList<T> : LinkedList<T>
     {
 
+
+        public MyLinkedList()
+        {
+        }
+
         // 요약:
         //     Initializes a new instance of the System.Collections.Generic.LinkedList`1 class
         //     that contains elements copied from the specified System.Collections.IEnumerable
@@ -244,7 +249,7 @@
         //     false.
         public bool Contains(T value)
         {
-
+            return true;
         }
 
 
@@ -290,7 +295,7 @@
         //     value, if found; otherwise, null.
         public LinkedListNode<T>? Find(T value)
         {
-
+            return null;
         }
 
 
@@ -372,7 +377,7 @@
         //     This method also returns false if value was not found in the original System.Collections.Generic.LinkedList`1.
         public bool Remove(T value)
         {
-
+            return true;
         }
 
         // 요약:
