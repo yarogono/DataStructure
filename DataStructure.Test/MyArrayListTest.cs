@@ -24,7 +24,6 @@ namespace DataStructure.Test
             Assert.Equal(myList.Count(), 3);
         }
 
-        // 
         [Fact]
         public void testAddT()
         {
@@ -68,10 +67,6 @@ namespace DataStructure.Test
             Assert.Equal(myList[5], 7);
         }
 
-
-        //  /**
-        //* Test method for {@link MyArrayList#addAll(java.util.Collection)}.
-        //*/
         [Fact]
         public void testAddAllCollectionOfQextendsT()
         {
@@ -82,9 +77,6 @@ namespace DataStructure.Test
             Assert.Equal(myList[5], 3);
         }
 
-        //  /**
-        //   * Test method for {@link MyArrayList#clear()}.
-        //   */
         [Fact]
         public void testClear()
         {
@@ -92,9 +84,6 @@ namespace DataStructure.Test
             Assert.Equal(myList.Count(), 0);
         }
 
-        //  /**
-        //   * Test method for {@link MyArrayList#Contains(Object)}.
-        //   */
         [Fact]
         public void testContains()
         {
@@ -105,27 +94,18 @@ namespace DataStructure.Test
             Assert.Equal(myList.Contains(null), true);
         }
 
-        //  /**
-        //   * Test method for {@link MyArrayList#ContainsAll(java.util.Collection)}.
-        //   */
         [Fact]
         public void testContainsAll()
         {
             Assert.Equal(myList.All(myList.Contains), true);
         }
 
-        //  /**
-        //   * Test method for {@link MyArrayList#get(int)}.
-        //   */
         [Fact]
         public void testGet()
         {
             Assert.Equal(myList[1], 2);
         }
 
-        //  /**
-        //   * Test method for {@link MyArrayList#indexOf(Object)}.
-        //   */
         [Fact]
         public void testIndexOf()
         {
@@ -135,9 +115,6 @@ namespace DataStructure.Test
             Assert.Equal(myList.IndexOf(4), -1);
         }
 
-        //  /**
-        //   * Test method for {@link MyArrayList#indexOf(Object)}.
-        //   */
         [Fact]
         public void testIndexOfNull()
         {
@@ -146,9 +123,6 @@ namespace DataStructure.Test
             Assert.Equal(myList.IndexOf(null), 3);
         }
 
-        //  /**
-        //   * Test method for {@link MyArrayList#isEmpty()}.
-        //   */
         [Fact]
         public void testIsEmpty()
         {
@@ -157,9 +131,6 @@ namespace DataStructure.Test
             Assert.Equal(myList.IsEmpty(), true);
         }
 
-        //  /**
-        //   * Test method for {@link MyArrayList#iterator()}.
-        //   */
         [Fact]
         public void testIterator()
         {
@@ -176,9 +147,6 @@ namespace DataStructure.Test
             Assert.Equal(iter.MoveNext(), false);
         }
 
-        //  /**
-        //   * Test method for {@link MyArrayList#lastIndexOf(Object)}.
-        //   */
         [Fact]
         public void testLastIndexOf()
         {
@@ -186,9 +154,6 @@ namespace DataStructure.Test
             Assert.Equal(myList.LastIndexOf(2), 3);
         }
 
-        //  /**
-        //   * Test method for {@link MyArrayList#remove(Object)}.
-        //   */
         [Fact]
         public void testRemoveObject()
         {
@@ -196,29 +161,22 @@ namespace DataStructure.Test
             Assert.Equal(flag, true);
             Assert.Equal(myList.Count(), 2);
             Assert.Equal(myList[1], 3);
-            //System.out.println(Arrays.toString(mal.toArray()));
 
             flag = myList.Remove(1);
             Assert.Equal(flag, true);
             Assert.Equal(myList.Count(), 1);
             Assert.Equal(myList[0], 3);
-            //System.out.println(Arrays.toString(mal.toArray()));
 
             flag = myList.Remove(5);
             Assert.Equal(flag, false);
             Assert.Equal(myList.Count(), 1);
             Assert.Equal(myList[0], 3);
-            //System.out.println(Arrays.toString(mal.toArray()));
 
             flag = myList.Remove(3);
             Assert.Equal(flag, true);
             Assert.Equal(myList.Count(), 0);
-            //System.out.println(Arrays.toString(mal.toArray()));
         }
 
-        //  /**
-        //   * Test method for {@link MyArrayList#remove(int)}.
-        //   */
         [Fact]
         public void testRemoveInt()
         {
@@ -228,9 +186,6 @@ namespace DataStructure.Test
             Assert.Equal(myList[1], 3);
         }
 
-        //  /**
-        //   * Test method for {@link MyArrayList#removeAll(java.util.Collection)}.
-        //   */
         [Fact]
         public void testRemoveAll()
         {
@@ -238,9 +193,6 @@ namespace DataStructure.Test
             Assert.Equal(myList.Count(), 0);
         }
 
-        //  /**
-        //   * Test method for {@link MyArrayList#set(int, Object)}.
-        //   */
         [Fact]
         public void testSet()
         {
@@ -261,7 +213,6 @@ namespace DataStructure.Test
             Assert.Equal(myList[0], 6);
             Assert.Equal(myList[1], 5);
             Assert.Equal(myList[2], 7);
-            //System.out.println(Arrays.toString(mal.toArray()));
 
             try
             {
@@ -276,18 +227,12 @@ namespace DataStructure.Test
             catch (IndexOutOfRangeException e) { } // good
         }
 
-        //  /**
-        //   * Test method for {@link MyArrayList#size()}.
-        //   */
         [Fact]
         public void testSize()
         {
             Assert.Equal(myList.Count(), 3);
         }
 
-        //  /**
-        //   * Test method for {@link MyArrayList#subList(int, int)}.
-        //   */
         [Fact]
         public void testSubList()
         {
@@ -296,9 +241,6 @@ namespace DataStructure.Test
             Assert.Equal(sub[1], 3);
         }
 
-        //  /**
-        //   * Test method for {@link MyArrayList#toArray()}.
-        //   */
         [Fact]
         public void testToArray()
         {
