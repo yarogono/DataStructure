@@ -21,6 +21,18 @@ namespace DataStructure.Test
         }
 
         [Fact]
+        public void linkedList_AddMyLinkedList()
+        {
+            linkedList = new MyLinkedList<string>();
+            linkedList.Append("테스트1");
+            linkedList.Append("테스트2");
+            linkedList.Append("테스트3");
+
+            myList = new MyLinkedList<string>();
+            myList.AddAll(linkedList);
+        }
+
+        [Fact]
         public void lonkedList_Length()
         {
             Assert.Equal(myList.Count(), 3);
@@ -65,7 +77,7 @@ namespace DataStructure.Test
             var myListNode = myList.Find("김수현");
 
             //when 1번 index에 전지현 add
-            myList.AddBefore(myListNode, new LinkedListNode<string>("전지현"));
+            myList.AddBefore(myListNode, new MyLinkedListNode<string>("전지현"));
 
             //then 연결리스트에 김수현, 전지현 순서로 들어간다.
             Assert.Equal("김수현", myList.Find("김수현").Value);
