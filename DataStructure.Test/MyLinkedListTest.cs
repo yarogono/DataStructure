@@ -8,8 +8,7 @@ namespace DataStructure.Test
         LinkedList<string> linkedList;
         MyLinkedList<string> myList;
 
-        [Fact]
-        public void linkedList_생성()
+        public MyLinkedListTest()
         {
             linkedList = new LinkedList<string>();
             linkedList.Append("테스트1");

@@ -1,4 +1,6 @@
-﻿namespace DataStructure
+﻿using System.Xml.Linq;
+
+namespace DataStructure
 {
     public class MyLinkedListNode<T>
     {
@@ -66,7 +68,10 @@
         public MyLinkedListNode<T>? First { get; }
         
 
-        public int Count { get; }
+        public int Count
+        {
+            get { return count; }
+        }
 
 
         public void AddAfter(LinkedListNode<T> node, MyLinkedListNode<T> newNode)
@@ -91,12 +96,32 @@
 
         public void AddFirst(MyLinkedListNode<T> node)
         {
-
+            head.prev = node;
+            count++;
         }
 
         public MyLinkedListNode<T> AddFirst(T value)
         {
-            return null;
+
+            if (head == null)
+            {
+                MyLinkedListNode<T> node = new(value);
+                head = node;
+                count++;
+                return node;
+            }
+
+            MyLinkedListNode<T> newNode = new(value);
+            newNode.next = head;
+            head.prev = head.prev;
+            head.prev!.next = newNode;
+            head.prev = newNode;
+
+            head = newNode;
+            count++;
+
+
+            return head;
         }
 
         public void AddLast(MyLinkedListNode<T> node)
@@ -126,7 +151,24 @@
 
         public MyLinkedListNode<T>? Find(T value)
         {
-            return null;
+            if (head.Value.Equals(value))
+            {
+                return head;
+            }
+
+            MyLinkedListNode<T> tempNode= head.Next;
+            while (tempNode != null)
+            {
+                if (tempNode.Value.Equals(value))
+                {
+                    break;
+                }
+                else
+                {
+                    tempNode = tempNode.Next;
+                }
+            }
+            return tempNode;
         }
 
         public MyLinkedListNode<T>? FindLast(T value)
