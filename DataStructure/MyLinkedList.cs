@@ -131,14 +131,23 @@ namespace DataStructure
             return head;
         }
 
-        public void AddLast(MyLinkedListNode<T> node)
-        {
-
-        }
-
         public MyLinkedListNode<T> AddLast(T value)
         {
-            return null;
+            if (head == null)
+            {
+                MyLinkedListNode<T> node = new(this, value);
+                head = node;
+                count++;
+                return node;
+            }
+
+
+            MyLinkedListNode<T> newNode = new(this, value);
+            newNode.prev = head;
+            head.next = newNode;
+            count++;
+
+            return newNode;
         }
 
         public void Clear()

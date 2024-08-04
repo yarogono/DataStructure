@@ -41,10 +41,10 @@ namespace DataStructure.Test
         public void linkedList_맨앞에삽입()
         {
             //given 빈 연결리스트 생성 후 김수현 add
-            myList.AddFirst("김수현");
+            myList.AddLast("김수현");
 
             // when 연결리스트 가장 처음에 전지현 add
-            myList.AddFirst("전지현");
+            myList.AddLast("전지현");
 
             //then 연결리스트에 전지현, 김수현 순서로 들어간다.
             Assert.Equal("전지현", myList.Find("전지현").Value);
