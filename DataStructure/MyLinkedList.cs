@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.Xml.Linq;
 
 namespace DataStructure
 {
@@ -9,7 +10,10 @@ namespace DataStructure
         internal MyLinkedListNode<T>? prev;
         internal T item;
 
-        public T Value { get; }
+        public T Value
+        {
+            get { return item; } 
+        }
 
         public MyLinkedListNode()
         {
@@ -17,7 +21,7 @@ namespace DataStructure
 
         public MyLinkedListNode(T value)
         {
-            Value = value;
+            item = value;
         }
 
         internal MyLinkedListNode(MyLinkedList<T> list, T value)
@@ -105,21 +109,24 @@ namespace DataStructure
 
             if (head == null)
             {
-                MyLinkedListNode<T> node = new(value);
+                MyLinkedListNode<T> node = new(this, value);
                 head = node;
                 count++;
                 return node;
             }
 
-            MyLinkedListNode<T> newNode = new(value);
+            MyLinkedListNode<T> newNode = new(this, value);
             newNode.next = head;
-            head.prev = head.prev;
-            head.prev!.next = newNode;
-            head.prev = newNode;
+            newNode.prev = head.prev;
 
+            if (head.prev != null)
+            {
+                head.prev.next = newNode;
+            }
+
+            head.prev = newNode;
             head = newNode;
             count++;
-
 
             return head;
         }
