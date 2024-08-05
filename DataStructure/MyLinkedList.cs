@@ -66,9 +66,8 @@ namespace DataStructure
         }
 
 
-        public MyLinkedListNode<T>? Last { get; }
-
-
+        public MyLinkedListNode<T>? Last { get { return head == null ? null : head.prev; } }
+        
         public MyLinkedListNode<T>? First { get; }
         
 
@@ -96,12 +95,6 @@ namespace DataStructure
         public MyLinkedListNode<T> AddBefore(MyLinkedListNode<T> node, T value)
         {
             return null;
-        }
-
-        public void AddFirst(MyLinkedListNode<T> node)
-        {
-            head.prev = node;
-            count++;
         }
 
         public MyLinkedListNode<T> AddFirst(T value)
@@ -143,8 +136,19 @@ namespace DataStructure
 
 
             MyLinkedListNode<T> newNode = new(this, value);
-            newNode.prev = head;
-            head.next = newNode;
+
+            if (head.prev != null)
+            {
+                newNode.prev = head.prev;
+                newNode.prev!.next = newNode;
+                head.prev = newNode;
+            }
+            else
+            {
+                head.next = newNode;
+                head.prev = newNode;
+            }
+
             count++;
 
             return newNode;
@@ -219,7 +223,18 @@ namespace DataStructure
 
         public void RemoveLast()
         {
+            if (head == null)
+            {
+                return;
+            }
 
+            if (head.prev == null)
+            {
+                head = null;
+                return;
+            }
+
+            head.prev = null;
         }
     }
 }
