@@ -122,8 +122,8 @@ namespace DataStructure.Test
             myList.RemoveLast();
 
             //then 연결리스트에 김수현만 남는다.
-            Assert.Equal("김수현", myList.Find("김수현").Value);
-            Assert.Equal(null, myList.Find("전지현"));
+            Assert.Equal("전지현", myList.Find("전지현").Value);
+            Assert.Equal(null, myList.Find("김수현"));
         }
 
         [Fact]

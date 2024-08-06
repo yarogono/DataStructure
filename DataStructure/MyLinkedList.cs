@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Xml.Linq;
 
 namespace DataStructure
@@ -43,6 +44,13 @@ namespace DataStructure
         public MyLinkedListNode<T>? Previous
         {
             get { return prev == null || this == list!.head ? null : prev; }
+        }
+
+        internal void Invalidate()
+        {
+            list = null;
+            next = null;
+            prev = null;
         }
     }
 
@@ -104,19 +112,15 @@ namespace DataStructure
             {
                 MyLinkedListNode<T> node = new(this, value);
                 head = node;
+                head.prev = head;
                 count++;
-                return node;
+                return head;
             }
 
             MyLinkedListNode<T> newNode = new(this, value);
             newNode.next = head;
             newNode.prev = head.prev;
-
-            if (head.prev != null)
-            {
-                head.prev.next = newNode;
-            }
-
+            head.prev!.next = newNode;
             head.prev = newNode;
             head = newNode;
             count++;
@@ -234,7 +238,23 @@ namespace DataStructure
                 return;
             }
 
-            head.prev = null;
+            var lastNode = head.prev;
+            if (lastNode.next == lastNode)
+            {
+                head = null;
+            }
+            else
+            {
+                lastNode.next!.prev = lastNode.prev;
+                lastNode.prev!.next = lastNode.next;
+                if (head == lastNode)
+                {
+                    head = lastNode.next;
+                }
+            }
+            lastNode.Invalidate();
+
+            count--;
         }
     }
 }
