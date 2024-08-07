@@ -222,7 +222,24 @@ namespace DataStructure
 
         public void RemoveFirst()
         {
+            if (head == null)
+            {
+                return;
+            }
 
+            if(head.next == null)
+            {
+                head.Invalidate();
+                head = null;
+                return;
+            }
+
+            var headNode = head;
+            head.next!.prev = head.prev;
+            head.prev!.next = head.next;
+            head = head.next;
+            head.Invalidate();
+            count--;
         }
 
         public void RemoveLast()

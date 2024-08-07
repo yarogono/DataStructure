@@ -100,8 +100,8 @@ namespace DataStructure.Test
         public void linkedList_첫노드삭제()
         {
             //given 빈 연결리스트 생성 후 김수현, 전지현 add
-            myList.AddFirst("김수현");
             myList.AddFirst("전지현");
+            myList.AddFirst("김수현");
 
             //when 첫번째 노드 삭제
             myList.RemoveFirst();
