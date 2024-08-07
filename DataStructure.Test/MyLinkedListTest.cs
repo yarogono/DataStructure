@@ -34,7 +34,11 @@ namespace DataStructure.Test
         [Fact]
         public void linkedList_Length()
         {
-            Assert.Equal(myList.Count(), 3);
+            myList.AddLast("김김김");
+            myList.AddLast("박박박");
+            myList.AddLast("이이이");
+
+            Assert.Equal(myList.Count, 3);
         }
 
         [Fact]
