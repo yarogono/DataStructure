@@ -32,7 +32,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void lonkedList_Length()
+        public void linkedList_Length()
         {
             Assert.Equal(myList.Count(), 3);
         }
