@@ -210,13 +210,43 @@ namespace DataStructure
 
         }
 
-        public void Remove(MyLinkedListNode<T> node)
-        {
-
-        }
 
         public bool Remove(T value)
         {
+            if (head == null)
+            {
+                return false;
+            }
+
+            if (head.next == null)
+            {
+                head.Invalidate();
+                head = null;
+                return true;
+            }
+
+            var tempNode = head;
+
+            while (tempNode != null)
+            {
+                if (tempNode.Value.Equals(value))
+                {
+                    tempNode.prev.next = tempNode.next;
+                    tempNode.next.prev = tempNode.prev;
+                    tempNode.Invalidate();
+                    tempNode = null;
+                    break;
+                }
+
+                if (tempNode.next == null)
+                {
+                    break;
+                }
+                tempNode = tempNode.Next;
+            }
+
+            count--;
+
             return true;
         }
 
@@ -234,7 +264,6 @@ namespace DataStructure
                 return;
             }
 
-            var headNode = head;
             head.next!.prev = head.prev;
             head.prev!.next = head.next;
             head = head.next;
