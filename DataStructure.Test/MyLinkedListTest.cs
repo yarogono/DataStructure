@@ -95,9 +95,7 @@ namespace DataStructure.Test
             myList.Clear();
 
             //when 첫번째 노드 삭제
-            myList.RemoveFirst();
-
-            // ToDo : 에러 출력 확인
+            Assert.Throws<InvalidOperationException>(() => myList.RemoveFirst());
         }
 
         [Fact]
@@ -145,6 +143,22 @@ namespace DataStructure.Test
             Assert.Equal("김수현", myList.Find("김수현").Value);
             Assert.Equal("박해진", myList.Find("박해진").Value);
             Assert.Equal(null, myList.Find("전지현"));
+        }
+
+
+        [Fact]
+        public void linkedList_노드Contains()
+        {
+            //given 빈 연결리스트 생성 후 김수현, 전지현, 박해진 add
+            myList.AddFirst("김수현");
+            myList.AddFirst("전지현");
+            myList.AddFirst("박해진");
+
+            //when 전지현 삭제
+            bool isContains = myList.Contains("전지현");
+
+            //then 연결리스트에 김수현, 박해진 순서로 남는다.
+            Assert.True(isContains);
         }
     }
 }

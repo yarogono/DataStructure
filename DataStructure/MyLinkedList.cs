@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Xml.Linq;
 
 namespace DataStructure
@@ -160,11 +161,34 @@ namespace DataStructure
 
         public void Clear()
         {
-
+            head = null;
+            count = 0;
         }
 
         public bool Contains(T value)
         {
+            if (head == null)
+            {
+                return false;
+            }
+
+            if (head.Value.Equals(value))
+            {
+                return true;
+            }
+
+            var tempNode = head.next;
+
+            while (head.next != null)
+            {
+                if (tempNode.Value.Equals(value))
+                {
+                    return true;
+                }
+
+                tempNode = tempNode.next;
+            }
+
             return true;
         }
 
@@ -203,11 +227,6 @@ namespace DataStructure
         public Enumerator GetEnumerator()
         {
             return new MyLinkedList<T>.Enumerator();
-        }
-
-        public virtual void OnDeserialization(object? sender)
-        {
-
         }
 
 
@@ -254,7 +273,7 @@ namespace DataStructure
         {
             if (head == null)
             {
-                return;
+                throw new InvalidOperationException();
             }
 
             if(head.next == null)
