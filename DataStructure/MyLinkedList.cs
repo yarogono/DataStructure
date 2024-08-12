@@ -69,9 +69,28 @@ namespace DataStructure
         {
         }
 
-        public void AddAll(LinkedList<T> list)
+        public void AddAll(MyLinkedList<T> list)
         {
+            if (head == null)
+            {
+                head = list.head;
+                head.prev = head;
+                head.next = head;
+                count++;
 
+                list.head.next.prev = list.head.prev;
+                list.head = head.next;
+            }
+
+            var tempNode = list.head;
+            while (tempNode != null)
+            {
+                head.prev.next = tempNode;
+                head.prev = head.prev.next;
+                count++;
+
+                tempNode = tempNode.next;
+            }
         }
 
 
@@ -135,6 +154,7 @@ namespace DataStructure
             {
                 MyLinkedListNode<T> node = new(this, value);
                 head = node;
+                head.prev = head;
                 count++;
                 return node;
             }
