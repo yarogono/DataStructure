@@ -72,26 +72,30 @@ namespace DataStructure
         // ToDo : AddAll은 자바에 있는 함수로 참고 후 구현해보기
         public void AddAll(MyLinkedList<T> list)
         {
-            if (head == null)
-            {
-                head = list.head;
-                head.prev = head;
-                head.next = head;
-                count++;
+            //if (head == null)
+            //{
+            //    head = list.head;
+            //    head.prev = head;
+            //    head.next = head;
+            //    count++;
 
-                list.head.next.prev = list.head.prev;
-                list.head = head.next;
-            }
+            //    list.head.next.prev = list.head.prev;
+            //    list.head = head.next;
+            //}
 
-            var tempNode = list.head;
-            while (tempNode != null)
-            {
-                head.prev.next = tempNode;
-                head.prev = head.prev.next;
-                count++;
+            //var tempNode = list.head;
+            //while (tempNode != null)
+            //{
+            //    head.prev.next = tempNode;
+            //    head.prev = head.prev.next;
+            //    count++;
 
-                tempNode = tempNode.next;
-            }
+            //    tempNode = tempNode.next;
+            //}
+        }
+
+        public void AddAll(LinkedList<T> list)
+        {
         }
 
 

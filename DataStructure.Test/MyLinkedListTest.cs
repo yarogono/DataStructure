@@ -5,17 +5,18 @@ namespace DataStructure.Test
 {
     public class MyLinkedListTest
     {
+        LinkedList<string> linkedList;
         MyLinkedList<string> myList;
 
         public MyLinkedListTest()
         {
-            var myLinkedList = new MyLinkedList<string>();
-            myLinkedList.AddLast("테스트1");
-            myLinkedList.AddLast("테스트2");
-            myLinkedList.AddLast("테스트3");
+            linkedList = new LinkedList<string>();
+            linkedList.Append("테스트1");
+            linkedList.Append("테스트2");
+            linkedList.Append("테스트3");
 
             myList = new MyLinkedList<string>();
-            myList.AddAll(myLinkedList);
+            myList.AddAll(linkedList);
         }
 
         [Fact]
