@@ -69,7 +69,6 @@ namespace DataStructure
         {
         }
 
-        // ToDo : AddAll은 자바에 있는 함수로 참고 후 구현해보기
         public void AddAll(MyLinkedList<T> list)
         {
             if (head == null)
