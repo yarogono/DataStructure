@@ -5,18 +5,14 @@ namespace DataStructure.Test
 {
     public class MyLinkedListTest
     {
-        LinkedList<string> linkedList;
         MyLinkedList<string> myList;
 
         public MyLinkedListTest()
         {
-            linkedList = new LinkedList<string>();
-            linkedList.Append("테스트1");
-            linkedList.Append("테스트2");
-            linkedList.Append("테스트3");
-
             myList = new MyLinkedList<string>();
-            myList.AddAll(linkedList);
+            myList.AddLast("테스트1");
+            myList.AddLast("테스트2");
+            myList.AddLast("테스트3");
         }
 
         [Fact]
@@ -40,7 +36,7 @@ namespace DataStructure.Test
             myList.AddLast("박박박");
             myList.AddLast("이이이");
 
-            Assert.Equal(myList.Count, 3);
+            Assert.Equal(myList.Count, 6);
         }
 
         [Fact]
@@ -119,6 +115,7 @@ namespace DataStructure.Test
         public void linkedList_마지막노드삭제()
         {
             //given 빈 연결리스트 생성 후 김수현, 전지현 add
+            myList.Clear();
             myList.AddFirst("김수현");
             myList.AddFirst("전지현");
 

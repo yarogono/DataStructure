@@ -93,10 +93,6 @@ namespace DataStructure
             }
         }
 
-        public void AddAll(LinkedList<T> list)
-        {
-        }
-
 
         public MyLinkedListNode<T>? Last { get { return head == null ? null : head.prev; } }
         
