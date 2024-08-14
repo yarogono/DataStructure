@@ -96,7 +96,7 @@ namespace DataStructure
 
         public MyLinkedListNode<T>? Last { get { return head == null ? null : head.prev; } }
         
-        public MyLinkedListNode<T>? First { get; }
+        public MyLinkedListNode<T>? First { get { return head; } }
         
 
         public int Count
