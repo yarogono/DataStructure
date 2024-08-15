@@ -69,22 +69,79 @@ namespace DataStructure.Test
 
 
         [Fact]
-        public void linkedList_중간에삽입()
+        public void linkedList_AddBeforeNode()
         {
             Assert.Fail("Fail");
-            ////given 빈 연결리스트 생성 후 김수현, 박해진 add
-            //myList.AddFirst("김수현");
-            //myList.AddFirst("박해진");
+            //given
+            myList.AddFirst("김수현");
+            myList.AddFirst("박해진");
 
-            //var myListNode = myList.Find("김수현");
+            var myListNode = myList.Find("김수현");
 
-            ////when 1번 index에 전지현 add
-            //myList.AddBefore(myListNode, new MyLinkedListNode<string>("전지현"));
+            //when
+            myList.AddBefore(myListNode,"전지현");
 
-            ////then 연결리스트에 김수현, 전지현 순서로 들어간다.
-            //Assert.Equal("김수현", myList.Find("김수현").Value);
-            //Assert.Equal("전지현", myList.Find("전지현").Value);
-            //Assert.Equal("박해진", myList.Find("박해진").Value);
+            //then
+            Assert.Equal("김수현", myList.Find("김수현").Value);
+            Assert.Equal("전지현", myList.Find("전지현").Value);
+            Assert.Equal("박해진", myList.Find("박해진").Value);
+        }
+
+        [Fact]
+        public void linkedList_AddAfterNode()
+        {
+            Assert.Fail("Fail");
+            //given
+            myList.AddFirst("김수현");
+            myList.AddFirst("박해진");
+
+            var myListNode = myList.Find("김수현");
+
+            //when
+            myList.AddAfter(myListNode, new MyLinkedListNode<string>("전지현"));
+
+            //then
+            Assert.Equal("김수현", myList.Find("김수현").Value);
+            Assert.Equal("전지현", myList.Find("전지현").Value);
+            Assert.Equal("박해진", myList.Find("박해진").Value);
+        }
+
+        [Fact]
+        public void linkedList_AddBefore()
+        {
+            Assert.Fail("Fail");
+            //given
+            myList.AddFirst("김수현");
+            myList.AddFirst("박해진");
+
+            var myListNode = myList.Find("김수현");
+
+            //when
+            myList.AddAfter(myListNode, "전지현");
+
+            //then
+            Assert.Equal("김수현", myList.Find("김수현").Value);
+            Assert.Equal("전지현", myList.Find("전지현").Value);
+            Assert.Equal("박해진", myList.Find("박해진").Value);
+        }
+
+        [Fact]
+        public void linkedList_AddAfter()
+        {
+            Assert.Fail("Fail");
+            //given
+            myList.AddFirst("김수현");
+            myList.AddFirst("박해진");
+
+            var myListNode = myList.Find("김수현");
+
+            //when
+            myList.AddAfter(myListNode, "전지현");
+
+            //then
+            Assert.Equal("김수현", myList.Find("김수현").Value);
+            Assert.Equal("전지현", myList.Find("전지현").Value);
+            Assert.Equal("박해진", myList.Find("박해진").Value);
         }
 
         [Fact]

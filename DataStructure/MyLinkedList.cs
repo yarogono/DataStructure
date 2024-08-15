@@ -1,4 +1,9 @@
-﻿namespace DataStructure
+﻿using System;
+using System.Diagnostics;
+using System.Drawing;
+using System.Xml.Linq;
+
+namespace DataStructure
 {
     public class MyLinkedListNode<T>
     {
@@ -100,7 +105,7 @@
         }
 
 
-        public void AddAfter(LinkedListNode<T> node, MyLinkedListNode<T> newNode)
+        public void AddAfter(MyLinkedListNode<T> node, MyLinkedListNode<T> newNode)
         {
 
         }
