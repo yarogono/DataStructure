@@ -71,6 +71,7 @@ namespace DataStructure.Test
         [Fact]
         public void linkedList_중간에삽입()
         {
+            Assert.Fail("Fail");
             ////given 빈 연결리스트 생성 후 김수현, 박해진 add
             //myList.AddFirst("김수현");
             //myList.AddFirst("박해진");
@@ -158,6 +159,23 @@ namespace DataStructure.Test
 
             //then 연결리스트에 김수현, 박해진 순서로 남는다.
             Assert.True(isContains);
+        }
+
+        [Fact]
+        public void linkedList_FindLast()
+        {
+            //given
+            myList.AddFirst("김수현");
+            myList.AddFirst("전지현");
+            myList.AddFirst("박해진");
+
+            //when
+            var findNode = myList.FindLast("박해진");
+            var findNode2 = myList.FindLast("없는값");
+
+            //then
+            Assert.Equal(findNode.Value, "박해진");
+            Assert.Null(findNode2);
         }
     }
 }

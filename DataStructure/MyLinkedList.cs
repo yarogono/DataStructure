@@ -241,6 +241,29 @@ namespace DataStructure
 
         public MyLinkedListNode<T>? FindLast(T value)
         {
+            if (head == null)
+            {
+                return null;
+            }
+
+            var tempNode = head.prev;
+
+            while (tempNode != null)
+            {
+                if (tempNode == head && tempNode.Value.Equals(value) == false)
+                {
+                    break;
+                }
+
+                if (tempNode.Value.Equals(value))
+                {
+                    return tempNode;
+                }
+
+                tempNode = tempNode.prev;
+            }
+
+
             return null;
         }
 
