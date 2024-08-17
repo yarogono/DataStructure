@@ -112,7 +112,17 @@ namespace DataStructure
 
         public MyLinkedListNode<T> AddAfter(MyLinkedListNode<T> node, T value)
         {
-            return null;
+            if (head == null)
+            {
+                throw new Exception();
+            }
+
+            MyLinkedListNode<T> tempNode = new(value);
+            tempNode.next = node.next;
+            tempNode.prev = node;
+            node.next = tempNode;
+
+            return tempNode;
         }
 
         public void AddBefore(MyLinkedListNode<T> node, MyLinkedListNode<T> newNode)

@@ -128,7 +128,6 @@ namespace DataStructure.Test
         [Fact]
         public void linkedList_AddAfter()
         {
-            Assert.Fail("Fail");
             //given
             myList.AddFirst("김수현");
             myList.AddFirst("박해진");
@@ -136,12 +135,13 @@ namespace DataStructure.Test
             var myListNode = myList.Find("김수현");
 
             //when
-            myList.AddAfter(myListNode, "전지현");
+            var addedNode = myList.AddAfter(myListNode, "전지현");
 
             //then
             Assert.Equal("김수현", myList.Find("김수현").Value);
             Assert.Equal("전지현", myList.Find("전지현").Value);
             Assert.Equal("박해진", myList.Find("박해진").Value);
+            Assert.Equal(addedNode.Value, "전지현");
         }
 
         [Fact]
