@@ -16,7 +16,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void linkedList_AddMyLinkedList()
+        public void AddMyLinkedList_test()
         {
             var myLinkedList = new MyLinkedList<string>();
             myLinkedList.AddLast("테스트1");
@@ -30,7 +30,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void linkedList_Length()
+        public void Length_test()
         {
             myList.AddLast("김김김");
             myList.AddLast("박박박");
@@ -40,7 +40,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void linkedList_맨앞에삽입()
+        public void 맨앞에삽입_test()
         {
             //given 빈 연결리스트 생성 후 김수현 add
             myList.AddLast("김수현");
@@ -54,7 +54,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void linkedList_맨끝에삽입()
+        public void 맨끝에삽입_test()
         {
             //given 빈 연결리스트 생성 후 김수현 add
             myList.AddLast("김수현");
@@ -69,7 +69,7 @@ namespace DataStructure.Test
 
 
         [Fact]
-        public void linkedList_AddBeforeNode()
+        public void AddBeforeNode_test()
         {
             Assert.Fail("Fail");
             //given
@@ -88,7 +88,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void linkedList_AddAfterNode()
+        public void AddAfterNode_test()
         {
             Assert.Fail("Fail");
             //given
@@ -107,7 +107,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void linkedList_AddBefore()
+        public void AddBefore_test()
         {
             Assert.Fail("Fail");
             //given
@@ -126,7 +126,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void linkedList_AddAfter()
+        public void AddAfter_test()
         {
             //given
             myList.AddFirst("김수현");
@@ -145,7 +145,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void linkedList_빈노드삭제()
+        public void 빈노드삭제_test()
         {
             //given 빈 연결리스트 생성
             myList.Clear();
@@ -155,7 +155,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void linkedList_첫노드삭제()
+        public void 첫노드삭제_test()
         {
             //given 빈 연결리스트 생성 후 김수현, 전지현 add
             myList.AddFirst("전지현");
@@ -170,7 +170,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void linkedList_마지막노드삭제()
+        public void 마지막노드삭제_test()
         {
             //given 빈 연결리스트 생성 후 김수현, 전지현 add
             myList.Clear();
@@ -186,7 +186,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void linkedList_중간노드삭제()
+        public void 중간노드삭제_test()
         {
             //given 빈 연결리스트 생성 후 김수현, 전지현, 박해진 add
             myList.AddFirst("김수현");
@@ -204,7 +204,7 @@ namespace DataStructure.Test
 
 
         [Fact]
-        public void linkedList_노드Contains()
+        public void 노드Contains_test()
         {
             //given 빈 연결리스트 생성 후 김수현, 전지현, 박해진 add
             myList.AddFirst("김수현");
@@ -219,7 +219,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void linkedList_FindLast()
+        public void FindLast_test()
         {
             //given
             myList.AddFirst("김수현");
