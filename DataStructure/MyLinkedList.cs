@@ -76,6 +76,7 @@ namespace DataStructure
                 head = new MyLinkedListNode<T>(list.head.Value);
                 head.prev = head;
                 head.next = head;
+                head.list = this;
                 count++;
 
                 list.head.next.prev = list.head.prev;
@@ -87,6 +88,7 @@ namespace DataStructure
             {
                 head.prev.next = tempNode;
                 head.prev = head.prev.next;
+                tempNode.list = this;
                 count++;
 
                 tempNode = tempNode.next;
@@ -107,7 +109,20 @@ namespace DataStructure
 
         public void AddAfter(MyLinkedListNode<T> node, MyLinkedListNode<T> newNode)
         {
+            if (head == null)
+            {
+                throw new Exception();
+            }
 
+            if (Contains(node) == false)
+            {
+                throw new Exception();
+            }
+
+            newNode.next = node.next;
+            newNode.prev = node;
+            node.next = newNode;
+            newNode.list = this;
         }
 
         public MyLinkedListNode<T> AddAfter(MyLinkedListNode<T> node, T value)
@@ -117,22 +132,59 @@ namespace DataStructure
                 throw new Exception();
             }
 
+            if (Contains(node) == false)
+            {
+                throw new Exception();
+            }
+
             MyLinkedListNode<T> tempNode = new(value);
             tempNode.next = node.next;
             tempNode.prev = node;
             node.next = tempNode;
+            tempNode.list = this;
 
             return tempNode;
         }
 
         public void AddBefore(MyLinkedListNode<T> node, MyLinkedListNode<T> newNode)
         {
+            if (head == null)
+            {
+                throw new Exception();
+            }
 
+            if (Contains(node) == false)
+            {
+                throw new Exception();
+            }
+
+            newNode.prev = node.prev;
+            newNode.next = node;
+            node.prev.next = newNode;
+            node.prev = newNode;
+            newNode.list = this;
         }
 
         public MyLinkedListNode<T> AddBefore(MyLinkedListNode<T> node, T value)
         {
-            return null;
+            if (head == null)
+            {
+                throw new Exception();
+            }
+
+            if (Contains(node) == false)
+            {
+                throw new Exception();
+            }
+
+            var tempNode = new MyLinkedListNode<T>(value);
+            tempNode.prev = node.prev;
+            tempNode.next = node;
+            node.prev.next = tempNode;
+            node.prev = tempNode;
+            tempNode.list = this;
+
+            return tempNode;
         }
 
         public MyLinkedListNode<T> AddFirst(T value)
@@ -153,6 +205,7 @@ namespace DataStructure
             head.prev!.next = newNode;
             head.prev = newNode;
             head = newNode;
+            newNode.list = this;
             count++;
 
             return head;
@@ -222,6 +275,33 @@ namespace DataStructure
             return true;
         }
 
+        public bool Contains(MyLinkedListNode<T> node)
+        {
+            if (head == null)
+            {
+                return false;
+            }
+
+            if (head == node)
+            {
+                return true;
+            }
+
+            var tempNode = head.next;
+
+            while (head.next != null)
+            {
+                if (tempNode == node)
+                {
+                    return true;
+                }
+
+                tempNode = tempNode.next;
+            }
+
+            return true;
+        }
+
         public void CopyTo(T[] array, int index)
         {
 
@@ -270,7 +350,7 @@ namespace DataStructure
                     return tempNode;
                 }
 
-                tempNode = tempNode.prev;
+                tempNode = tempNode.Previous;
             }
 
 

@@ -71,7 +71,6 @@ namespace DataStructure.Test
         [Fact]
         public void AddBeforeNode_test()
         {
-            Assert.Fail("Fail");
             //given
             myList.AddFirst("김수현");
             myList.AddFirst("박해진");
@@ -79,7 +78,8 @@ namespace DataStructure.Test
             var myListNode = myList.Find("김수현");
 
             //when
-            myList.AddBefore(myListNode,"전지현");
+            var newNode = new MyLinkedListNode<string>("전지현");
+            myList.AddBefore(myListNode, newNode);
 
             //then
             Assert.Equal("김수현", myList.Find("김수현").Value);
@@ -90,7 +90,6 @@ namespace DataStructure.Test
         [Fact]
         public void AddAfterNode_test()
         {
-            Assert.Fail("Fail");
             //given
             myList.AddFirst("김수현");
             myList.AddFirst("박해진");
@@ -109,7 +108,6 @@ namespace DataStructure.Test
         [Fact]
         public void AddBefore_test()
         {
-            Assert.Fail("Fail");
             //given
             myList.AddFirst("김수현");
             myList.AddFirst("박해진");
@@ -117,7 +115,7 @@ namespace DataStructure.Test
             var myListNode = myList.Find("김수현");
 
             //when
-            myList.AddAfter(myListNode, "전지현");
+            myList.AddBefore(myListNode, "전지현");
 
             //then
             Assert.Equal("김수현", myList.Find("김수현").Value);
