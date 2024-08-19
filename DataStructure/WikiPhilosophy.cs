@@ -1,4 +1,6 @@
-﻿namespace DataStructure
+﻿using System.Net;
+
+namespace DataStructure
 {
     public class WikiPhilosophy
     {
@@ -13,6 +15,21 @@
 
         public static void testConjecture(string destination, string source, int limit)
         {
+            var html = GetRequest(destination);
+        }
+
+        private static string GetRequest(string url)
+        {
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse()) 
+            { 
+                using (StreamReader reader = new StreamReader(response.GetResponseStream())) 
+                { 
+                    return reader.ReadToEnd(); 
+                } 
+            }
         }
     }
 }
