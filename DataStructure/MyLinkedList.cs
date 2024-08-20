@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NSoup.Nodes;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Xml.Linq;
@@ -111,18 +112,15 @@ namespace DataStructure
         {
             if (head == null)
             {
-                throw new Exception();
+                return;
             }
 
             if (Contains(node) == false)
             {
-                throw new Exception();
+                return;
             }
 
-            newNode.next = node.next;
-            newNode.prev = node;
-            node.next = newNode;
-            newNode.list = this;
+            AddAfterNode(newNode, node);
         }
 
         public MyLinkedListNode<T> AddAfter(MyLinkedListNode<T> node, T value)
@@ -137,13 +135,19 @@ namespace DataStructure
                 throw new Exception();
             }
 
-            MyLinkedListNode<T> tempNode = new(value);
-            tempNode.next = node.next;
-            tempNode.prev = node;
-            node.next = tempNode;
-            tempNode.list = this;
+            MyLinkedListNode<T> newNode = new(value);
+            AddAfterNode(newNode, node);
 
-            return tempNode;
+            return newNode;
+        }
+
+        private void AddAfterNode(MyLinkedListNode<T> newNode, MyLinkedListNode<T> node)
+        {
+            newNode.next = node.next;
+            newNode.prev = node;
+            node.next = newNode;
+            newNode.list = this;
+            count++;
         }
 
         public void AddBefore(MyLinkedListNode<T> node, MyLinkedListNode<T> newNode)
@@ -158,11 +162,7 @@ namespace DataStructure
                 throw new Exception();
             }
 
-            newNode.prev = node.prev;
-            newNode.next = node;
-            node.prev.next = newNode;
-            node.prev = newNode;
-            newNode.list = this;
+            AddBeforeNode(newNode, node);
         }
 
         public MyLinkedListNode<T> AddBefore(MyLinkedListNode<T> node, T value)
@@ -177,14 +177,20 @@ namespace DataStructure
                 throw new Exception();
             }
 
-            var tempNode = new MyLinkedListNode<T>(value);
-            tempNode.prev = node.prev;
-            tempNode.next = node;
-            node.prev.next = tempNode;
-            node.prev = tempNode;
-            tempNode.list = this;
+            var newNode = new MyLinkedListNode<T>(value);
+            AddBeforeNode(newNode, node);
 
-            return tempNode;
+            return newNode;
+        }
+
+        private void AddBeforeNode(MyLinkedListNode<T> newNode, MyLinkedListNode<T> node)
+        {
+            newNode.prev = node.prev;
+            newNode.next = node;
+            node.prev.next = newNode;
+            node.prev = newNode;
+            newNode.list = this;
+            count++;
         }
 
         public MyLinkedListNode<T> AddFirst(T value)
