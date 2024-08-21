@@ -1,4 +1,7 @@
-﻿using System.Net;
+﻿using NSoup;
+using NSoup.Nodes;
+using NSoup.Select;
+using System.Net;
 
 namespace DataStructure
 {
@@ -16,6 +19,23 @@ namespace DataStructure
         public static void testConjecture(string destination, string source, int limit)
         {
             var html = GetRequest(destination);
+
+            Document doc = NSoupClient.Parse(html);
+
+            Element content = doc.GetElementById("mw-content-text");
+            Elements paragraphs  = content.GetElementsByTag("p");
+
+            foreach (Element p in paragraphs)
+            {
+                Elements links = p.Select("a[href]");
+                foreach (Element link in links)
+                {
+                    Console.WriteLine($" * a: <{link.Attr("href")}>  ({trim(link.Text(), 35)})");
+                }
+                break;
+            }
+
+            Console.ReadLine();
         }
 
         private static string GetRequest(string url)
@@ -30,6 +50,14 @@ namespace DataStructure
                     return reader.ReadToEnd(); 
                 } 
             }
+        }
+
+        private static String trim(string s, int width)
+        {
+            if (s.Length > width)
+                return s.Substring(0, width - 1) + ".";
+            else
+                return s;
         }
     }
 }
