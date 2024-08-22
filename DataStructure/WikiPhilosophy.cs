@@ -18,22 +18,16 @@ namespace DataStructure
 
         public static void testConjecture(string destination, string source, int limit)
         {
-            var html = GetRequest(destination);
+            var html = GetRequest(source);
 
             Document doc = NSoupClient.Parse(html);
 
             Element content = doc.GetElementById("mw-content-text");
             Elements paragraphs  = content.GetElementsByTag("p");
 
-            foreach (Element p in paragraphs)
-            {
-                Elements links = p.Select("a[href]");
-                foreach (Element link in links)
-                {
-                    Console.WriteLine($" * a: <{link.Attr("href")}>  ({trim(link.Text(), 35)})");
-                }
-                break;
-            }
+
+            Console.WriteLine(paragraphs);
+
 
             Console.ReadLine();
         }
