@@ -18,16 +18,58 @@ namespace DataStructure
 
         public static void testConjecture(string destination, string source, int limit)
         {
-            var html = GetRequest(source);
+            for (int i = 0; i < limit; i++)
+            {
+                var html = GetRequest(source);
 
-            Document doc = NSoupClient.Parse(html);
+                Document doc = NSoupClient.Parse(html);
 
-            Element content = doc.GetElementById("mw-content-text");
-            Elements paragraphs  = content.GetElementsByTag("p");
+                Element content = doc.GetElementById("mw-content-text");
+                Elements paragraphs  = content.GetElementsByTag("p");
+
+                string firstUri = String.Empty;
+
+                foreach (var paragraph in paragraphs)
+                {
+
+                    var childs = paragraph.GetElementsByTag("a");
+
+                    foreach (var child in childs)
+                    {
+                        if (child.ClassName().Contains("external"))
+                        {
+                            continue;
+                        }
+
+                        var attr = child.Attr("href");
+
+                        var allLastUri = attr.Split("/");
 
 
-            Console.WriteLine(paragraphs);
+                        var lastUri = allLastUri[allLastUri.Length - 1];
 
+                        if (lastUri.StartsWith("#"))
+                        {
+                            continue;
+                        }
+
+                        firstUri = lastUri;
+
+                        if (lastUri.Equals("Philosophy"))
+                        {
+
+                            Console.WriteLine(lastUri);
+                            break;
+                        }
+                    }
+                }
+
+                var sourceSplited = source.Split("/");
+                sourceSplited[sourceSplited.Length - 1] = firstUri;
+
+                source = string.Concat(sourceSplited);
+                Console.WriteLine(source);
+            }
 
             Console.ReadLine();
         }
