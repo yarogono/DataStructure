@@ -8,6 +8,8 @@ namespace DataStructure
     public class WikiPhilosophy
     {
 
+        public static string BaseUrl = "https://en.wikipedia.org";
+
         public static void Main(string[] args)
         {
             string destination = "https://en.wikipedia.org/wiki/Philosophy";
@@ -18,14 +20,17 @@ namespace DataStructure
 
         public static void testConjecture(string destination, string source, int limit)
         {
+            string url = source;
+
             for (int i = 0; i < limit; i++)
             {
-                var html = GetRequest(source);
+                var html = GetRequest(url);
 
                 Document doc = NSoupClient.Parse(html);
 
                 Element content = doc.GetElementById("mw-content-text");
                 Elements paragraphs  = content.GetElementsByTag("p");
+                bool isFirstUriInit = false;
 
                 string firstUri = String.Empty;
 
@@ -33,6 +38,14 @@ namespace DataStructure
                 {
 
                     var childs = paragraph.GetElementsByTag("a");
+
+                    if (childs.First != null && childs.First.Attr("href").Contains("#") == false && isFirstUriInit == false)
+                    {
+                        firstUri = childs.First.Attr("href");
+                        url = BaseUrl + firstUri;
+                        isFirstUriInit = true;
+                    }
+
 
                     foreach (var child in childs)
                     {
@@ -43,17 +56,16 @@ namespace DataStructure
 
                         var attr = child.Attr("href");
 
-                        var allLastUri = attr.Split("/");
 
-
-                        var lastUri = allLastUri[allLastUri.Length - 1];
-
-                        if (lastUri.StartsWith("#"))
+                        if (attr.Contains("#"))
                         {
                             continue;
                         }
 
-                        firstUri = lastUri;
+                        var allLastUri = attr.Split("/");
+
+
+                        var lastUri = allLastUri[allLastUri.Length - 1];
 
                         if (lastUri.Equals("Philosophy"))
                         {
@@ -61,14 +73,9 @@ namespace DataStructure
                             Console.WriteLine(lastUri);
                             break;
                         }
+
                     }
                 }
-
-                var sourceSplited = source.Split("/");
-                sourceSplited[sourceSplited.Length - 1] = firstUri;
-
-                source = string.Concat(sourceSplited);
-                Console.WriteLine(source);
             }
 
             Console.ReadLine();
