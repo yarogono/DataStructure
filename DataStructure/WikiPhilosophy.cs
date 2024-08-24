@@ -10,6 +10,8 @@ namespace DataStructure
 
         public static string BaseUrl = "https://en.wikipedia.org";
 
+        private static List<string> visitedUrl = new();
+
         public static void Main(string[] args)
         {
             string destination = "https://en.wikipedia.org/wiki/Philosophy";
@@ -24,6 +26,20 @@ namespace DataStructure
 
             for (int i = 0; i < limit; i++)
             {
+
+                if (visitedUrl.Contains(url))
+                {
+                    continue;
+                }
+
+                Console.WriteLine($"Fetching {url}");
+
+                visitedUrl.Add(url);
+                if (url.Equals(destination))
+                {
+                    break;
+                }
+
                 var html = GetRequest(url);
 
                 Document doc = NSoupClient.Parse(html);
@@ -43,6 +59,7 @@ namespace DataStructure
                     {
                         firstUri = childs.First.Attr("href");
                         url = BaseUrl + firstUri;
+                        Console.WriteLine($"** {firstUri} **");
                         isFirstUriInit = true;
                     }
 
@@ -64,13 +81,12 @@ namespace DataStructure
 
                         var allLastUri = attr.Split("/");
 
-
                         var lastUri = allLastUri[allLastUri.Length - 1];
 
                         if (lastUri.Equals("Philosophy"))
                         {
-
-                            Console.WriteLine(lastUri);
+                            url = BaseUrl + attr;
+                            Console.WriteLine($"** {lastUri} **");
                             break;
                         }
 
