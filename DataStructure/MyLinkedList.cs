@@ -114,14 +114,19 @@
 
         public MyLinkedListNode<T> AddAfter(MyLinkedListNode<T> node, T value)
         {
+            if (node == null || value == null)
+            {
+                throw new NullReferenceException();
+            }
+
             if (head == null)
             {
-                throw new Exception();
+                throw new NullReferenceException();
             }
 
             if (Contains(node) == false)
             {
-                throw new Exception();
+                throw null;
             }
 
             MyLinkedListNode<T> newNode = new(value);
@@ -143,12 +148,12 @@
         {
             if (head == null)
             {
-                throw new Exception();
+                return;
             }
 
             if (Contains(node) == false)
             {
-                throw new Exception();
+                return;
             }
 
             AddBeforeNode(newNode, node);
@@ -156,14 +161,19 @@
 
         public MyLinkedListNode<T> AddBefore(MyLinkedListNode<T> node, T value)
         {
+            if (node == null || value == null)
+            {
+                throw new NullReferenceException();
+            }
+
             if (head == null)
             {
-                throw new Exception();
+                throw new NullReferenceException();
             }
 
             if (Contains(node) == false)
             {
-                throw new Exception();
+                return null;
             }
 
             var newNode = new MyLinkedListNode<T>(value);
@@ -184,6 +194,11 @@
 
         public MyLinkedListNode<T> AddFirst(T value)
         {
+            if (value == null)
+            {
+                throw new NullReferenceException();
+            }
+
 
             if (head == null)
             {
@@ -208,6 +223,11 @@
 
         public MyLinkedListNode<T> AddLast(T value)
         {
+            if (value == null)
+            {
+                throw new NullReferenceException();
+            }
+
             if (head == null)
             {
                 MyLinkedListNode<T> node = new(this, value);
@@ -226,6 +246,7 @@
                 newNode.prev!.next = newNode;
                 head.prev = newNode;
             }
+         
             else
             {
                 head.next = newNode;
@@ -272,14 +293,21 @@
 
         public bool Contains(MyLinkedListNode<T> node)
         {
+            bool isContains = false;
+
+            if (node == null)
+            {
+                return isContains = false;
+            }
+
             if (head == null)
             {
-                return false;
+                return isContains = false;
             }
 
             if (head == node)
             {
-                return true;
+                return isContains = true;
             }
 
             var tempNode = head.next;
@@ -304,6 +332,11 @@
 
         public MyLinkedListNode<T>? Find(T value)
         {
+            if (value == null)
+            {
+                throw new NullReferenceException();
+            }
+
             if (head.Value.Equals(value))
             {
                 return head;

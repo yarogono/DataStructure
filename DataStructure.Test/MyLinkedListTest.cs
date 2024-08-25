@@ -232,5 +232,21 @@ namespace DataStructure.Test
             Assert.Equal(findNode.Value, "박해진");
             Assert.Null(findNode2);
         }
+
+        [Fact]
+        public void AddFirst_Number()
+        {
+            // Given
+            MyLinkedList<int> myNumLinkedList = new();
+
+            // When
+            myNumLinkedList.AddFirst(1);
+            myNumLinkedList.AddFirst(2);
+
+
+            // Then
+            Assert.Equal(myNumLinkedList.Count, 2);
+            Assert.Equal(myNumLinkedList.First.Value, 2);
+        }
     }
 }
