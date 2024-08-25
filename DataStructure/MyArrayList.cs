@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 
 public class MyArrayList<T> : List<T>, IList<T>
 {
@@ -70,7 +69,7 @@ public class MyArrayList<T> : List<T>, IList<T>
     {
         if (arrList == null)
         {
-            throw new NullReferenceException();
+            return;
         }
 
         if (size <= 0)
@@ -84,6 +83,11 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public bool Contains(T item)
     {
+        if (arrList.Length <= 0)
+        {
+            return false;
+        }
+
         for (int i = 0; i < size; i++)
         {
             if (arrList[i].Equals(item))
@@ -158,7 +162,7 @@ public class MyArrayList<T> : List<T>, IList<T>
         // 추가하려는 index의 값이 ArrayList의 범위를 벗어나는지 확인
         if (index < 0 || index > size)
         {
-            throw new ArgumentOutOfRangeException();
+            return;
         }
 
         if (arrList.Length <= size + 1)
@@ -182,7 +186,7 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public bool Remove(T item)
     {
-        if (arrList == null || arrList.Length == 0)
+        if (arrList == null || arrList.Length <= 0)
         {
             return false;
         }
@@ -235,6 +239,11 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public void RemoveAll(List<int?> list)
     {
+        if (arrList.Length <= 0)
+        {
+            return;
+        }
+
         arrList = new T[10];
         size = 0;
     }
@@ -247,7 +256,14 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public bool IsEmpty()
     {
-        return size == 0;
+        bool isEmpty = false;
+
+        if (size == 0)
+        {
+            isEmpty = true;
+        }
+
+        return isEmpty;
     }
 
     public T[] ToArray()
@@ -257,9 +273,14 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public MyArrayList<T> SubList(int startIndex, int endIndex)
     {
-        if (size == 0 || arrList == null)
+        if (size == 0)
         {
-            throw new NullReferenceException();
+            return new MyArrayList<T> { };
+        }
+
+        if (arrList == null)
+        {
+            throw new NullReferenceException("MyArrayList is Null");
         }
 
         if (size <= endIndex)

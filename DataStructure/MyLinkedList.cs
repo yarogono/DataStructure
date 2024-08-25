@@ -1,10 +1,4 @@
-﻿using NSoup.Nodes;
-using System;
-using System.Diagnostics;
-using System.Drawing;
-using System.Xml.Linq;
-
-namespace DataStructure
+﻿namespace DataStructure
 {
     public class MyLinkedListNode<T>
     {
@@ -15,7 +9,7 @@ namespace DataStructure
 
         public T Value
         {
-            get { return item; } 
+            get { return item; }
         }
 
         public MyLinkedListNode()
@@ -31,11 +25,6 @@ namespace DataStructure
         {
             this.list = list;
             item = value;
-        }
-
-        public MyLinkedList<T>? List
-        {
-            get { return list; }
         }
 
         public MyLinkedListNode<T>? Next
