@@ -34,7 +34,7 @@ namespace DataStructure.Test
 
             // Then
             Assert.True(myStackString.Contains(myStack1));
-            Assert.Equal(3, myStackString.Count());
+            Assert.Equal(3, myStackString.Count);
             Assert.Equal(myStack3, myStackString.Peek());
         }
 
@@ -55,7 +55,7 @@ namespace DataStructure.Test
 
             // Then
             Assert.Equal(myStack3, popMyStack3);
-            Assert.Equal(2, myStackString.Count());
+            Assert.Equal(2, myStackString.Count);
         }
 
         [Fact]
@@ -93,7 +93,7 @@ namespace DataStructure.Test
             string[] myStackArr = myStackString.ToArray();
 
             // Then
-            Assert.Equal(myStackArr.Length, myStackString.Count());
+            Assert.Equal(myStackArr.Length, myStackString.Count);
         }
 
 
@@ -113,7 +113,7 @@ namespace DataStructure.Test
             // When
             isContainsArr[0] = myStackString.Contains(myStack1);
             isContainsArr[1] = myStackString.Contains(myStack2);
-            isContainsArr[3] = myStackString.Contains(myStack3);
+            isContainsArr[2] = myStackString.Contains(myStack3);
 
             // Then
             foreach (bool item in isContainsArr)

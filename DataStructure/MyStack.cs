@@ -64,9 +64,9 @@ namespace DataStructure
                 return false;
             }
 
-            foreach (var myStackItem in _myStackArr)
+            for (int i = 0; i < _size; i++)
             {
-                if (myStackItem.Equals(item))
+                if (_myStackArr[i].Equals(item))
                 {
                     return true;
                 }
@@ -120,7 +120,20 @@ namespace DataStructure
         // throws an InvalidOperationException.
         public T Pop()
         {
-            return default (T);
+            if (_myStackArr == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            if (_myStackArr.Length <= 0)
+            {
+                return default(T);
+            }
+
+            var popedItem = _myStackArr[_size - 1];
+            _size--;
+
+            return popedItem;
         }
 
         //public bool TryPop([MaybeNullWhen(false)] out T result)
@@ -160,15 +173,14 @@ namespace DataStructure
         // Copies the Stack to an array, in the same order Pop would return the items.
         public T[] ToArray()
         {
+            T[] newArr = new T[_size];
+            
+            for (int i = 0; i < _size; i++)
+            {
+                newArr[i] = _myStackArr[i];
+            }
 
-            T[] objArray = new T[1];
-            return objArray;
-        }
-
-        private void ThrowForEmptyStack()
-        {
-            Debug.Assert(1 == 0);
-            throw new InvalidOperationException("SR.InvalidOperation_EmptyStack");
+            return newArr;
         }
 
         //public struct Enumerator : IEnumerator<T>, System.Collections.IEnumerator
