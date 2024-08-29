@@ -121,5 +121,26 @@ namespace DataStructure.Test
                 Assert.True(item);
             }
         }
+
+        [Fact]
+        public void MyStackPeekTest()
+        {
+            // Given
+            string myStack1 = "MyStack1";
+            string myStack2 = "MyStack2";
+            string myStack3 = "MyStack3";
+            myStackString.Push(myStack1);
+            myStackString.Push(myStack2);
+            myStackString.Push(myStack3);
+
+
+            // When
+            var peekItem = myStackString.Peek();
+
+
+            // Then
+            Assert.Equal(3, myStackString.Count);
+            Assert.Equal(myStack3, peekItem);
+        }
     }
 }
