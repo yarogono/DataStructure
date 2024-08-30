@@ -179,11 +179,6 @@ public class MyArrayList<T> : List<T>, IList<T>
 
         if (arrList.Length <= size + 1)
         {
-            //T[] newArr = new T[arrList.Length];
-            //Array.Copy(arrList, newArr, arrList.Length);
-            //arrList = new T[arrList.Length + arrList.Length];
-
-            //Array.Copy(newArr, arrList, newArr.Length);
             Grow(arrList.Length);
         }
 
