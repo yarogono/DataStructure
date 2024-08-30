@@ -1,10 +1,13 @@
 ﻿using System.Collections;
+using System.Diagnostics;
 
 public class MyArrayList<T> : List<T>, IList<T>
 {
     private T[] arrList;
 
     private int size;
+
+    private const int DefaultCapacity = 4;
 
     public MyArrayList()
     {
@@ -25,6 +28,23 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public bool IsReadOnly => throw new NotImplementedException();
 
+    private void Grow(int capacity)
+    {
+        Debug.Assert(arrList.Length < capacity);
+
+        int newcapacity = arrList.Length == 0 ? DefaultCapacity : 2 * arrList.Length;
+
+        // Allow the list to grow to maximum possible capacity (~2G elements) before encountering overflow.
+        // Note that this check works even when _items.Length overflowed thanks to the (uint) cast.
+        if ((uint)newcapacity > Array.MaxLength) newcapacity = Array.MaxLength;
+
+        // If computed capacity is still less than specified, set to the original argument.
+        // Capacities exceeding Array.MaxLength will be surfaced as OutOfMemoryException by Array.Resize.
+        if (newcapacity < capacity) newcapacity = capacity;
+
+        Array.Resize(ref arrList, newcapacity);
+    }
+
     public void Add(T element)
     {
         if (arrList.Length == 0 || arrList == null)
@@ -32,11 +52,7 @@ public class MyArrayList<T> : List<T>, IList<T>
 
         if (arrList.Length <= size)
         {
-            T[] newArr = new T[arrList.Length];
-            Array.Copy(arrList, newArr, arrList.Length);
-            arrList = new T[arrList.Length + arrList.Length];
-
-            Array.Copy(newArr, arrList, newArr.Length);
+            Grow(arrList.Length);
         }
 
         arrList[size] = element;
@@ -47,11 +63,7 @@ public class MyArrayList<T> : List<T>, IList<T>
     {
         if (arrList.Length - (arrList.Length + list.Count) <= 0)
         {
-            T[] newArr = new T[arrList.Length];
-            Array.Copy(arrList, newArr, arrList.Length);
-            arrList = new T[arrList.Length + arrList.Length];
-
-            Array.Copy(newArr, arrList, newArr.Length);
+            Grow(arrList.Length + list.Count);
         }
 
 
@@ -167,11 +179,12 @@ public class MyArrayList<T> : List<T>, IList<T>
 
         if (arrList.Length <= size + 1)
         {
-            T[] newArr = new T[arrList.Length];
-            Array.Copy(arrList, newArr, arrList.Length);
-            arrList = new T[arrList.Length + arrList.Length];
+            //T[] newArr = new T[arrList.Length];
+            //Array.Copy(arrList, newArr, arrList.Length);
+            //arrList = new T[arrList.Length + arrList.Length];
 
-            Array.Copy(newArr, arrList, newArr.Length);
+            //Array.Copy(newArr, arrList, newArr.Length);
+            Grow(arrList.Length);
         }
 
         for (int i = index; i < size; i++)
