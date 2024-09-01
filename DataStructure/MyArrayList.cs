@@ -111,11 +111,6 @@ public class MyArrayList<T> : List<T>, IList<T>
         return false;
     }
 
-    public void CopyTo(T[] array, int arrayIndex)
-    {
-        // ToDo
-    }
-
     public IEnumerator GetEnumerator()
     {
         T[] copiedArr = new T[size];
