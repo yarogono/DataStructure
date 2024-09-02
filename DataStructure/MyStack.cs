@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections;
+using System.Diagnostics;
 
 namespace DataStructure
 {
@@ -181,9 +182,5 @@ namespace DataStructure
 
             return newArr;
         }
-
-        //public struct Enumerator : IEnumerator<T>, System.Collections.IEnumerator
-        //{
-        //}
     }
 }

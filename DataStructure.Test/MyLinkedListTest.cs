@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace DataStructure.Test
+﻿namespace DataStructure.Test
 {
     public class MyLinkedListTest
     {
