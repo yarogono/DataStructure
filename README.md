@@ -1,5 +1,5 @@
-# ÀÚ·á±¸Á¶(DataStructure)
+# ìë£Œêµ¬ì¡°(DataStructure)
 
-- ÀÚ¹Ù·Î ¹è¿ì´Â ÇÙ½É ÀÚ·á±¸Á¶¿Í ¾Ë°í¸®Áò Ã¥À» ¹ÙÅÁÀ¸·Î ±¸ÇöÇÕ´Ï´Ù => [Ã¥ ¸µÅ©](https://product.kyobobook.co.kr/detail/S000001810058)
-- ThinkDataStructures¿¡ ÀÖ´Â Å×½ºÆ® ÄÚµå¸¦ ¹ÙÅÁÀ¸·Î ÀÚ·á±¸Á¶¸¦ ±¸ÇöÇÕ´Ï´Ù => [¸µÅ©](https://github.com/AllenDowney/ThinkDataStructures)
-- ÀÚ¹Ù°¡ ¾Æ´Ñ C#À» »ç¿ëÇØ¼­ ÀÚ·á±¸Á¶¸¦ ±¸ÇöÇÕ´Ï´Ù.
+- ìë°”ë¡œ ë°°ìš°ëŠ” í•µì‹¬ ìë£Œêµ¬ì¡°ì™€ ì•Œê³ ë¦¬ì¦˜ ì±…ì„ ë°”íƒ•ìœ¼ë¡œ êµ¬í˜„í•©ë‹ˆë‹¤ => [ì±… ë§í¬](https://product.kyobobook.co.kr/detail/S000001810058)
+- ThinkDataStructuresì— ìˆëŠ” í…ŒìŠ¤íŠ¸ ì½”ë“œë¥¼ ë°”íƒ•ìœ¼ë¡œ ìë£Œêµ¬ì¡°ë¥¼ êµ¬í˜„í•©ë‹ˆë‹¤ => [ë§í¬](https://github.com/AllenDowney/ThinkDataStructures)
+- ìë°”ê°€ ì•„ë‹Œ C#ì„ ì‚¬ìš©í•´ì„œ ìë£Œêµ¬ì¡°ë¥¼ êµ¬í˜„í•©ë‹ˆë‹¤.
