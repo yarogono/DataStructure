@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Diagnostics;
 
 namespace DataStructure
@@ -20,21 +20,20 @@ namespace DataStructure
         {
             Debug.Assert(_myStackArr.Length < capacity);
 
+            // _myStackArr의 Length가 0이면 DefaultCapacity(4)로 세팅
+            // _myStackArr의 Length가 0이 아니면 현재 _myStackArr의 Length에 * 2
             int newcapacity = _myStackArr.Length == 0 ? DefaultCapacity : 2 * _myStackArr.Length;
 
-            // Allow the list to grow to maximum possible capacity (~2G elements) before encountering overflow.
-            // Note that this check works even when _items.Length overflowed thanks to the (uint) cast.
+            // 최대 capacity를 overflow 하지 않도록 검증
+            // Array의 MaxLength는 시스템 메모리 구조와 제한에 따라 달라집니다.
             if ((uint)newcapacity > Array.MaxLength) newcapacity = Array.MaxLength;
 
-            // If computed capacity is still less than specified, set to the original argument.
-            // Capacities exceeding Array.MaxLength will be surfaced as OutOfMemoryException by Array.Resize.
             if (newcapacity < capacity) newcapacity = capacity;
 
+            // Array.MaxLength를 초과하는 용량은 Array.Resize에 의해 OutOfMemoryException으로 나타납니다.
             Array.Resize(ref _myStackArr, newcapacity);
         }
 
-        // Create a stack with a specific initial capacity.  The initial capacity
-        // must be a non-negative number.
         public MyStack(int capacity)
         {
             if (capacity < 0)
