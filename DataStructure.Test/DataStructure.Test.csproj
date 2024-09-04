@@ -24,4 +24,12 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\study\DataStructure\DataStructure.Test\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="D:\study\DataStructure\DataStructure.Test\.editorconfig" />
+  </ItemGroup>
+
 </Project>
