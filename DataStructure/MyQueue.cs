@@ -3,23 +3,58 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace DataStructure
 {
-    public class MyQueue<T> : IEnumerable<T>, IEnumerable, IReadOnlyCollection<T>, ICollection
+    [Serializable]
+    public class MyQueue<T> : IEnumerable<T>,
+        System.Collections.ICollection,
+        IReadOnlyCollection<T>
     {
+        private object?[] _array;
+        private int _head;
+        private int _tail;
         private int _size;
+        private readonly int _growFactor; // 100 == 1.0, 130 == 1.3, 200 == 2.0. Do not rename (binary serialization)
 
-        public int Count { get { return _size; } }
+        public MyQueue()
+            : this(32, (float)2.0)
+        {
+
+        }
+
+        public MyQueue(int capacity)
+            : this(capacity, (float)2.0)
+        {
+
+        }
+
+        public MyQueue(int capacity, float growFactor)
+        {
+            if (capacity < 0)
+                throw new ArgumentOutOfRangeException();
+            if (!(growFactor >= 1.0 && growFactor <= 10.0))
+                throw new ArgumentOutOfRangeException();
+
+            _array = new object[capacity];
+            _head = 0;
+            _tail = 0;
+            _size = 0;
+            _growFactor = (int)(growFactor * 100);
+        }
+
+        public int Count 
+        { 
+            get { return _size; } 
+        }
 
         public bool IsSynchronized => throw new NotImplementedException();
 
         public object SyncRoot => throw new NotImplementedException();
 
-        public MyQueue()
-        {
-        }
-
         public void Clear()
         {
-
+            _array = new object[32];
+            _head = 0;
+            _tail = 0;
+            _size = 0;
         }
 
         public bool Contains(T item)
@@ -34,12 +69,42 @@ namespace DataStructure
 
         public T Dequeue()
         {
-            return default(T);
+            if (_array[_head] == null)
+            {
+                return default(T);
+            }
+
+            T result = (T)_array[_head];
+
+            if (result == null)
+            {
+                return default(T);
+            }
+
+            _array[_head] = null;
+            _head++;
+            _size--;
+
+            return result;
         }
 
         public void Enqueue(T item)
         {
+            if (_array[_head] == null)
+            {
+                _array[_head] = item;
+                _size++;
+                return;
+            }
 
+            if (_array.Count() <= _tail)
+            {
+                // ToDo : Grow
+            }
+
+            _tail++;
+            _array[_tail] = item;
+            _size++;
         }
  
         public int EnsureCapacity(int capacity)
@@ -54,12 +119,30 @@ namespace DataStructure
 
         public T Peek()
         {
-            return default(T);
+            if (_array[_head] == null)
+            {
+                return default(T);
+            }
+
+            T result = (T)_array[_head];
+
+            return result;
         }
 
         public T[] ToArray()
         {
-            return default (T[]);
+            if (_size == 0)
+            {
+                return new T[0];
+            }
+
+            T[] result = new T[_size];
+            for (int i = 0; i < _size; i++)
+            {
+                result[i] = (T)_array[i];
+            }
+
+            return result;
         }
 
         public void TrimExcess()
@@ -90,6 +173,11 @@ namespace DataStructure
         }
 
         public void CopyTo(Array array, int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object Clone()
         {
             throw new NotImplementedException();
         }
