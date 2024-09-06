@@ -19,13 +19,13 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void testmyList()
+        public void MyList_test()
         {
             Assert.Equal(myList.Count(), 3);
         }
 
         [Fact]
-        public void testAddT()
+        public void AddT_test()
         {
             for (int i = 4; i < 20; i++)
             {
@@ -36,7 +36,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void testAddIntT()
+        public void AddIntT_test()
         {
             myList.Insert(1, 5);
             Assert.Equal(myList[1], 5);
@@ -68,7 +68,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void testAddAllCollectionOfQextendsT()
+        public void AddAllCollectionOfQextendsT_test()
         {
             myList.AddRange(list);
             myList.AddRange(list);
@@ -78,14 +78,14 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void testClear()
+        public void Clear_test()
         {
             myList.Clear();
             Assert.Equal(myList.Count(), 0);
         }
 
         [Fact]
-        public void testContains()
+        public void Contains_test()
         {
             Assert.Equal(myList.Contains(1), true);
             Assert.Equal(myList.Contains(4), false);
@@ -95,19 +95,19 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void testContainsAll()
+        public void ContainsAll_test()
         {
             Assert.Equal(myList.All(myList.Contains), true);
         }
 
         [Fact]
-        public void testGet()
+        public void Get_test()
         {
             Assert.Equal(myList[1], 2);
         }
 
         [Fact]
-        public void testIndexOf()
+        public void IndexOf_test()
         {
             Assert.Equal(myList.IndexOf(1), 0);
             Assert.Equal(myList.IndexOf(2), 1);
@@ -116,7 +116,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void testIndexOfNull()
+        public void IndexOfNull_test()
         {
             Assert.Equal(myList.IndexOf(null), -1);
             myList.Add(null);
@@ -124,7 +124,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void testIsEmpty()
+        public void IsEmpty_test()
         {
             Assert.Equal(myList.IsEmpty(), false);
             myList.Clear();
@@ -132,7 +132,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void testIterator()
+        public void Iterator_test()
         {
             var iter = myList.GetEnumerator();
             Assert.Equal(iter.Current, 1);
@@ -148,14 +148,14 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void testLastIndexOf()
+        public void LastIndexOf_test()
         {
             myList.Add(2);
             Assert.Equal(myList.LastIndexOf(2), 3);
         }
 
         [Fact]
-        public void testRemoveObject()
+        public void RemoveObject_test()
         {
             bool flag = myList.Remove(2);
             Assert.Equal(flag, true);
@@ -178,7 +178,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void testRemoveInt()
+        public void RemoveInt_test()
         {
             int? val = myList.RemoveAt(1);
             Assert.Equal(val, 2);
@@ -187,14 +187,14 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void testRemoveAll()
+        public void RemoveAll_test()
         {
             myList.RemoveAll(list);
             Assert.Equal(myList.Count(), 0);
         }
 
         [Fact]
-        public void testSet()
+        public void Set_test()
         {
             int? val = myList[1];
             myList[1] = 5;
@@ -228,13 +228,13 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void testSize()
+        public void Size_test()
         {
             Assert.Equal(myList.Count(), 3);
         }
 
         [Fact]
-        public void testSubList()
+        public void SubList_test()
         {
             myList.AddRange(list);
             MyArrayList<int?> sub = myList.SubList(1, 3);
@@ -242,7 +242,7 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void testToArray()
+        public void ToArray_test()
         {
             int?[] array = myList.ToArray();
             Assert.Equal((int)array[0], 1);
