@@ -2,7 +2,7 @@
 {
     public class MyQueueTest
     {
-        private MyQueue _myQueue;
+        private MyQueue<string> _myQueue;
 
         public MyQueueTest()
         {
