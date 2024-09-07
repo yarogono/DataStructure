@@ -59,6 +59,19 @@ namespace DataStructure
 
         public bool Contains(T item)
         {
+            if (_size == 0)
+            {
+                return false;
+            }
+
+            for (int i = _head; i < _size; i++)
+            {
+                if (_array[i].Equals(item))
+                {
+                    return true;
+                }
+            }
+
             return true;
         }
  
@@ -152,7 +165,17 @@ namespace DataStructure
 
         public bool TryDequeue([MaybeNullWhen(false)] out T result)
         {
-            result = default;
+            if (_size == 0 || _array[_head] == null)
+            {
+                result = default;
+                return false;
+            }
+
+            result = (T)_array[_head];
+            _array[_head] = default(T);
+            _head++;
+            _size--;
+
             return true;
         }
 

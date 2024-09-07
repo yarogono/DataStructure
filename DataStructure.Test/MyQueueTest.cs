@@ -13,9 +13,13 @@
         public void Count_test()
         {
             // Given
-            _myQueue.Enqueue("Test1");
-            _myQueue.Enqueue("Test2");
-            _myQueue.Enqueue("Test3");
+            string item1 = "Test1`";
+            string item2 = "Test2`";
+            string item3 = "Test3`";
+
+            _myQueue.Enqueue(item1);
+            _myQueue.Enqueue(item2);
+            _myQueue.Enqueue(item3);
 
             // When
             int myQueueCount = _myQueue.Count();
@@ -28,44 +32,75 @@
         [Fact]
         public void Clear_test()
         {
-            Assert.Fail("ToDo");
             // Given
+            string item1 = "Test1`";
+            string item2 = "Test2`";
+            string item3 = "Test3`";
 
+            _myQueue.Enqueue(item1);
+            _myQueue.Enqueue(item2);
+            _myQueue.Enqueue(item3);
 
             // When
-
+            _myQueue.Clear();
 
             // Then
-
+            Assert.Equal(0, _myQueue.Count());
         }
 
 
         [Fact]
         public void Contains_test()
         {
-            Assert.Fail("ToDo");
             // Given
+            string item1 = "Test1`";
+            string item2 = "Test2`";
+            string item3 = "Test3`";
 
+            _myQueue.Enqueue(item1);
+            _myQueue.Enqueue(item2);
+            _myQueue.Enqueue(item3);
 
             // When
-
+            bool isContain = _myQueue.Contains(item3);
 
             // Then
-
+            Assert.True(isContain);
         }
 
         [Fact]
         public void Enqueue_test()
         {
-            Assert.Fail("ToDo");
             // Given
+            string item1 = "Test1`";
+            string item2 = "Test2`";
+            string item3 = "Test3`";
 
+            _myQueue.Enqueue(item1);
+            _myQueue.Enqueue(item2);
+            _myQueue.Enqueue(item3);
 
             // When
-
+            string queueItem1 = _myQueue.Peek();
 
             // Then
+            Assert.Equal(item1, queueItem1);
+            Assert.Equal(3, _myQueue.Count());
+        }
 
+        [Fact]
+        public void EnqueueGrow_test()
+        {
+            // Given
+            string item = "Test`";
+
+
+            // When, Then
+
+            for (int i = 0; i < 1000; i++)
+            {
+                _myQueue.Enqueue(item + i);
+            }
         }
 
 
@@ -74,7 +109,13 @@
         {
             Assert.Fail("ToDo");
             // Given
+            string item1 = "Test1`";
+            string item2 = "Test2`";
+            string item3 = "Test3`";
 
+            _myQueue.Enqueue(item1);
+            _myQueue.Enqueue(item2);
+            _myQueue.Enqueue(item3);
 
             // When
 
@@ -87,15 +128,20 @@
         [Fact]
         public void Peek_test()
         {
-            Assert.Fail("ToDo");
             // Given
+            string item1 = "Test1`";
+            string item2 = "Test2`";
+            string item3 = "Test3`";
 
+            _myQueue.Enqueue(item1);
+            _myQueue.Enqueue(item2);
+            _myQueue.Enqueue(item3);
 
             // When
-
+            string peekItem = _myQueue.Peek();
 
             // Then
-
+            Assert.Equal(item1, peekItem);
         }
 
 
@@ -119,7 +165,13 @@
             Assert.Fail("ToDo");
 
             // Given
+            string item1 = "Test1`";
+            string item2 = "Test2`";
+            string item3 = "Test3`";
 
+            _myQueue.Enqueue(item1);
+            _myQueue.Enqueue(item2);
+            _myQueue.Enqueue(item3);
 
             // When
 
@@ -131,16 +183,22 @@
         [Fact]
         public void TryDequeue_test()
         {
-            Assert.Fail("ToDo");
-
             // Given
+            string item1 = "Test1`";
+            string item2 = "Test2`";
+            string item3 = "Test3`";
 
+            _myQueue.Enqueue(item1);
+            _myQueue.Enqueue(item2);
+            _myQueue.Enqueue(item3);
 
             // When
-
+            string result;
+            bool isSuccess = _myQueue.TryDequeue(out result);
 
             // Then
-
+            Assert.Equal(result, item1);
+            Assert.True(isSuccess);
         }
     }
 }
