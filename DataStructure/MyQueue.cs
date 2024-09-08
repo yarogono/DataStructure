@@ -150,10 +150,7 @@ namespace DataStructure
             }
 
             T[] result = new T[_size];
-            for (int i = 0; i < _size; i++)
-            {
-                result[i] = (T)_array[i];
-            }
+            Array.Copy(_array, _size, result, _head, _size);
 
             return result;
         }

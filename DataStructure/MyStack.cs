@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Diagnostics;
 
 namespace DataStructure
@@ -173,11 +172,8 @@ namespace DataStructure
         public T[] ToArray()
         {
             T[] newArr = new T[_size];
-            
-            for (int i = 0; i < _size; i++)
-            {
-                newArr[i] = _myStackArr[i];
-            }
+
+            Array.Copy(_myStackArr, newArr, _size);
 
             return newArr;
         }

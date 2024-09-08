@@ -3,27 +3,27 @@ using System.Diagnostics;
 
 public class MyArrayList<T> : List<T>, IList<T>
 {
-    private T[] arrList;
+    private T[] _arrList;
 
-    private int size;
+    private int _size;
 
     private const int DefaultCapacity = 4;
 
     public MyArrayList()
     {
-        arrList = new T[10];
-        this.size = 0;
+        _arrList = new T[10];
+        this._size = 0;
     }
 
     public T this[int index]
     { 
-        get => arrList[index]; 
-        set => arrList[index] = value; 
+        get => _arrList[index]; 
+        set => _arrList[index] = value; 
     }
 
     public int Count()
     {
-        return size;
+        return _size;
     }
 
     public bool IsReadOnly => throw new NotImplementedException();
@@ -31,11 +31,11 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     private void Grow(int capacity)
     {
-        Debug.Assert(arrList.Length < capacity);
+        Debug.Assert(_arrList.Length < capacity);
 
         // _myStackArr의 Length가 0이면 DefaultCapacity(4)로 세팅
         // _myStackArr의 Length가 0이 아니면 현재 _myStackArr의 Length에 * 2
-        int newcapacity = arrList.Length == 0 ? DefaultCapacity : 2 * arrList.Length;
+        int newcapacity = _arrList.Length == 0 ? DefaultCapacity : 2 * _arrList.Length;
 
         // 최대 capacity를 overflow 하지 않도록 검증
         // Array의 MaxLength는 시스템 메모리 구조와 제한에 따라 달라집니다.
@@ -44,67 +44,67 @@ public class MyArrayList<T> : List<T>, IList<T>
         if (newcapacity < capacity) newcapacity = capacity;
 
         // Array.MaxLength를 초과하는 용량은 Array.Resize에 의해 OutOfMemoryException으로 나타납니다.
-        Array.Resize(ref arrList, newcapacity);
+        Array.Resize(ref _arrList, newcapacity);
     }
 
     public void Add(T element)
     {
-        if (arrList.Length == 0 || arrList == null)
+        if (_arrList.Length == 0 || _arrList == null)
             return;
 
-        if (arrList.Length <= size)
+        if (_arrList.Length <= _size)
         {
-            Grow(arrList.Length);
+            Grow(_arrList.Length);
         }
 
-        arrList[size] = element;
-        size++;
+        _arrList[_size] = element;
+        _size++;
     }
 
     public void AddRange(List<T> list)
     {
-        if (arrList.Length - (arrList.Length + list.Count) <= 0)
+        if (_arrList.Length - (_arrList.Length + list.Count) <= 0)
         {
-            Grow(arrList.Length + list.Count);
+            Grow(_arrList.Length + list.Count);
         }
 
 
-        int totalLength = size + list.Count;
+        int totalLength = _size + list.Count;
 
-        for (int i = size; i < totalLength; i++)
+        for (int i = _size; i < totalLength; i++)
         {
-            arrList[i] = list[i - size];
+            _arrList[i] = list[i - _size];
         }
 
-        size = totalLength;
+        _size = totalLength;
     }
 
     public void Clear()
     {
-        if (arrList == null)
+        if (_arrList == null)
         {
             return;
         }
 
-        if (size <= 0)
+        if (_size <= 0)
         {
             return;
         }
 
-        arrList = new T[10];
-        size = 0;
+        _arrList = new T[10];
+        _size = 0;
     }
 
     public bool Contains(T item)
     {
-        if (arrList.Length <= 0)
+        if (_arrList.Length <= 0)
         {
             return false;
         }
 
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < _size; i++)
         {
-            if (arrList[i].Equals(item))
+            if (_arrList[i].Equals(item))
             {
                 return true;
             }
@@ -115,8 +115,8 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public IEnumerator GetEnumerator()
     {
-        T[] copiedArr = new T[size];
-        Array.Copy(arrList, copiedArr, size);
+        T[] copiedArr = new T[_size];
+        Array.Copy(_arrList, copiedArr, _size);
 
         var enumerator = copiedArr.GetEnumerator();
         enumerator.MoveNext();
@@ -125,14 +125,14 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public int IndexOf(T item)
     {
-        if (arrList.Length <= 0)
+        if (_arrList.Length <= 0)
         {
             return -1;
         }
 
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < _size; i++)
         {
-            if (Compare<T>(arrList[i], item))
+            if (Compare<T>(_arrList[i], item))
             {
                 return i;
             }
@@ -143,14 +143,14 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public int LastIndexOf(T item)
     {
-        if (arrList.Length <= 0)
+        if (_arrList.Length <= 0)
         {
             return -1;
         }
 
-        for (int i = size; 0 < i; i--)
+        for (int i = _size; 0 < i; i--)
         {     
-            if (Compare<T>(arrList[i], item))
+            if (Compare<T>(_arrList[i], item))
             {
                 return i;
             }
@@ -169,45 +169,45 @@ public class MyArrayList<T> : List<T>, IList<T>
     public void Insert(int index, T item)
     {
         // 추가하려는 index의 값이 ArrayList의 범위를 벗어나는지 확인
-        if (index < 0 || index > size)
+        if (index < 0 || index > _size)
         {
             return;
         }
 
-        if (arrList.Length <= size + 1)
+        if (_arrList.Length <= _size + 1)
         {
-            Grow(arrList.Length);
+            Grow(_arrList.Length);
         }
 
-        for (int i = index; i < size; i++)
+        for (int i = index; i < _size; i++)
         {
-            arrList[i + 1] = arrList[i];
+            _arrList[i + 1] = _arrList[i];
         }
 
         // ArrayList의 index 위치에 element의 값을 할당한다.
-        arrList[index] = item;
-        size++;
+        _arrList[index] = item;
+        _size++;
     }
 
     public bool Remove(T item)
     {
-        if (arrList == null || arrList.Length <= 0)
+        if (_arrList == null || _arrList.Length <= 0)
         {
             return false;
         }
 
         int findInedex = -1;
-        for (int i = 0; i < arrList.Length; i++)
+        for (int i = 0; i < _arrList.Length; i++)
         {
             if (findInedex!= -1)
             {
-                arrList[i - 1]= arrList[i];
+                _arrList[i - 1]= _arrList[i];
                 continue;
             }
 
-            if (Compare<T>(arrList[i], item))
+            if (Compare<T>(_arrList[i], item))
             {
-                arrList[i] = default(T);
+                _arrList[i] = default(T);
                 findInedex = i;
             }
         }
@@ -217,24 +217,24 @@ public class MyArrayList<T> : List<T>, IList<T>
             return false;
         }
 
-        arrList[size - 1] = default(T);
-        size--;
+        _arrList[_size - 1] = default(T);
+        _size--;
 
         return true;
     }
 
     public T RemoveAt(int index)
     {
-        if (arrList.Length <= 0 || arrList == null)
+        if (_arrList.Length <= 0 || _arrList == null)
             return default(T);
 
-        if (arrList.Length < index)
+        if (_arrList.Length < index)
         {
             throw new ArgumentOutOfRangeException();
         }
 
-        T value = arrList[index];
-        bool isRemoved = Remove(arrList[index]);
+        T value = _arrList[index];
+        bool isRemoved = Remove(_arrList[index]);
 
         if (isRemoved == false)
             return default(T);
@@ -244,13 +244,13 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public void RemoveAll(List<int?> list)
     {
-        if (arrList.Length <= 0)
+        if (_arrList.Length <= 0)
         {
             return;
         }
 
-        arrList = new T[10];
-        size = 0;
+        _arrList = new T[10];
+        _size = 0;
     }
 
     IEnumerator IEnumerable.GetEnumerator()
@@ -263,7 +263,7 @@ public class MyArrayList<T> : List<T>, IList<T>
     {
         bool isEmpty = false;
 
-        if (size == 0)
+        if (_size == 0)
         {
             isEmpty = true;
         }
@@ -273,22 +273,24 @@ public class MyArrayList<T> : List<T>, IList<T>
 
     public T[] ToArray()
     {
-        return arrList;
+        T[] newArray = new T[_size];
+        Array.Copy(_arrList, newArray, _size);
+        return _arrList;
     }
 
     public MyArrayList<T> SubList(int startIndex, int endIndex)
     {
-        if (size == 0)
+        if (_size == 0)
         {
             return new MyArrayList<T> { };
         }
 
-        if (arrList == null)
+        if (_arrList == null)
         {
             throw new NullReferenceException("MyArrayList is Null");
         }
 
-        if (size <= endIndex)
+        if (_size <= endIndex)
         {
             throw new ArgumentOutOfRangeException();
         }
@@ -297,7 +299,7 @@ public class MyArrayList<T> : List<T>, IList<T>
 
         for (int i = startIndex; i <= endIndex; i++)
         {
-            subMyArrayList.Add(arrList[i]);
+            subMyArrayList.Add(_arrList[i]);
         }
 
         return subMyArrayList;
