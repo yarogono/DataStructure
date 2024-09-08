@@ -107,7 +107,6 @@
         [Fact]
         public void Dequeue_test()
         {
-            Assert.Fail("ToDo");
             // Given
             string item1 = "Test1`";
             string item2 = "Test2`";
@@ -118,10 +117,11 @@
             _myQueue.Enqueue(item3);
 
             // When
-
+            string dequeueItem = _myQueue.Dequeue();
 
             // Then
-
+            Assert.Equal(dequeueItem, item1);
+            Assert.Equal(2, _myQueue.Count());
         }
 
 
@@ -148,22 +148,32 @@
         [Fact]
         public void ToArray_test()
         {
-            Assert.Fail("ToDo");
             // Given
+            string item1 = "Test1`";
+            string item2 = "Test2`";
+            string item3 = "Test3`";
 
+            _myQueue.Enqueue(item1);
+            _myQueue.Enqueue(item2);
+            _myQueue.Enqueue(item3);
 
             // When
-
+            string[] queueArray  = _myQueue.ToArray();
 
             // Then
+            Assert.Equal(queueArray.Length , _myQueue.Count());
 
+            int i = 0;
+            foreach (string item in _myQueue)
+            {
+                Assert.Equal(queueArray[i], item);
+                i++;
+            }
         }
 
         [Fact]
         public void TryPeek_test()
         {
-            Assert.Fail("ToDo");
-
             // Given
             string item1 = "Test1`";
             string item2 = "Test2`";
@@ -175,9 +185,13 @@
 
             // When
 
+            string result;
+            bool isSuccess = _myQueue.TryPeek(out result);
 
             // Then
-
+            Assert.Equal(result, item1);
+            Assert.Equal(3, _myQueue.Count());
+            Assert.True(isSuccess);
         }
 
         [Fact]
@@ -198,6 +212,7 @@
 
             // Then
             Assert.Equal(result, item1);
+            Assert.Equal(2, _myQueue.Count());
             Assert.True(isSuccess);
         }
     }

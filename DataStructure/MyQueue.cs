@@ -181,7 +181,13 @@ namespace DataStructure
 
         public bool TryPeek([MaybeNullWhen(false)] out T result)
         {
-            result = default;
+            if (_size == 0 || _array[_head] == null)
+            {
+                result = default;
+                return false;
+            }
+
+            result = (T)_array[_head];
             return true;
         }
 
