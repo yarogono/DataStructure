@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
 namespace DataStructure
@@ -13,6 +14,8 @@ namespace DataStructure
         private int _tail;
         private int _size;
         private readonly int _growFactor; // 100 == 1.0, 130 == 1.3, 200 == 2.0. Do not rename (binary serialization)
+
+        private const int MinimumGrow = 4;
 
         public MyQueue()
             : this(32, (float)2.0)
@@ -110,14 +113,30 @@ namespace DataStructure
                 return;
             }
 
-            if (_array.Count() <= _tail)
+            if (_array.Length <= _size)
             {
-                // ToDo : Grow
+                Grow(_array.Length);
             }
 
             _tail++;
             _array[_tail] = item;
             _size++;
+        }
+
+        private void Grow(int capacity)
+        {
+            if (capacity < 0)
+            {
+                throw new ArgumentException();
+            }
+
+            int newcapacity = _array.Length == 0 ? MinimumGrow : 2 * _array.Length;
+
+            if ((uint)newcapacity > Array.MaxLength) newcapacity = Array.MaxLength;
+
+            if (newcapacity < capacity) newcapacity = capacity;
+
+            Array.Resize(ref _array, newcapacity);
         }
  
         public int EnsureCapacity(int capacity)
