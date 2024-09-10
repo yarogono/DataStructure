@@ -106,20 +106,14 @@ namespace DataStructure
 
         public void Enqueue(T item)
         {
-            if (_array[_head] == null)
-            {
-                _array[_head] = item;
-                _size++;
-                return;
-            }
 
             if (_size == _array.Length)
             {
                 Grow(_size + 1);
             }
 
-            _tail++;
             _array[_tail] = item;
+            MoveNext(ref _tail);
             _size++;
         }
 
@@ -159,6 +153,16 @@ namespace DataStructure
             _array = newarray;
             _head = 0;
             _tail = (_size == capacity) ? 0 : _size;
+        }
+
+        private void MoveNext(ref int index)
+        {
+            int tmp = index + 1;
+            if (tmp == _array.Length)
+            {
+                tmp = 0;
+            }
+            index = tmp;
         }
  
         public int EnsureCapacity(int capacity)
