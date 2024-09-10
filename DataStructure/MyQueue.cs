@@ -9,7 +9,7 @@ namespace DataStructure
         System.Collections.ICollection,
         IReadOnlyCollection<T>
     {
-        private object?[] _array;
+        private T?[] _array;
         private int _head;
         private int _tail;
         private int _size;
@@ -36,7 +36,7 @@ namespace DataStructure
             if (!(growFactor >= 1.0 && growFactor <= 10.0))
                 throw new ArgumentOutOfRangeException();
 
-            _array = new object[capacity];
+            _array = new T[capacity];
             _head = 0;
             _tail = 0;
             _size = 0;
@@ -54,7 +54,7 @@ namespace DataStructure
 
         public void Clear()
         {
-            _array = new object[32];
+            _array = new T[32];
             _head = 0;
             _tail = 0;
             _size = 0;
@@ -97,7 +97,7 @@ namespace DataStructure
                 return default(T);
             }
 
-            _array[_head] = null;
+            _array[_head] = default(T);
             _head++;
             _size--;
 
@@ -113,9 +113,9 @@ namespace DataStructure
                 return;
             }
 
-            if (_array.Length <= _size)
+            if (_size == _array.Length)
             {
-                Grow(_array.Length);
+                Grow(_size + 1);
             }
 
             _tail++;
@@ -125,18 +125,40 @@ namespace DataStructure
 
         private void Grow(int capacity)
         {
-            if (capacity < 0)
-            {
-                throw new ArgumentException();
-            }
+            Debug.Assert(_array.Length < capacity);
 
-            int newcapacity = _array.Length == 0 ? MinimumGrow : 2 * _array.Length;
+            const int GrowFactor = 2;
+
+            int newcapacity = GrowFactor * _array.Length;
 
             if ((uint)newcapacity > Array.MaxLength) newcapacity = Array.MaxLength;
 
+            newcapacity = Math.Max(newcapacity, _array.Length + MinimumGrow);
+
             if (newcapacity < capacity) newcapacity = capacity;
 
-            Array.Resize(ref _array, newcapacity);
+            SetCapacity(newcapacity);
+        }
+
+        private void SetCapacity(int capacity)
+        {
+            T[] newarray = new T[capacity];
+            if (_size > 0)
+            {
+                if (_head < _tail)
+                {
+                    Array.Copy(_array, _head, newarray, 0, _size);
+                }
+                else
+                {
+                    Array.Copy(_array, _head, newarray, 0, _array.Length - _head);
+                    Array.Copy(_array, 0, newarray, _array.Length - _head, _tail);
+                }
+            }
+
+            _array = newarray;
+            _head = 0;
+            _tail = (_size == capacity) ? 0 : _size;
         }
  
         public int EnsureCapacity(int capacity)
