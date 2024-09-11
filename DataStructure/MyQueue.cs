@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace DataStructure
 {
@@ -54,10 +55,26 @@ namespace DataStructure
 
         public void Clear()
         {
-            _array = new T[32];
+            if (_size != 0)
+            {
+                if (RuntimeHelpers.IsReferenceOrContainsReferences<T>())
+                {
+                    if (_head < _tail)
+                    {
+                        Array.Clear(_array, _head, _size);
+                    }
+                    else
+                    {
+                        Array.Clear(_array, _head, _array.Length - _head);
+                        Array.Clear(_array, 0, _tail);
+                    }
+                }
+
+                _size = 0;
+            }
+
             _head = 0;
             _tail = 0;
-            _size = 0;
         }
 
         public bool Contains(T item)
@@ -134,6 +151,7 @@ namespace DataStructure
             SetCapacity(newcapacity);
         }
 
+        // ArrayList는 Resize를 사용하지만 Queue의 _head 값은 인덱스가 가변적이기 때문에 Array.Copy를 사용
         private void SetCapacity(int capacity)
         {
             T[] newarray = new T[capacity];
