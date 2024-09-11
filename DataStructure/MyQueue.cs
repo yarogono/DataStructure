@@ -84,15 +84,14 @@ namespace DataStructure
                 return false;
             }
 
-            for (int i = _head; i < _size; i++)
+            if (_head < _tail)
             {
-                if (_array[i].Equals(item))
-                {
-                    return true;
-                }
+                return Array.IndexOf(_array, item, _head, _size) >= 0;
             }
 
-            return true;
+            return 
+                Array.IndexOf(_array, item, _head, _array.Length - _head) >= 0 ||
+                Array.IndexOf(_array, item, 0, _tail) >= 0;
         }
  
         public void CopyTo(T[] array, int arrayIndex)
