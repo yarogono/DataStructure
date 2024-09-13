@@ -7,45 +7,47 @@
         public MyLinkedListTest()
         {
             myList = new MyLinkedList<string>();
-            myList.AddLast("테스트1");
-            myList.AddLast("테스트2");
-            myList.AddLast("테스트3");
         }
 
         [Fact]
         public void AddMyLinkedList_test()
         {
+            // Given
             var myLinkedList = new MyLinkedList<string>();
             myLinkedList.AddLast("테스트1");
             myLinkedList.AddLast("테스트2");
             myLinkedList.AddLast("테스트3");
-
             myList = new MyLinkedList<string>();
+
+            // When
             myList.AddAll(myLinkedList);
 
+            // Then
             Assert.Equal(myList.Count, myLinkedList.Count);
         }
 
         [Fact]
         public void Length_test()
         {
+            // Given, When
             myList.AddLast("김김김");
             myList.AddLast("박박박");
             myList.AddLast("이이이");
 
-            Assert.Equal(myList.Count, 6);
+            // Then
+            Assert.Equal(myList.Count, 3);
         }
 
         [Fact]
         public void 맨앞에삽입_test()
         {
-            //given 빈 연결리스트 생성 후 김수현 add
+            // Given
             myList.AddLast("김수현");
 
-            // when 연결리스트 가장 처음에 전지현 add
+            // When
             myList.AddLast("전지현");
 
-            //then 연결리스트에 전지현, 김수현 순서로 들어간다.
+            // Then
             Assert.Equal("전지현", myList.Find("전지현").Value);
             Assert.Equal("김수현", myList.Find("김수현").Value);
         }
@@ -53,13 +55,13 @@
         [Fact]
         public void 맨끝에삽입_test()
         {
-            //given 빈 연결리스트 생성 후 김수현 add
+            // Given
             myList.AddLast("김수현");
 
-            //when 연결리스트 가장 끝에 전지현 add
+            // When
             myList.AddLast("전지현");
 
-            //then 연결리스트에 김수현, 전지현 순서로 들어간다.
+            // Then
             Assert.Equal("김수현", myList.Find("김수현").Value);
             Assert.Equal("전지현", myList.Find("전지현").Value);
         }
@@ -68,17 +70,17 @@
         [Fact]
         public void AddBeforeNode_test()
         {
-            //given
+            // Given
             myList.AddFirst("김수현");
             myList.AddFirst("박해진");
 
             var myListNode = myList.Find("김수현");
 
-            //when
+            // When
             var newNode = new MyLinkedListNode<string>("전지현");
             myList.AddBefore(myListNode, newNode);
 
-            //then
+            // Then
             Assert.Equal("김수현", myList.Find("김수현").Value);
             Assert.Equal("전지현", myList.Find("전지현").Value);
             Assert.Equal("박해진", myList.Find("박해진").Value);
@@ -87,16 +89,16 @@
         [Fact]
         public void AddAfterNode_test()
         {
-            //given
+            // Given
             myList.AddFirst("김수현");
             myList.AddFirst("박해진");
 
             var myListNode = myList.Find("김수현");
 
-            //when
+            // When
             myList.AddAfter(myListNode, new MyLinkedListNode<string>("전지현"));
 
-            //then
+            // Then
             Assert.Equal("김수현", myList.Find("김수현").Value);
             Assert.Equal("전지현", myList.Find("전지현").Value);
             Assert.Equal("박해진", myList.Find("박해진").Value);
@@ -105,16 +107,16 @@
         [Fact]
         public void AddBefore_test()
         {
-            //given
+            // Given
             myList.AddFirst("김수현");
             myList.AddFirst("박해진");
 
             var myListNode = myList.Find("김수현");
 
-            //when
+            // When
             myList.AddBefore(myListNode, "전지현");
 
-            //then
+            // Then
             Assert.Equal("김수현", myList.Find("김수현").Value);
             Assert.Equal("전지현", myList.Find("전지현").Value);
             Assert.Equal("박해진", myList.Find("박해진").Value);
@@ -123,16 +125,16 @@
         [Fact]
         public void AddAfter_test()
         {
-            //given
+            // Given
             myList.AddFirst("김수현");
             myList.AddFirst("박해진");
 
             var myListNode = myList.Find("김수현");
 
-            //when
+            // When
             var addedNode = myList.AddAfter(myListNode, "전지현");
 
-            //then
+            // Then
             Assert.Equal("김수현", myList.Find("김수현").Value);
             Assert.Equal("전지현", myList.Find("전지현").Value);
             Assert.Equal("박해진", myList.Find("박해진").Value);
@@ -142,24 +144,24 @@
         [Fact]
         public void 빈노드삭제_test()
         {
-            //given 빈 연결리스트 생성
+            // Given
             myList.Clear();
 
-            //when 첫번째 노드 삭제
+            // when, Then
             Assert.Throws<InvalidOperationException>(() => myList.RemoveFirst());
         }
 
         [Fact]
         public void 첫노드삭제_test()
         {
-            //given 빈 연결리스트 생성 후 김수현, 전지현 add
+            // Given
             myList.AddFirst("전지현");
             myList.AddFirst("김수현");
 
-            //when 첫번째 노드 삭제
+            // When
             myList.RemoveFirst();
 
-            //then 연결리스트에 전지현만 남는다.
+            // Then
             Assert.Equal("전지현", myList.Find("전지현").Value);
             Assert.Equal(null, myList.Find("김수현"));
         }
@@ -167,15 +169,15 @@
         [Fact]
         public void 마지막노드삭제_test()
         {
-            //given 빈 연결리스트 생성 후 김수현, 전지현 add
+            // Given
             myList.Clear();
             myList.AddFirst("김수현");
             myList.AddFirst("전지현");
 
-            //when 마지막 노드 삭제
+            // When
             myList.RemoveLast();
 
-            //then 연결리스트에 김수현만 남는다.
+            // Then
             Assert.Equal("전지현", myList.Find("전지현").Value);
             Assert.Equal(null, myList.Find("김수현"));
         }
@@ -183,15 +185,15 @@
         [Fact]
         public void 중간노드삭제_test()
         {
-            //given 빈 연결리스트 생성 후 김수현, 전지현, 박해진 add
+            // Given
             myList.AddFirst("김수현");
             myList.AddFirst("전지현");
             myList.AddFirst("박해진");
 
-            //when 전지현 삭제
+            // When
             myList.Remove("전지현");
 
-            //then 연결리스트에 김수현, 박해진 순서로 남는다.
+            // Then
             Assert.Equal("김수현", myList.Find("김수현").Value);
             Assert.Equal("박해진", myList.Find("박해진").Value);
             Assert.Equal(null, myList.Find("전지현"));
@@ -201,31 +203,31 @@
         [Fact]
         public void 노드Contains_test()
         {
-            //given 빈 연결리스트 생성 후 김수현, 전지현, 박해진 add
+            // Given
             myList.AddFirst("김수현");
             myList.AddFirst("전지현");
             myList.AddFirst("박해진");
 
-            //when 전지현 삭제
+            // When
             bool isContains = myList.Contains("전지현");
 
-            //then 연결리스트에 김수현, 박해진 순서로 남는다.
+            // Then
             Assert.True(isContains);
         }
 
         [Fact]
         public void FindLast_test()
         {
-            //given
+            // Given
             myList.AddFirst("김수현");
             myList.AddFirst("전지현");
             myList.AddFirst("박해진");
 
-            //when
+            // When
             var findNode = myList.FindLast("박해진");
             var findNode2 = myList.FindLast("없는값");
 
-            //then
+            // Then
             Assert.Equal(findNode.Value, "박해진");
             Assert.Null(findNode2);
         }
@@ -239,7 +241,6 @@
             // When
             myNumLinkedList.AddFirst(1);
             myNumLinkedList.AddFirst(2);
-
 
             // Then
             Assert.Equal(myNumLinkedList.Count, 2);
