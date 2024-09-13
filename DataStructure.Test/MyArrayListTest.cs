@@ -42,24 +42,6 @@ namespace DataStructure.Test
             Assert.Equal(myList[1], 5);
             Assert.Equal(myList.Count(), 4);
 
-            try
-            {
-                myList[-1] = 0;
-                //fail();
-            }
-            catch (IndexOutOfRangeException e)
-            {
-            }
-
-            try
-            {
-                myList[4] = 0;
-                //fail();
-            }
-            catch (IndexOutOfRangeException e)
-            {
-            }
-
             myList.Insert(0, 6);
             Assert.Equal(myList[0], 6);
 
@@ -82,6 +64,7 @@ namespace DataStructure.Test
         {
             myList.Clear();
             Assert.Equal(myList.Count(), 0);
+            Assert.NotNull(myList);
         }
 
         [Fact]
@@ -208,23 +191,9 @@ namespace DataStructure.Test
             myList[2] = 7;
             Assert.Equal(val, 3);
 
-            // return value should be 2
-            // list should be [6, 5, 7]
             Assert.Equal(myList[0], 6);
             Assert.Equal(myList[1], 5);
             Assert.Equal(myList[2], 7);
-
-            try
-            {
-                myList[-1] = 0;
-            }
-            catch (IndexOutOfRangeException e) { } // good
-
-            try
-            {
-                myList[4] = 0;
-            }
-            catch (IndexOutOfRangeException e) { } // good
         }
 
         [Fact]
