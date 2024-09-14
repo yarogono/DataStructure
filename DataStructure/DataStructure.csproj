@@ -11,4 +11,12 @@
     <PackageReference Include="NSoup" Version="0.8.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\Program Files\UnityProject\DataStructure\DataStructure\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="D:\Program Files\UnityProject\DataStructure\DataStructure\.editorconfig" />
+  </ItemGroup>
+
 </Project>
