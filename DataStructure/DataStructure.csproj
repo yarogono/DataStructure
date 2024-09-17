@@ -30,8 +30,4 @@
     </COMReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="D:\Program Files\UnityProject\DataStructure\DataStructure\.editorconfig" />
-  </ItemGroup>
-
 </Project>
