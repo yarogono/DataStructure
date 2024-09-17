@@ -15,6 +15,15 @@ namespace DataStructure
         public KeyCollection Keys => _keys ??= new KeyCollection(this);
         public ValueCollection Values => _values ??= new ValueCollection(this);
 
+        private const int DefaultCapacity = 10;
+
+        public MyLinearMap()
+        {
+            _entries = new MyEntry[DefaultCapacity];
+            _keys = new KeyCollection(this);
+            _values = new ValueCollection(this);
+        }
+
         public TValue this[TKey key]
         {
             get
@@ -32,7 +41,16 @@ namespace DataStructure
 
         public void Add(TKey key, TValue value)
         {
+            if (_count == _entries.Length)
+            {
+                Array.Resize(ref _entries, _entries.Length * 2);
+            }
 
+            _entries[_count].key = key;
+            _entries[_count].value = value;
+            _keys.Append(key);
+            _values.Append(value);
+            _count++;
         }
 
         public void Clear()

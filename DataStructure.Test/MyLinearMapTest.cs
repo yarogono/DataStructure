@@ -4,20 +4,40 @@
     {
         MyLinearMap<int, string> myLinearMap;
 
+        public MyLinearMapTest()
+        {
+            this.myLinearMap = new();
+        }
 
         [Fact]
         public void Add_test()
         {
-            Assert.Fail("미구현");
             // Given
-
+            int index1 = 1;
+            string test1 = "test1";
 
             // When
-
+            myLinearMap.Add(index1, test1);
 
             // Then
+            Assert.Equal(1, myLinearMap.Count);
+        }
 
+        [Fact]
+        public void AddThousand_test()
+        {
+            // Given
+            int index1 = 1;
+            string test1 = "test1";
 
+            // When
+            for (int i = 0; i < 1000; i++)
+            {
+                myLinearMap.Add(index1, test1);
+            }
+
+            // Then
+            Assert.Equal(1000, myLinearMap.Count);
         }
 
         [Fact]
