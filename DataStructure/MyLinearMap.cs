@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace DataStructure
 {
     public class MyLinearMap<TKey, TValue> : Dictionary<TKey, TValue>
@@ -7,6 +9,7 @@ namespace DataStructure
 
         private int _count;
 
+        private IEqualityComparer<TKey>? _comparer;
         private KeyCollection? _keys;
         private ValueCollection? _values;
 
@@ -41,6 +44,23 @@ namespace DataStructure
 
         public void Add(TKey key, TValue value)
         {
+            if (key == null)
+            {
+                new ArgumentException();
+            }
+
+            if (_buckets == null)
+            {
+                _buckets = new int[DefaultCapacity];
+            }
+
+            IEqualityComparer<TKey>? comparer = _comparer;
+            uint hashCode = (uint)((comparer == null) ? key.GetHashCode() : comparer.GetHashCode(key));
+
+            uint collisionCount = 0;
+            ref int bucket = ref GetBucket(hashCode);
+            int i = bucket - 1; // Value in _buckets is 1-based
+
             if (_count == _entries.Length)
             {
                 Array.Resize(ref _entries, _entries.Length * 2);
@@ -51,6 +71,17 @@ namespace DataStructure
             _keys.Append(key);
             _values.Append(value);
             _count++;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private ref int GetBucket(uint hashCode)
+        {
+            int[] buckets = _buckets!;
+#if TARGET_64BIT
+            return ref buckets[HashHelpers.FastMod(hashCode, (uint)buckets.Length, _fastModMultiplier)];
+#else
+            return ref buckets[hashCode % (uint)buckets.Length];
+#endif
         }
 
         public void Clear()
