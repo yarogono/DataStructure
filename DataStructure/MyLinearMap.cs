@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace DataStructure
@@ -31,12 +32,18 @@ namespace DataStructure
         {
             get
             {
+                ref TValue value = ref FindValue(key);
+                if (!Unsafe.IsNullRef(ref value))
+                {
+                    return value;
+                }
+
                 return default;
             }
 
             set
             {
-
+                bool modified = TryInsert(key, value);
             }
         }
 
@@ -54,6 +61,11 @@ namespace DataStructure
                 _buckets = new int[DefaultCapacity];
             }
 
+            TryInsert(key, value);
+        }
+
+        private bool TryInsert(TKey key, TValue value)
+        {
             IEqualityComparer<TKey>? comparer = _comparer;
             uint hashCode = (uint)((comparer == null) ? key.GetHashCode() : comparer.GetHashCode(key));
 
@@ -71,6 +83,23 @@ namespace DataStructure
             _keys.Append(key);
             _values.Append(value);
             _count++;
+
+            return true;
+        }
+
+        internal ref TValue FindValue(TKey key)
+        {
+            if (key == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            ref MyEntry entry = ref Unsafe.NullRef<MyEntry>();
+
+
+            ref TValue value = ref entry.value;
+
+            return ref value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
