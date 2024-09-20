@@ -99,18 +99,59 @@ namespace DataStructure
             if (_buckets != null)
             {
                 Debug.Assert(_entries != null, "expected entries to be != null");
-                IEqualityComparer<TKey> comparer = _comparer;
+                IEqualityComparer<TKey>? comparer = _comparer;
                 if (comparer == null)
                 {
+                    // key의 HashCode를 가져온다. => C#의 GetHashCode()를 사용
+                    uint hashCode = (uint)key.GetHashCode();
+                    int i = GetBucket(hashCode);
+                    MyEntry[]? entries = _entries;
+                    uint collisionCount = 0;
+                    if (typeof(TKey).IsValueType)
+                    {
+                        i--;
+                        do
+                        {
+                            if ((uint)i >= (uint)entries.Length)
+                            {
+                                goto ReturnNotFound;
+                            }
 
+                            entry = ref entries[i];
+                            if (entry.hashCode == hashCode && EqualityComparer<TKey>.Default.Equals(key, entry.key))
+                            {
+                                goto ReturnFound;
+                            }
+                            i = entry.next;
+
+                            collisionCount++;
+                        } while (collisionCount <= (uint)entries.Length);
+                    }
                 }
+                else
+                {
+                    // ToDo : else문 구현
+                }
+
+                // The chain of entries forms a loop; which means a concurrent update has happened.
+                // Break out of the loop and throw, rather than looping forever.
+                goto ConcurrentOperation;
             }
 
-            ref TValue value = ref entry.value;
+            goto ReturnNotFound;
 
+        ConcurrentOperation:
+            throw new Exception();
+        ReturnFound:
+            ref TValue value = ref entry.value;
+        Return:
             return ref value;
+        ReturnNotFound:
+            value = ref Unsafe.NullRef<TValue>();
+            goto Return;
         }
 
+        // ToDo : GetBucket 코드 작성
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private ref int GetBucket(uint hashCode)
         {
