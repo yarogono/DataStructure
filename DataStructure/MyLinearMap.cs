@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -95,7 +96,15 @@ namespace DataStructure
             }
 
             ref MyEntry entry = ref Unsafe.NullRef<MyEntry>();
+            if (_buckets != null)
+            {
+                Debug.Assert(_entries != null, "expected entries to be != null");
+                IEqualityComparer<TKey> comparer = _comparer;
+                if (comparer == null)
+                {
 
+                }
+            }
 
             ref TValue value = ref entry.value;
 
