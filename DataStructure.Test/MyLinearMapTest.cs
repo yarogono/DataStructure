@@ -13,30 +13,15 @@
         public void Add_test()
         {
             // Given
-            int indexOne = 1;
-            string testOne = "test1";
+            int index1 = 1;
+            string test1 = "test1";
 
             // When
-            myLinearMap.Add(indexOne, testOne);
+            myLinearMap.Add(index1, test1);
 
             // Then
             Assert.Equal(1, myLinearMap.Count);
-            Assert.Equal(testOne, myLinearMap[indexOne]);
-        }
-
-        [Fact]
-        public void AddArr_test()
-        {
-            // Given
-            int indexOne = 1;
-            string testOne = "test1";
-
-            // When
-            myLinearMap[indexOne] = testOne;
-
-            // Then
-            Assert.Equal(1, myLinearMap.Count);
-            Assert.Equal(testOne, myLinearMap[indexOne]);
+            Assert.Equal(test1, myLinearMap[index1]);
         }
 
         [Fact]

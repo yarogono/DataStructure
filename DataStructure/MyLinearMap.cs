@@ -1,9 +1,12 @@
+using NSoup.Nodes;
+using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace DataStructure
 {
+    [Serializable]
     public class MyLinearMap<TKey, TValue> : Dictionary<TKey, TValue>
     {
         private int[]? _buckets;
@@ -34,7 +37,7 @@ namespace DataStructure
             get
             {
                 ref TValue value = ref FindValue(key);
-                if (!Unsafe.IsNullRef(ref value))
+                if (Unsafe.IsNullRef(ref value) == false)
                 {
                     return value;
                 }
@@ -67,6 +70,8 @@ namespace DataStructure
 
         private bool TryInsert(TKey key, TValue value)
         {
+            // ToDo : Dictionary<T> TryInsert 코드 분석
+
             IEqualityComparer<TKey>? comparer = _comparer;
             uint hashCode = (uint)((comparer == null) ? key.GetHashCode() : comparer.GetHashCode(key));
 
@@ -84,6 +89,13 @@ namespace DataStructure
             _keys.Append(key);
             _values.Append(value);
             _count++;
+
+            ref MyEntry entry = ref _entries![_count];
+            entry.hashCode = hashCode;
+            entry.next = bucket - 1; // Value in _buckets is 1-based
+            entry.key = key;
+            entry.value = value;
+            bucket = _count + 1; // Value in _buckets is 1-based
 
             return true;
         }
@@ -127,10 +139,58 @@ namespace DataStructure
                             collisionCount++;
                         } while (collisionCount <= (uint)entries.Length);
                     }
+                    else
+                    {
+                        EqualityComparer<TKey> defaultComparer = EqualityComparer<TKey>.Default;
+
+                        i--;
+                        do
+                        {
+                            if ((uint)i >= (uint)entries.Length)
+                            {
+                                goto ReturnNotFound;
+                            }
+
+                            entry = ref entries[i];
+                            if (entry.hashCode == hashCode && defaultComparer.Equals(entry.key, key))
+                            {
+                                goto ReturnFound;
+                            }
+
+                            i = entry.next;
+
+                            collisionCount++;
+                        } while (collisionCount <= (uint)entries.Length);
+
+                        goto ConcurrentOperation;
+                    }
                 }
                 else
                 {
-                    // ToDo : else문 구현
+                    uint hashCode = (uint)comparer.GetHashCode(key);
+                    int i = GetBucket(hashCode);
+                    MyEntry[]? entries = _entries;
+                    uint collisionCount = 0;
+                    i--;
+                    do
+                    {
+                        if ((uint)i >= (uint)entries.Length)
+                        {
+                            goto ReturnNotFound;
+                        }
+
+                        entry = ref entries[i];
+                        if (entry.hashCode == hashCode && comparer.Equals(entry.key, key))
+                        {
+                            goto ReturnFound;
+                        }
+
+                        i = entry.next;
+
+                        collisionCount++;
+                    } while (collisionCount <= (uint)entries.Length);
+
+                    goto ConcurrentOperation;
                 }
 
                 // The chain of entries forms a loop; which means a concurrent update has happened.
