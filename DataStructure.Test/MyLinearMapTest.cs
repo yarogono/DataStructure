@@ -158,16 +158,21 @@
         [Fact]
         public void Clear_test()
         {
-            Assert.Fail("미구현");
             // Given
+            int index1 = 1;
+            string test1 = "test1";
 
-            
+            for (int i = 0; i < 10; i++)
+            {
+                myLinearMap.Add(index1, test1);
+            }
+
             // When
+            myLinearMap.Clear();
 
 
             // Then
-
-
+            Assert.Equal(0, myLinearMap.Count);
         }
     }
 }

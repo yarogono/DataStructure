@@ -1,7 +1,4 @@
-using NSoup.Nodes;
-using System;
 using System.Diagnostics;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace DataStructure
@@ -27,6 +24,7 @@ namespace DataStructure
 
         public MyLinearMap()
         {
+            _buckets = new int[DefaultCapacity];
             _entries = new MyEntry[DefaultCapacity];
             _keys = new KeyCollection(this);
             _values = new ValueCollection(this);
@@ -79,7 +77,7 @@ namespace DataStructure
             ref int bucket = ref GetBucket(hashCode);
             int i = bucket - 1; // Value in _buckets is 1-based
 
-            if (_count == _entries.Length)
+            if (_count == _entries.Length - 1)
             {
                 Array.Resize(ref _entries, _entries.Length * 2);
             }
@@ -225,7 +223,11 @@ namespace DataStructure
 
         public void Clear()
         {
-
+            _buckets = new int[DefaultCapacity];
+            _entries = new MyEntry[DefaultCapacity];
+            _keys = new KeyCollection(this);
+            _values = new ValueCollection(this);
+            _count = 0;
         }
 
         public void Remove(KeyValuePair<TKey, TValue> keyValuePair)
