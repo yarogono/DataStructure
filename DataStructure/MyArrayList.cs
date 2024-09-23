@@ -21,12 +21,9 @@ public class MyArrayList<T> : List<T>, IList<T>
         set => _arrList[index] = value; 
     }
 
-    public int Count()
-    {
-        return _size;
-    }
+    public int Count() => _size;
 
-    public bool IsReadOnly => throw new NotImplementedException();
+    public virtual bool IsReadOnly => false;
 
 
     private void Grow(int capacity)
