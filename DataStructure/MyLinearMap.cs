@@ -237,7 +237,15 @@ namespace DataStructure
 
         public bool ContainsKey(TKey key)
         {
-            return true;
+            if (_keys == null)
+            {
+                return false;
+            }
+
+            bool isContains = _keys.Contains(key);
+
+
+            return isContains;
         }
 
         public bool ContainsValue(TValue value)

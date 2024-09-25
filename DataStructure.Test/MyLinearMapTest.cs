@@ -130,15 +130,18 @@
         [Fact]
         public void ContainsKey_test()
         {
-            Assert.Fail("미구현");
             // Given
-
+            int index1 = 1;
+            string test1 = "test1";
+            myLinearMap.Add(index1, test1);
 
             // When
-
+            bool isContainIndex1 = myLinearMap.ContainsKey(index1);
+            bool isContainIndex2 = myLinearMap.ContainsKey(2);
 
             // Then
-
+            Assert.True(isContainIndex1);
+            Assert.False(isContainIndex2);
         }
 
         [Fact]
