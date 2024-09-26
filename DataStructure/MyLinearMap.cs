@@ -1,3 +1,4 @@
+using Microsoft.Internal.VisualStudio.Shell;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
@@ -70,6 +71,16 @@ namespace DataStructure
         {
             // ToDo : Dictionary<T> TryInsert 코드 분석
 
+            if (key == null)
+            {
+                throw new Exception();
+            }
+
+            if (_buckets == null)
+            {
+                Initialize(0);
+            }
+
             IEqualityComparer<TKey>? comparer = _comparer;
             uint hashCode = (uint)((comparer == null) ? key.GetHashCode() : comparer.GetHashCode(key));
 
@@ -77,25 +88,43 @@ namespace DataStructure
             ref int bucket = ref GetBucket(hashCode);
             int i = bucket - 1; // Value in _buckets is 1-based
 
-            if (_count == _entries.Length - 1)
+            if (comparer == null)
             {
-                Array.Resize(ref _entries, _entries.Length * 2);
+                if (typeof(TKey).IsValueType)
+                {
+                    while (true)
+                    {
+                        if ((uint)i >= (uint)entries.Length)
+                        {
+
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+
             }
 
-            _entries[_count].key = key;
-            _entries[_count].value = value;
-            _keys.Append(key);
-            _values.Append(value);
-            _count++;
-
-            ref MyEntry entry = ref _entries![_count];
-            entry.hashCode = hashCode;
-            entry.next = bucket - 1; // Value in _buckets is 1-based
-            entry.key = key;
-            entry.value = value;
-            bucket = _count + 1; // Value in _buckets is 1-based
-
             return true;
+        }
+
+        private int Initialize(int capacity)
+        {
+            int size = HashHelpers.GetStableHashCode(capacity);
+            int[] buckets = new int[size];
+            MyEntry[] entries = new MyEntry[size];
+
+            // Assign member variables after both arrays allocated to guard against corruption from OOM if second fails
+            _freeList = -1;
+#if TARGET_64BIT
+            _fastModMultiplier = HashHelpers.GetFastModMultiplier((uint)size);
+#endif
+            _buckets = buckets;
+            _entries = entries;
+
+            return size;
         }
 
         internal ref TValue FindValue(TKey key)
