@@ -1,6 +1,7 @@
 using Microsoft.Internal.VisualStudio.Shell;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using static DataStructure.MyLinearMap<TKey, TValue>;
 
 namespace DataStructure
 {
@@ -81,6 +82,8 @@ namespace DataStructure
                 Initialize(0);
             }
 
+            MyEntry[]? entries = _entries;
+
             IEqualityComparer<TKey>? comparer = _comparer;
             uint hashCode = (uint)((comparer == null) ? key.GetHashCode() : comparer.GetHashCode(key));
 
@@ -96,15 +99,81 @@ namespace DataStructure
                     {
                         if ((uint)i >= (uint)entries.Length)
                         {
-
+                            break;
                         }
 
+                        if (entries[i].hashCode == hashCode && EqualityComparer<TKey>.Default.Equals(entries[i].key, key))
+                        {
+                            entries[i].value = value;
+                            return true;
+                        }
+
+                        i = entries[i].next;
+
+                        collisionCount++;
+                        if (collisionCount > (uint)entries.Length)
+                        {
+                            throw new Exception();
+                        }
+                    }
+                }
+                else
+                {
+                    EqualityComparer<TKey> defaultComparer = EqualityComparer<TKey>.Default;
+                    while (true)
+                    {
+                        // Should be a while loop https://github.com/dotnet/runtime/issues/9422
+                        // Test uint in if rather than loop condition to drop range check for following array access
+                        if ((uint)i >= (uint)entries.Length)
+                        {
+                            break;
+                        }
+
+                        if (entries[i].hashCode == hashCode && defaultComparer.Equals(entries[i].key, key))
+                        {
+                            entries[i].value = value;
+                            return true;
+                        }
+
+                        i = entries[i].next;
+
+                        collisionCount++;
+                        if (collisionCount > (uint)entries.Length)
+                        {
+                            // The chain of entries forms a loop; which means a concurrent update has happened.
+                            // Break out of the loop and throw, rather than looping forever.
+                            throw new Exception();
+                        }
                     }
                 }
             }
             else
             {
+                while (true)
+                {
+                    // Should be a while loop https://github.com/dotnet/runtime/issues/9422
+                    // Test uint in if rather than loop condition to drop range check for following array access
+                    if ((uint)i >= (uint)entries.Length)
+                    {
+                        break;
+                    }
 
+                    if (entries[i].hashCode == hashCode && comparer.Equals(entries[i].key, key))
+                    {
+                        entries[i].value = value;
+                        return true;
+                    }
+
+                    i = entries[i].next;
+
+                    collisionCount++;
+                    if (collisionCount > (uint)entries.Length)
+                    {
+                        // The chain of entries forms a loop; which means a concurrent update has happened.
+                        // Break out of the loop and throw, rather than looping forever.
+                        throw new Exception();
+                    }
+                }
             }
 
             return true;
