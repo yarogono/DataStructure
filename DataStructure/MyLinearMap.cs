@@ -1,4 +1,5 @@
 using Microsoft.Internal.VisualStudio.Shell;
+using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using static DataStructure.MyLinearMap<TKey, TValue>;
@@ -174,6 +175,42 @@ namespace DataStructure
                         throw new Exception();
                     }
                 }
+            }
+
+            int index;
+            if (_freeCount > 0)
+            {
+                index = _freeList;
+                Debug.Assert((StartOfFreeList - entries[_freeList].next) >= -1, "shouldn't overflow because `next` cannot underflow");
+                _freeList = StartOfFreeList - entries[_freeList].next;
+                _freeCount--;
+            }
+            else
+            {
+                int count = _count;
+                if (count == entries.Length)
+                {
+                    Resize();
+                    bucket = ref GetBucket(hashCode);
+                }
+                index = count;
+                _count = count + 1;
+                entries = _entries;
+            }
+
+            ref MyEntry entry = ref entries![index];
+            entry.hashCode = hashCode;
+            entry.next = bucket - 1; // Value in _buckets is 1-based
+            entry.key = key;
+            entry.value = value;
+            bucket = index + 1; // Value in _buckets is 1-based
+
+            // Value types never rehash
+            if (!typeof(TKey).IsValueType && collisionCount > HashHelpers.HashCollisionThreshold && comparer is NonRandomizedStringEqualityComparer)
+            {
+                // If we hit the collision threshold we'll need to switch to the comparer which is using randomized string hashing
+                // i.e. EqualityComparer<string>.Default.
+                Array.Resize<MyEntry>(entries, entries.Length);
             }
 
             return true;
