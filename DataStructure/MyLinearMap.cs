@@ -493,7 +493,110 @@ namespace DataStructure
             public TKey key;
             public TValue value;
         }
+
+        public sealed class KeyCollection : ICollection<TKey>, ICollection, IReadOnlyCollection<TKey>
+        {
+            public int Count => throw new NotImplementedException();
+
+            public bool IsReadOnly => throw new NotImplementedException();
+
+            public bool IsSynchronized => throw new NotImplementedException();
+
+            public object SyncRoot => throw new NotImplementedException();
+
+            public void Add(TKey item)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Clear()
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool Contains(TKey item)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void CopyTo(TKey[] array, int arrayIndex)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void CopyTo(Array array, int index)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IEnumerator<TKey> GetEnumerator()
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool Remove(TKey item)
+            {
+                throw new NotImplementedException();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public sealed class ValueCollection : ICollection<TValue>, ICollection, IReadOnlyCollection<TValue>
+        {
+            public int Count => throw new NotImplementedException();
+
+            public bool IsReadOnly => throw new NotImplementedException();
+
+            public bool IsSynchronized => throw new NotImplementedException();
+
+            public object SyncRoot => throw new NotImplementedException();
+
+            public void Add(TValue item)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Clear()
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool Contains(TValue item)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void CopyTo(TValue[] array, int arrayIndex)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void CopyTo(Array array, int index)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IEnumerator<TValue> GetEnumerator()
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool Remove(TValue item)
+            {
+                throw new NotImplementedException();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
+
 
     public static class HashHelpers
     {
