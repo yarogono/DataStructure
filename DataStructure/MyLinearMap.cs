@@ -13,10 +13,12 @@ namespace DataStructure
         private MyEntry[]? _entries;
 
         private int _count;
-
+        private int _freeList;
+        private int _freeCount;
         private IEqualityComparer<TKey>? _comparer;
         private KeyCollection? _keys;
         private ValueCollection? _values;
+        private const int StartOfFreeList = -3;
 
         public int Count { get { return _count; } }
 
@@ -212,7 +214,7 @@ namespace DataStructure
                 int count = _count;
                 if (count == entries.Length)
                 {
-                    Resize();
+                    //Resize();
                     bucket = ref GetBucket(hashCode);
                 }
                 index = count;
@@ -228,7 +230,7 @@ namespace DataStructure
             bucket = index + 1; // Value in _buckets is 1-based
 
             // Value types never rehash
-            if (!typeof(TKey).IsValueType && collisionCount > HashHelpers.HashCollisionThreshold && comparer is NonRandomizedStringEqualityComparer)
+            if (!typeof(TKey).IsValueType && collisionCount > HashHelpers.HashCollisionThreshold)
             {
                 // If we hit the collision threshold we'll need to switch to the comparer which is using randomized string hashing
                 // i.e. EqualityComparer<string>.Default.
@@ -496,6 +498,18 @@ namespace DataStructure
 
         public sealed class KeyCollection : ICollection<TKey>, ICollection, IReadOnlyCollection<TKey>
         {
+            private readonly MyLinearMap<TKey, TValue> _myLinearMap;
+
+            public KeyCollection(MyLinearMap<TKey, TValue> myLinearMap)
+            {
+                if (myLinearMap == null)
+                {
+                    throw new ArgumentException();
+                }
+
+                _myLinearMap = myLinearMap;
+            }
+
             public int Count => throw new NotImplementedException();
 
             public bool IsReadOnly => throw new NotImplementedException();
@@ -547,6 +561,18 @@ namespace DataStructure
 
         public sealed class ValueCollection : ICollection<TValue>, ICollection, IReadOnlyCollection<TValue>
         {
+            private readonly MyLinearMap<TKey, TValue> _myLinearMap;
+
+            public ValueCollection(MyLinearMap<TKey, TValue> myLinearMap)
+            {
+                if (myLinearMap == null)
+                {
+                    throw new ArgumentException();
+                }
+
+                _myLinearMap = myLinearMap;
+            }
+
             public int Count => throw new NotImplementedException();
 
             public bool IsReadOnly => throw new NotImplementedException();
