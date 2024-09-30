@@ -77,7 +77,6 @@ namespace DataStructure
         }
 
 
-
         public void Add(TKey key, TValue value)
         {
             if (key == null)
@@ -510,13 +509,13 @@ namespace DataStructure
                 _myLinearMap = myLinearMap;
             }
 
-            public int Count => throw new NotImplementedException();
+            public int Count => _myLinearMap.Count;
 
-            public bool IsReadOnly => throw new NotImplementedException();
+            public bool IsReadOnly => _myLinearMap.IsReadOnly;
 
-            public bool IsSynchronized => throw new NotImplementedException();
+            public bool IsSynchronized => _myLinearMap.IsSynchronized;
 
-            public object SyncRoot => throw new NotImplementedException();
+            public object SyncRoot => _myLinearMap.SyncRoot;
 
             public void Add(TKey item)
             {
@@ -573,13 +572,13 @@ namespace DataStructure
                 _myLinearMap = myLinearMap;
             }
 
-            public int Count => throw new NotImplementedException();
+            public int Count => _myLinearMap.Count;
 
-            public bool IsReadOnly => throw new NotImplementedException();
+            public bool IsReadOnly => _myLinearMap.IsReadOnly;
 
-            public bool IsSynchronized => throw new NotImplementedException();
+            public bool IsSynchronized => _myLinearMap.IsSynchronized;
 
-            public object SyncRoot => throw new NotImplementedException();
+            public object SyncRoot => _myLinearMap.SyncRoot;
 
             public void Add(TValue item)
             {
