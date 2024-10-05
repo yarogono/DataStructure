@@ -20,18 +20,20 @@ namespace DataStructure
         private ValueCollection? _values;
         private const int StartOfFreeList = -3;
 
-        public int Count { get { return _count; } }
+        public int Count => _count - _freeCount;
 
         public KeyCollection Keys => _keys ??= new KeyCollection(this);
         public ValueCollection Values => _values ??= new ValueCollection(this);
 
-        ICollection<TKey> IDictionary<TKey, TValue>.Keys => throw new NotImplementedException();
+        ICollection<TKey> IDictionary<TKey, TValue>.Keys => Keys;
 
-        ICollection<TValue> IDictionary<TKey, TValue>.Values => throw new NotImplementedException();
+        ICollection<TValue> IDictionary<TKey, TValue>.Values => Values;
 
-        public bool IsReadOnly => throw new NotImplementedException();
+        bool IDictionary.IsFixedSize => false;
 
-        public bool IsFixedSize => throw new NotImplementedException();
+        bool IDictionary.IsReadOnly => false;
+        bool ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly => false;
+
 
         ICollection IDictionary.Keys => throw new NotImplementedException();
 
@@ -511,7 +513,7 @@ namespace DataStructure
 
             public int Count => _myLinearMap.Count;
 
-            public bool IsReadOnly => _myLinearMap.IsReadOnly;
+            bool ICollection<TKey>.IsReadOnly => true;
 
             public bool IsSynchronized => _myLinearMap.IsSynchronized;
 
@@ -572,9 +574,9 @@ namespace DataStructure
                 _myLinearMap = myLinearMap;
             }
 
-            public int Count => _myLinearMap.Count;
+            bool ICollection<TValue>.IsReadOnly => true;
 
-            public bool IsReadOnly => _myLinearMap.IsReadOnly;
+            public int Count => _myLinearMap.Count;
 
             public bool IsSynchronized => _myLinearMap.IsSynchronized;
 
