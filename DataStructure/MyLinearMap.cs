@@ -25,27 +25,24 @@ namespace DataStructure
         public KeyCollection Keys => _keys ??= new KeyCollection(this);
         public ValueCollection Values => _values ??= new ValueCollection(this);
 
+        ICollection IDictionary.Keys => Keys;
         ICollection<TKey> IDictionary<TKey, TValue>.Keys => Keys;
+        IEnumerable<TKey> IReadOnlyDictionary<TKey, TValue>.Keys => Keys;
 
+        ICollection IDictionary.Values => Values;
         ICollection<TValue> IDictionary<TKey, TValue>.Values => Values;
+        IEnumerable<TValue> IReadOnlyDictionary<TKey, TValue>.Values => Values;
 
         bool IDictionary.IsFixedSize => false;
 
         bool IDictionary.IsReadOnly => false;
         bool ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly => false;
 
-
-        ICollection IDictionary.Keys => throw new NotImplementedException();
-
-        ICollection IDictionary.Values => throw new NotImplementedException();
-
         public bool IsSynchronized => throw new NotImplementedException();
 
         public object SyncRoot => throw new NotImplementedException();
 
-        IEnumerable<TKey> IReadOnlyDictionary<TKey, TValue>.Keys => throw new NotImplementedException();
 
-        IEnumerable<TValue> IReadOnlyDictionary<TKey, TValue>.Values => throw new NotImplementedException();
 
         public object? this[object key] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
@@ -515,21 +512,21 @@ namespace DataStructure
 
             bool ICollection<TKey>.IsReadOnly => true;
 
-            public bool IsSynchronized => _myLinearMap.IsSynchronized;
+            bool ICollection.IsSynchronized => false;
 
-            public object SyncRoot => _myLinearMap.SyncRoot;
+            object ICollection.SyncRoot => ((ICollection)_myLinearMap).SyncRoot;
 
-            public void Add(TKey item)
+            void ICollection<TKey>.Add(TKey item)
             {
                 throw new NotImplementedException();
             }
 
-            public void Clear()
+            void ICollection<TKey>.Clear()
             {
                 throw new NotImplementedException();
             }
 
-            public bool Contains(TKey item)
+            bool ICollection<TKey>.Contains(TKey item)
             {
                 throw new NotImplementedException();
             }
@@ -549,7 +546,7 @@ namespace DataStructure
                 throw new NotImplementedException();
             }
 
-            public bool Remove(TKey item)
+            bool ICollection<TKey>.Remove(TKey item)
             {
                 throw new NotImplementedException();
             }
