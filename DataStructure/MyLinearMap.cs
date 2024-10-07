@@ -515,41 +515,27 @@ namespace DataStructure
             bool ICollection.IsSynchronized => false;
 
             object ICollection.SyncRoot => ((ICollection)_myLinearMap).SyncRoot;
-
-            void ICollection<TKey>.Add(TKey item)
-            {
-                throw new NotImplementedException();
-            }
-
-            void ICollection<TKey>.Clear()
-            {
-                throw new NotImplementedException();
-            }
-
-            bool ICollection<TKey>.Contains(TKey item)
-            {
-                throw new NotImplementedException();
-            }
-
             public void CopyTo(TKey[] array, int arrayIndex)
             {
                 throw new NotImplementedException();
             }
-
             public void CopyTo(Array array, int index)
             {
                 throw new NotImplementedException();
             }
+
+            void ICollection<TKey>.Add(TKey item) => throw new NotSupportedException();
+
+            void ICollection<TKey>.Clear() => throw new NotSupportedException();
+
+            bool ICollection<TKey>.Contains(TKey item) => _myLinearMap.ContainsKey(item);
 
             public IEnumerator<TKey> GetEnumerator()
             {
                 throw new NotImplementedException();
             }
 
-            bool ICollection<TKey>.Remove(TKey item)
-            {
-                throw new NotImplementedException();
-            }
+            bool ICollection<TKey>.Remove(TKey item) => throw new NotSupportedException();
 
             IEnumerator IEnumerable.GetEnumerator()
             {
@@ -578,22 +564,6 @@ namespace DataStructure
             public bool IsSynchronized => _myLinearMap.IsSynchronized;
 
             public object SyncRoot => _myLinearMap.SyncRoot;
-
-            public void Add(TValue item)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Clear()
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool Contains(TValue item)
-            {
-                throw new NotImplementedException();
-            }
-
             public void CopyTo(TValue[] array, int arrayIndex)
             {
                 throw new NotImplementedException();
@@ -604,15 +574,19 @@ namespace DataStructure
                 throw new NotImplementedException();
             }
 
+            public void Add(TValue item) => throw new NotSupportedException();
+
+            public void Clear() => throw new NotSupportedException();
+
+            public bool Contains(TValue item) => _myLinearMap.ContainsValue(item);
+
+
             public IEnumerator<TValue> GetEnumerator()
             {
                 throw new NotImplementedException();
             }
 
-            public bool Remove(TValue item)
-            {
-                throw new NotImplementedException();
-            }
+            public bool Remove(TValue item) => throw new NotSupportedException();
 
             IEnumerator IEnumerable.GetEnumerator()
             {
