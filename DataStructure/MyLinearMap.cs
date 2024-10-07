@@ -617,14 +617,22 @@ namespace DataStructure
 
             public struct Enumerator : IEnumerator<TKey>, IEnumerator
             {
-                public TKey Current => throw new NotImplementedException();
+                private readonly MyLinearMap<TKey, TValue> _myLinearMap;
+                private int _index;
+                private TKey? _currentKey;
+
+                internal Enumerator(MyLinearMap<TKey, TValue> dictionary)
+                {
+                    _myLinearMap = dictionary;
+                    _index = 0;
+                    _currentKey = default;
+                }
+
+                public TKey Current => _currentKey!;
 
                 object IEnumerator.Current => throw new NotImplementedException();
 
-                public void Dispose()
-                {
-                    throw new NotImplementedException();
-                }
+                public void Dispose() { }
 
                 public bool MoveNext()
                 {
