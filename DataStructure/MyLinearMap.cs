@@ -541,6 +541,28 @@ namespace DataStructure
             {
                 throw new NotImplementedException();
             }
+
+            public struct Enumerator : IEnumerator<TKey>, IEnumerator
+            {
+                public TKey Current => throw new NotImplementedException();
+
+                object IEnumerator.Current => throw new NotImplementedException();
+
+                public void Dispose()
+                {
+                    throw new NotImplementedException();
+                }
+
+                public bool MoveNext()
+                {
+                    throw new NotImplementedException();
+                }
+
+                public void Reset()
+                {
+                    throw new NotImplementedException();
+                }
+            }
         }
 
         public sealed class ValueCollection : ICollection<TValue>, ICollection, IReadOnlyCollection<TValue>
@@ -591,6 +613,28 @@ namespace DataStructure
             IEnumerator IEnumerable.GetEnumerator()
             {
                 throw new NotImplementedException();
+            }
+
+            public struct Enumerator : IEnumerator<TKey>, IEnumerator
+            {
+                public TKey Current => throw new NotImplementedException();
+
+                object IEnumerator.Current => throw new NotImplementedException();
+
+                public void Dispose()
+                {
+                    throw new NotImplementedException();
+                }
+
+                public bool MoveNext()
+                {
+                    throw new NotImplementedException();
+                }
+
+                public void Reset()
+                {
+                    throw new NotImplementedException();
+                }
             }
         }
     }
