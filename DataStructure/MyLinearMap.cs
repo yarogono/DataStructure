@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using static DataStructure.MyLinearMap<TKey, TValue>;
 
 namespace DataStructure
 {
@@ -586,9 +588,14 @@ namespace DataStructure
             public bool IsSynchronized => _myLinearMap.IsSynchronized;
 
             public object SyncRoot => _myLinearMap.SyncRoot;
-            public void CopyTo(TValue[] array, int arrayIndex)
+            public void CopyTo(TValue[] array, int index)
             {
-                throw new NotImplementedException();
+                int count = _myLinearMap._count;
+                MyEntry[]? entries = _myLinearMap._entries;
+                for (int i = 0; i < count; i++)
+                {
+                    if (entries![i].next >= -1) array[index++] = entries[i].value;
+                }
             }
 
             public void CopyTo(Array array, int index)
