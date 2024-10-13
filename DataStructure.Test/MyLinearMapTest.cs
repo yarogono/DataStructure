@@ -25,7 +25,7 @@
         }
 
         [Fact]
-        public void AddThousand_test()
+        public void AddThousandElements_test()
         {
             // Given
             int index1 = 1;

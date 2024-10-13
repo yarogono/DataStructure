@@ -1,10 +1,8 @@
-using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
-using static DataStructure.MyLinearMap<TKey, TValue>;
 
 namespace DataStructure
 {
@@ -50,12 +48,27 @@ namespace DataStructure
 
         private const int DefaultCapacity = 10;
 
-        public MyLinearMap()
+        public MyLinearMap() : this(0, null) { }
+
+        public MyLinearMap(int capacity, IEqualityComparer<TKey>? comparer)
         {
-            _buckets = new int[DefaultCapacity];
-            _entries = new MyEntry[DefaultCapacity];
-            _keys = new KeyCollection(this);
-            _values = new ValueCollection(this);
+            if (capacity > 0)
+            {
+                Initialize(capacity);
+            }
+            else
+            {
+                Initialize(DefaultCapacity);
+            }
+
+            if (comparer != null)
+            {
+                _comparer = comparer;
+            }
+            else
+            {
+                _comparer  = EqualityComparer<TKey>.Default;
+            }
         }
 
         public TValue this[TKey key]
