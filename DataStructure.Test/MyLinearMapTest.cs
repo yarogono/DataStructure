@@ -28,13 +28,12 @@
         public void AddThousandElements_test()
         {
             // Given
-            int index1 = 1;
             string test1 = "test1";
 
             // When
-            for (int i = 0; i < 1000; i++)
+            for (int i = 1; i <= 1000; i++)
             {
-                myLinearMap.Add(index1, test1);
+                myLinearMap.Add(i, test1);
             }
 
             // Then

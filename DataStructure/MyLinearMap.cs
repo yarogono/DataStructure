@@ -118,7 +118,7 @@ namespace DataStructure
                 Initialize(0);
             }
 
-            MyEntry[]? entries = _entries;
+            ref MyEntry[]? entries = ref _entries;
 
             IEqualityComparer<TKey>? comparer = _comparer;
             uint hashCode = (uint)((comparer == null) ? key.GetHashCode() : comparer.GetHashCode(key));
@@ -225,7 +225,7 @@ namespace DataStructure
                 int count = _count;
                 if (count == entries.Length)
                 {
-                    //Resize();
+                    Array.Resize(ref entries, entries.Length * 2);
                     bucket = ref GetBucket(hashCode);
                 }
                 index = count;
@@ -245,7 +245,7 @@ namespace DataStructure
             {
                 // If we hit the collision threshold we'll need to switch to the comparer which is using randomized string hashing
                 // i.e. EqualityComparer<string>.Default.
-                Array.Resize(ref entries, entries.Length);
+                Array.Resize(ref entries, entries.Length * 2);
             }
 
             return true;
