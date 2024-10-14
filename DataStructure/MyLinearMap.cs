@@ -108,8 +108,6 @@ namespace DataStructure
 
         private bool TryInsert(TKey key, TValue value)
         {
-            // ToDo : Dictionary<T> TryInsert 코드 분석
-
             if (key == null)
             {
                 throw new Exception();
