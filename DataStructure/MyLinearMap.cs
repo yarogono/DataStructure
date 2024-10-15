@@ -1,3 +1,4 @@
+using NSoup.Nodes;
 using System.Collections;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -225,7 +226,7 @@ namespace DataStructure
                 int count = _count;
                 if (count == entries.Length)
                 {
-                    Array.Resize(ref entries, entries.Length * 2);
+                    Resize(ref entries, entries.Length);
                     bucket = ref GetBucket(hashCode);
                 }
                 index = count;
@@ -244,11 +245,16 @@ namespace DataStructure
             if (!typeof(TKey).IsValueType && collisionCount > HashHelpers.HashCollisionThreshold)
             {
                 // If we hit the collision threshold we'll need to switch to the comparer which is using randomized string hashing
-                // i.e. EqualityComparer<string>.Default.
-                Array.Resize(ref entries, entries.Length * 2);
+                // i.e. EqualityComparer<string>.Default.       
+                Resize(ref entries, entries.Length);
             }
 
             return true;
+        }
+
+        private void Resize<T>(ref T[] array, int size)
+        {
+            Array.Resize(ref array, size * 2);
         }
 
         private int Initialize(int capacity)
