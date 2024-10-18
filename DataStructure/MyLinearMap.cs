@@ -226,7 +226,7 @@ namespace DataStructure
                 int count = _count;
                 if (count == entries.Length)
                 {
-                    Resize(ref entries, entries.Length);
+                    Resize();
                     bucket = ref GetBucket(hashCode);
                 }
                 index = count;
@@ -245,16 +245,18 @@ namespace DataStructure
             if (!typeof(TKey).IsValueType && collisionCount > HashHelpers.HashCollisionThreshold)
             {
                 // If we hit the collision threshold we'll need to switch to the comparer which is using randomized string hashing
-                // i.e. EqualityComparer<string>.Default.       
-                Resize(ref entries, entries.Length);
+                // i.e. EqualityComparer<string>.Default.
+                Resize();
             }
 
             return true;
         }
 
-        private void Resize<T>(ref T[] array, int size)
+        private void Resize() => Resize(HashHelpers.ExpandPrime(_count));
+
+        private void Resize(int size)
         {
-            Array.Resize(ref array, size * 2);
+            Array.Resize(ref _entries, size);
         }
 
         private int Initialize(int capacity)
