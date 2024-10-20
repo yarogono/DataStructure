@@ -43,15 +43,18 @@
         [Fact]
         public void Remove_test()
         {
-            Assert.Fail("미구현");
             // Given
-
+            int index1 = 1;
+            string test1 = "test1";
+            myLinearMap.Add(index1, test1);
 
             // When
-
+            bool isRemoved = myLinearMap.Remove(index1);
 
             // Then
-
+            Assert.True(isRemoved);
+            var value = myLinearMap[index1];
+            Assert.Equal(value, test1);
         }
 
 

@@ -1,4 +1,3 @@
-using NSoup.Nodes;
 using System.Collections;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -12,6 +11,9 @@ namespace DataStructure
     {
         private int[]? _buckets;
         private MyEntry[]? _entries;
+#if TARGET_64BIT
+        private ulong _fastModMultiplier;
+#endif
 
         private int _count;
         private int _freeList;
@@ -43,9 +45,75 @@ namespace DataStructure
 
         public object SyncRoot => throw new NotImplementedException();
 
+        public TValue this[TKey key]
+        {
+            get
+            {
+                ref TValue value = ref FindValue(key);
+                if (Unsafe.IsNullRef(ref value) == false)
+                {
+                    return value;
+                }
 
+                return default;
+            }
+            set
+            {
+                bool modified = TryInsert(key, value);
+                Debug.Assert(modified);
+            }
+        }
 
-        public object? this[object key] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        object? IDictionary.this[object key]
+        {
+            get
+            {
+                if (IsCompatibleKey(key))
+                {
+                    ref TValue value = ref FindValue((TKey)key);
+                    if (!Unsafe.IsNullRef(ref value))
+                    {
+                        return value;
+                    }
+                }
+
+                return null;
+            }
+            set
+            {
+                if (key == null)
+                {
+                    throw new Exception();
+                }
+                //ThrowHelper.IfNullAndNullsAreIllegalThenThrow<TValue>(value, ExceptionArgument.value);
+
+                try
+                {
+                    TKey tempKey = (TKey)key;
+                    try
+                    {
+                        this[tempKey] = (TValue)value!;
+                    }
+                    catch (InvalidCastException)
+                    {
+                        throw new Exception();
+                    }
+                }
+                catch (InvalidCastException)
+                {
+                    throw new Exception();
+                }
+            }
+        }
+
+        private static bool IsCompatibleKey(object key)
+        {
+            if (key == null)
+            {
+                throw new Exception();
+            }
+            return key is TKey;
+        }
 
         private const int DefaultCapacity = 10;
 
@@ -69,25 +137,6 @@ namespace DataStructure
             else
             {
                 _comparer  = EqualityComparer<TKey>.Default;
-            }
-        }
-
-        public TValue this[TKey key]
-        {
-            get
-            {
-                ref TValue value = ref FindValue(key);
-                if (Unsafe.IsNullRef(ref value) == false)
-                {
-                    return value;
-                }
-
-                return default;
-            }
-
-            set
-            {
-                bool modified = TryInsert(key, value);
             }
         }
 
@@ -387,7 +436,6 @@ namespace DataStructure
             goto Return;
         }
 
-        // ToDo : GetBucket 코드 작성
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private ref int GetBucket(uint hashCode)
         {
@@ -406,6 +454,27 @@ namespace DataStructure
             _keys = new KeyCollection(this);
             _values = new ValueCollection(this);
             _count = 0;
+        }
+
+        public bool Remove(TKey key)
+        {
+            if (_entries == null || _entries.Length == 0)
+                return false;
+
+            IEqualityComparer<TKey>? comparer = _comparer;
+            uint hashCode = (uint)((comparer == null) ? key.GetHashCode() : comparer.GetHashCode(key));
+
+            uint collisionCount = 0;
+            ref int bucket = ref GetBucket(hashCode);
+            int i = bucket - 1;
+
+            if (_entries[i].value == null)
+                return false;
+
+            //_count--;
+
+
+            return true;
         }
 
         public void Remove(KeyValuePair<TKey, TValue> keyValuePair)
@@ -429,11 +498,6 @@ namespace DataStructure
         public bool ContainsValue(TValue value)
         {
             return true;
-        }
-
-        public bool Remove(TKey key)
-        {
-            throw new NotImplementedException();
         }
 
         public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value)
