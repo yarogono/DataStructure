@@ -458,14 +458,19 @@ namespace DataStructure
 
         public bool Remove(TKey key)
         {
-            if (_entries == null || _entries.Length == 0)
+            if (key == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (_entries == null || _entries.Length == 0 || _buckets == null || _buckets.Length == 0)
                 return false;
 
-            IEqualityComparer<TKey>? comparer = _comparer;
-            uint hashCode = (uint)((comparer == null) ? key.GetHashCode() : comparer.GetHashCode(key));
 
             uint collisionCount = 0;
+            uint hashCode = (uint)(_comparer?.GetHashCode(key) ?? key.GetHashCode());
             ref int bucket = ref GetBucket(hashCode);
+            MyEntry[]? myEntries = _entries;
             int last = -1;
             int i = bucket - 1;
 
@@ -484,7 +489,7 @@ namespace DataStructure
                     }
                     else
                     {
-                        _entries[last].next = myEntry.next;
+                        myEntries[last].next = myEntry.next;
                     }
 
                     myEntry.next = StartOfFreeList - _freeList;
