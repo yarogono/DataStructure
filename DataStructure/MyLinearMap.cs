@@ -466,15 +466,51 @@ namespace DataStructure
 
             uint collisionCount = 0;
             ref int bucket = ref GetBucket(hashCode);
+            int last = -1;
             int i = bucket - 1;
 
             if (_entries[i].value == null)
                 return false;
 
-            //_count--;
+            while (i >= 0)
+            {
+                ref MyEntry myEntry = ref _entries[i];
 
+                if (myEntry.hashCode == hashCode && (_comparer?.Equals(myEntry.key, key) ?? EqualityComparer<TKey>.Default.Equals(myEntry.key, key)))
+                {
+                    if (last < 0)
+                    {
+                        bucket = myEntry.next + 1;
+                    }
+                    else
+                    {
+                        _entries[last].next = myEntry.next;
+                    }
 
-            return true;
+                    myEntry.next = StartOfFreeList - _freeList;
+
+                    if (RuntimeHelpers.IsReferenceOrContainsReferences<TKey>())
+                    {
+                        myEntry.key = default!;
+                    }
+
+                    if (RuntimeHelpers.IsReferenceOrContainsReferences<TValue>())
+                    {
+                        myEntry.value = default!;
+                    }
+
+                    _freeList = i;
+                    _freeCount++;
+                    return true;
+                }
+
+                last = i;
+                i = myEntry.next;
+
+                collisionCount++;
+            }
+
+            return false;
         }
 
         public void Remove(KeyValuePair<TKey, TValue> keyValuePair)

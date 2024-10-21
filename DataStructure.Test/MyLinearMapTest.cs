@@ -53,8 +53,7 @@
 
             // Then
             Assert.True(isRemoved);
-            var value = myLinearMap[index1];
-            Assert.Equal(value, test1);
+            Assert.Null(myLinearMap[index1]);
         }
 
 
