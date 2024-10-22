@@ -523,18 +523,8 @@ namespace DataStructure
 
         }
 
-        public bool ContainsKey(TKey key)
-        {
-            if (_keys == null)
-            {
-                return false;
-            }
-
-            bool isContains = _keys.Contains(key);
-
-
-            return isContains;
-        }
+        public bool ContainsKey(TKey key) =>
+            !Unsafe.IsNullRef(ref FindValue(key));
 
         public bool ContainsValue(TValue value)
         {
