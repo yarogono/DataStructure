@@ -530,6 +530,7 @@ namespace DataStructure
         {
             MyEntry[]? entries = _entries;
 
+            EqualityComparer<TValue> defaultComparer = EqualityComparer<TValue>.Default;
             if (value == null)
             {
                 for (int i = 0; i < _count; i++)
@@ -545,7 +546,7 @@ namespace DataStructure
                 // ValueType: Devirtualize with EqualityComparer<TValue>.Default intrinsic
                 for (int i = 0; i < _count; i++)
                 {
-                    if (entries![i].next >= -1 && EqualityComparer<TValue>.Default.Equals(entries[i].value, value))
+                    if (entries![i].next >= -1 && defaultComparer.Equals(entries[i].value, value))
                     {
                         return true;
                     }
@@ -556,7 +557,6 @@ namespace DataStructure
                 // Object type: Shared Generic, EqualityComparer<TValue>.Default won't devirtualize
                 // https://github.com/dotnet/runtime/issues/10050
                 // So cache in a local rather than get EqualityComparer per loop iteration
-                EqualityComparer<TValue> defaultComparer = EqualityComparer<TValue>.Default;
                 for (int i = 0; i < _count; i++)
                 {
                     if (entries![i].next >= -1 && defaultComparer.Equals(entries[i].value, value))
