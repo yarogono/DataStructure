@@ -1,4 +1,6 @@
-﻿namespace DataStructure.Test
+﻿using System;
+
+namespace DataStructure.Test
 {
     public class MyLinearMapTest
     {
@@ -148,15 +150,18 @@
         [Fact]
         public void ContainsValue_test()
         {
-            Assert.Fail("미구현");
             // Given
-
+            int index1 = 1;
+            string test1 = "test1";
+            myLinearMap.Add(index1, test1);
 
             // When
-
+            bool isContainValue = myLinearMap.ContainsValue(test1);
+            bool isContainValue2 = myLinearMap.ContainsValue("test2");
 
             // Then
-
+            Assert.True(isContainValue);
+            Assert.False(isContainValue2);
         }
 
         [Fact]

@@ -528,7 +528,45 @@ namespace DataStructure
 
         public bool ContainsValue(TValue value)
         {
-            return true;
+            MyEntry[]? entries = _entries;
+
+            if (value == null)
+            {
+                for (int i = 0; i < _count; i++)
+                {
+                    if (entries![i].next >= -1 && entries[i].value == null)
+                    {
+                        return true;
+                    }
+                }
+            }
+            else if (typeof(TValue).IsValueType)
+            {
+                // ValueType: Devirtualize with EqualityComparer<TValue>.Default intrinsic
+                for (int i = 0; i < _count; i++)
+                {
+                    if (entries![i].next >= -1 && EqualityComparer<TValue>.Default.Equals(entries[i].value, value))
+                    {
+                        return true;
+                    }
+                }
+            }
+            else
+            {
+                // Object type: Shared Generic, EqualityComparer<TValue>.Default won't devirtualize
+                // https://github.com/dotnet/runtime/issues/10050
+                // So cache in a local rather than get EqualityComparer per loop iteration
+                EqualityComparer<TValue> defaultComparer = EqualityComparer<TValue>.Default;
+                for (int i = 0; i < _count; i++)
+                {
+                    if (entries![i].next >= -1 && defaultComparer.Equals(entries[i].value, value))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value)
