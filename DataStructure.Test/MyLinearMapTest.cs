@@ -62,7 +62,6 @@ namespace DataStructure.Test
         [Fact]
         public void Get_test()
         {
-            Assert.Fail("미구현");
             // Given
 
 
@@ -89,17 +88,20 @@ namespace DataStructure.Test
         }
 
         [Fact]
-        public void Size_test()
+        public void Count_test()
         {
-            Assert.Fail("미구현");
             // Given
-
+            int index1 = 1;
+            string test1 = "test1";
+            myLinearMap.Add(index1, test1);
 
             // When
-
+            int myLinearMapCount = myLinearMap.Count;
+            int myLinearMapCount2 = myLinearMap.Count();
 
             // Then
-
+            Assert.Equal(myLinearMapCount, 1);
+            Assert.Equal(myLinearMapCount2, 1);
         }
 
         [Fact]
