@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DataStructure.Test
+﻿namespace DataStructure.Test
 {
     public class MyLinearMapTest
     {
