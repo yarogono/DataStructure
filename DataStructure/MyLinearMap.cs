@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
-
 namespace DataStructure
 {
     [Serializable]
@@ -684,37 +683,62 @@ namespace DataStructure
 
             bool ICollection<TKey>.Contains(TKey item) => _myLinearMap.ContainsKey(item);
 
-            public IEnumerator<TKey> GetEnumerator()
-            {
-                throw new NotImplementedException();
-            }
+
+            public Enumerator GetEnumerator() => new Enumerator(_myLinearMap);
 
             bool ICollection<TKey>.Remove(TKey item) => throw new NotSupportedException();
 
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                throw new NotImplementedException();
-            }
+            IEnumerator IEnumerable.GetEnumerator() => new Enumerator(_myLinearMap);
+
+            IEnumerator<TKey> IEnumerable<TKey>.GetEnumerator() => new Enumerator(_myLinearMap);
 
             public struct Enumerator : IEnumerator<TKey>, IEnumerator
             {
-                public TKey Current => throw new NotImplementedException();
+                private readonly MyLinearMap<TKey, TValue> _myLinearMap;
+                private int _index;
+                private TKey? _currentKey;
 
-                object IEnumerator.Current => throw new NotImplementedException();
-
-                public void Dispose()
+                public Enumerator(MyLinearMap<TKey, TValue> myLinearMap)
                 {
-                    throw new NotImplementedException();
+                    _myLinearMap = myLinearMap;
+                    _index = 0;
+                    _currentKey = default;
                 }
+
+                public void Dispose() { }
 
                 public bool MoveNext()
                 {
-                    throw new NotImplementedException();
+                    while ((uint)_index < (uint)_myLinearMap._count)
+                    {
+                        ref MyEntry entry = ref _myLinearMap._entries![_index++];
+
+                        if (entry.next >= -1)
+                        {
+                            _currentKey = entry.key;
+                            return true;
+                        }
+                    }
+
+                    _index = _myLinearMap._count + 1;
+                    _currentKey = default;
+                    return false;
                 }
 
-                public void Reset()
+                public TKey Current => _currentKey!;
+
+                object? IEnumerator.Current
                 {
-                    throw new NotImplementedException();
+                    get
+                    {
+                        return _currentKey;
+                    }
+                }
+
+                void IEnumerator.Reset()
+                {
+                    _index = 0;
+                    _currentKey = default;
                 }
             }
         }

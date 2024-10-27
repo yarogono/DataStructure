@@ -105,15 +105,21 @@
         [Fact]
         public void GetKeys_test()
         {
-            Assert.Fail("미구현");
             // Given
-
+            int index1 = 1;
+            string test1 = "test1";
+            myLinearMap.Add(index1, test1);
 
             // When
-
+            var keys = myLinearMap.Keys;
 
             // Then
+            Assert.Equal(keys.Count, 1);
 
+            foreach (var key in keys)
+            {
+                Assert.Equal(key, index1);
+            }
         }
 
         [Fact]
