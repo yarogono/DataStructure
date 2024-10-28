@@ -125,14 +125,21 @@
         [Fact]
         public void GetValues_test()
         {
-            Assert.Fail("미구현");
             // Given
-
+            int index1 = 1;
+            string test1 = "test1";
+            myLinearMap.Add(index1, test1);
 
             // When
-
+            var values = myLinearMap.Values;
 
             // Then
+            Assert.Equal(values.Count, 1);
+
+            foreach (var value in values)
+            {
+                Assert.Equal(value, test1);
+            }
 
         }
 

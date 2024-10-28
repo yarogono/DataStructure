@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+
 namespace DataStructure
 {
     [Serializable]
@@ -786,40 +788,57 @@ namespace DataStructure
             public bool Contains(TValue item) => _myLinearMap.ContainsValue(item);
 
 
-            public IEnumerator<TValue> GetEnumerator()
-            {
-                throw new NotImplementedException();
-            }
+            public Enumerator GetEnumerator() => new Enumerator(_myLinearMap);
 
-            public bool Remove(TValue item) => throw new NotSupportedException();
+            bool ICollection<TValue>.Remove(TValue item) => throw new NotSupportedException();
 
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                throw new NotImplementedException();
-            }
+            IEnumerator IEnumerable.GetEnumerator() => new Enumerator(_myLinearMap);
 
-            public struct Enumerator : IEnumerator<TKey>, IEnumerator
+            IEnumerator<TValue> IEnumerable<TValue>.GetEnumerator() => new Enumerator(_myLinearMap);
+
+            public struct Enumerator : IEnumerator<TValue>, IEnumerator
             {
                 private readonly MyLinearMap<TKey, TValue> _myLinearMap;
                 private int _index;
-                private TKey? _currentKey;
+                private TValue? _currentValue;
 
                 internal Enumerator(MyLinearMap<TKey, TValue> dictionary)
                 {
                     _myLinearMap = dictionary;
                     _index = 0;
-                    _currentKey = default;
+                    _currentValue = default;
                 }
 
-                public TKey Current => _currentKey!;
+                public TValue Current => _currentValue!;
 
-                object IEnumerator.Current => throw new NotImplementedException();
+                object? IEnumerator.Current
+                {
+                    get
+                    {
+                        return _currentValue;
+                    }
+                }
+
+                TValue IEnumerator<TValue>.Current => throw new NotImplementedException();
 
                 public void Dispose() { }
 
                 public bool MoveNext()
                 {
-                    throw new NotImplementedException();
+
+                    while ((uint)_index < (uint)_myLinearMap._count)
+                    {
+                        ref MyEntry entry = ref _myLinearMap._entries![_index++];
+
+                        if (entry.next >= -1)
+                        {
+                            _currentValue = entry.value;
+                            return true;
+                        }
+                    }
+                    _index = _myLinearMap._count + 1;
+                    _currentValue = default;
+                    return false;
                 }
 
                 public void Reset()
