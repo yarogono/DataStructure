@@ -61,28 +61,33 @@
         public void Get_test()
         {
             // Given
-
+            int index1 = 1;
+            string test1 = "test1";
+            myLinearMap.Add(index1, test1);
 
             // When
-
+            var value = myLinearMap[index1];
 
             // Then
-
+            Assert.Equal(value, test1);
         }
 
 
         [Fact]
         public void Set_test()
         {
-            Assert.Fail("미구현");
             // Given
-
+            int index1 = 1;
+            string test1 = "test1";
+            myLinearMap.Add(index1, test1);
 
             // When
-
+            myLinearMap[2] = "test2";
 
             // Then
-
+            Assert.Equal(myLinearMap.Count, 2);
+            Assert.Equal(myLinearMap[2], "test2");
+            Assert.Equal(myLinearMap[1], "test1");
         }
 
         [Fact]
