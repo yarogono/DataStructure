@@ -86,7 +86,6 @@ namespace DataStructure
                 {
                     throw new Exception();
                 }
-                //ThrowHelper.IfNullAndNullsAreIllegalThenThrow<TValue>(value, ExceptionArgument.value);
 
                 try
                 {
@@ -302,11 +301,32 @@ namespace DataStructure
             return true;
         }
 
-        private void Resize() => Resize(HashHelpers.ExpandPrime(_count));
+        private void Resize() => Resize(HashHelpers.ExpandPrime(_count), false);
 
-        private void Resize(int size)
+        private void Resize(int size, bool forceNewHash)
         {
             Array.Resize(ref _entries, size);
+            MyEntry[] entries = new MyEntry[size];
+
+            int count = _count;
+            Array.Copy(_entries, entries, count);
+
+            if (!typeof(TKey).IsValueType && forceNewHash)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    if (entries[i].next >= -1)
+                    {
+                        entries[i].hashCode = (uint)_comparer.GetHashCode(entries[i].key);
+                    }
+                }
+
+                if (ReferenceEquals(_comparer, EqualityComparer<TKey>.Default))
+                {
+                    _comparer = null;
+                }
+
+            }
         }
 
         private int Initialize(int capacity)
