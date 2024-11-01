@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -42,9 +41,9 @@ namespace DataStructure
         bool IDictionary.IsReadOnly => false;
         bool ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly => false;
 
-        public bool IsSynchronized => throw new NotImplementedException();
+        bool ICollection.IsSynchronized => false;
 
-        public object SyncRoot => throw new NotImplementedException();
+        object ICollection.SyncRoot => this;
 
         public TValue this[TKey key]
         {
@@ -592,17 +591,28 @@ namespace DataStructure
 
         public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value)
         {
-            throw new NotImplementedException();
+            ref TValue valRef = ref FindValue(key);
+            if (!Unsafe.IsNullRef(ref valRef))
+            {
+                value = valRef;
+                return true;
+            }
+
+            value = default;
+            return false;
         }
 
-        public void Add(KeyValuePair<TKey, TValue> item)
-        {
-            throw new NotImplementedException();
-        }
+        public void Add(KeyValuePair<TKey, TValue> item) => TryInsert(item.Key, item.Value);
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
-            throw new NotImplementedException();
+            ref TValue valRef = ref FindValue(item.Key);
+            if (!Unsafe.IsNullRef(ref valRef))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
@@ -783,9 +793,9 @@ namespace DataStructure
 
             public int Count => _myLinearMap.Count;
 
-            public bool IsSynchronized => _myLinearMap.IsSynchronized;
+            bool ICollection.IsSynchronized => false;
 
-            public object SyncRoot => _myLinearMap.SyncRoot;
+            object ICollection.SyncRoot => ((ICollection)_myLinearMap).SyncRoot;
             public void CopyTo(TValue[] array, int index)
             {
                 int count = _myLinearMap._count;
