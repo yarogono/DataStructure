@@ -811,9 +811,9 @@ namespace DataStructure
                 throw new NotImplementedException();
             }
 
-            public void Add(TValue item) => throw new NotSupportedException();
+            void ICollection<TValue>.Add(TValue item) => throw new NotSupportedException();
 
-            public void Clear() => throw new NotSupportedException();
+            void ICollection<TValue>.Clear() => throw new NotSupportedException();
 
             public bool Contains(TValue item) => _myLinearMap.ContainsValue(item);
 
