@@ -201,5 +201,59 @@
             // Then
             Assert.Equal(0, myLinearMap.Count);
         }
+
+        [Fact]
+        public void KeyCollectionCopyToTKey_test()
+        {
+            // Given
+            string test1 = "test1";
+
+            for (int i = 0; i < 10; i++)
+            {
+                myLinearMap.Add(i, test1);
+            }
+
+            // When
+            var keys = myLinearMap.Keys;
+
+            int startIndex = 0;
+            int[] keyNums = new int[myLinearMap.Count];
+            keys.CopyTo(keyNums, startIndex);
+
+
+            // Then
+            foreach (int key in keys)
+            {
+                Assert.Equal(keyNums[startIndex], key);
+                startIndex++;
+            }
+        }
+
+        [Fact]
+        public void KeyCollectionCopyToArray_test()
+        {
+            // Given
+            string test1 = "test1";
+
+            for (int i = 0; i < 10; i++)
+            {
+                myLinearMap.Add(i, test1);
+            }
+
+            // When
+            var keys = myLinearMap.Keys;
+
+            int startIndex = 0;
+            Array[] keyArray = new Array[myLinearMap.Count];
+            keys.CopyTo(keyArray, startIndex);
+
+
+            // Then
+            foreach (int key in keys)
+            {
+                Assert.Equal(keyArray.GetValue(startIndex), key);
+                startIndex++;
+            }
+        }
     }
 }

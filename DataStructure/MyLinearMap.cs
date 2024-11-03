@@ -700,13 +700,44 @@ namespace DataStructure
             bool ICollection.IsSynchronized => false;
 
             object ICollection.SyncRoot => ((ICollection)_myLinearMap).SyncRoot;
-            public void CopyTo(TKey[] array, int arrayIndex)
+
+            public void CopyTo(TKey[] array, int index)
             {
-                throw new NotImplementedException();
+                if (array == null || array.Length == 0)
+                {
+                    throw new NullReferenceException();
+                }
+
+                if (array.Length == 0 || array.Length < index)
+                {
+                    throw new ArgumentException();
+                }
+
+                if (array.Length - index < _myLinearMap.Count)
+                {
+                    throw new ArgumentException();
+                }
+
+                int count = _myLinearMap._count;
+                MyEntry[]? entries = _myLinearMap._entries;
+                for (int i = 0; i < count; i++)
+                {
+                    if (entries![i].next >= -1) array[index++] = entries[i].key;
+                }
             }
             public void CopyTo(Array array, int index)
             {
-                throw new NotImplementedException();
+                if (array == null || array.Length == 0)
+                {
+                    throw new ArgumentException();
+                }
+
+                int count = _myLinearMap._count;
+                MyEntry[]? entries = _myLinearMap._entries;
+                for (int i = 0; i < count; i++)
+                {
+                    if (entries![i].next >= -1) array.SetValue(entries[i].key, index++);
+                }
             }
 
             void ICollection<TKey>.Add(TKey item) => throw new NotSupportedException();
