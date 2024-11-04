@@ -232,6 +232,7 @@
         [Fact]
         public void KeyCollectionCopyToArray_test()
         {
+            Assert.Fail("미구현");
             // Given
             string test1 = "test1";
 
@@ -252,6 +253,63 @@
             foreach (int key in keys)
             {
                 Assert.Equal(keyArray.GetValue(startIndex), key);
+                startIndex++;
+            }
+        }
+
+        [Fact]
+        public void ValueCollectionCopyTValue_test()
+        {
+            Assert.Fail("미구현");
+            // Given
+            string test1 = "test1";
+
+            for (int i = 0; i < 10; i++)
+            {
+                myLinearMap.Add(i, test1);
+            }
+
+            // When
+            var values = myLinearMap.Values;
+
+            int startIndex = 0;
+            string[] valueArray = new string[myLinearMap.Count];
+            values.CopyTo(valueArray, startIndex);
+
+
+            // Then
+            foreach (string value in values)
+            {
+                Assert.Equal(valueArray.GetValue(startIndex), value);
+                startIndex++;
+            }
+        }
+
+
+        [Fact]
+        public void ValueCollectionCopyToArray_test()
+        {
+            Assert.Fail("미구현");
+            // Given
+            string test1 = "test1";
+
+            for (int i = 0; i < 10; i++)
+            {
+                myLinearMap.Add(i, test1);
+            }
+
+            // When
+            var values = myLinearMap.Values;
+
+            int startIndex = 0;
+            Array[] valueArray = new Array[myLinearMap.Count];
+            values.CopyTo(valueArray, startIndex);
+
+
+            // Then
+            foreach (string value in values)
+            {
+                Assert.Equal(valueArray.GetValue(startIndex), value);
                 startIndex++;
             }
         }
