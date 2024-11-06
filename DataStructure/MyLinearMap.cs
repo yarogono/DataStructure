@@ -829,6 +829,21 @@ namespace DataStructure
             object ICollection.SyncRoot => ((ICollection)_myLinearMap).SyncRoot;
             public void CopyTo(TValue[] array, int index)
             {
+                if (array == null)
+                {
+                    throw new NullReferenceException();
+                }
+
+                if (array.Length == 0 || array.Length < index)
+                {
+                    throw new ArgumentException();
+                }
+
+                if (array.Length - index < _myLinearMap.Count)
+                {
+                    throw new ArgumentException();
+                }
+
                 int count = _myLinearMap._count;
                 MyEntry[]? entries = _myLinearMap._entries;
                 for (int i = 0; i < count; i++)
