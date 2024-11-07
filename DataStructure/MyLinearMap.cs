@@ -732,12 +732,41 @@ namespace DataStructure
                     throw new ArgumentException();
                 }
 
-                int count = _myLinearMap._count;
-                MyEntry[]? entries = _myLinearMap._entries;
-                for (int i = 0; i < count; i++)
+                if (array is TKey[] keys)
                 {
-                    if (entries![i].next >= -1) array.SetValue(entries[i].key, index++);
+                    CopyTo(keys, index);
                 }
+                else if (array is object[] objects)
+                {
+                    //object[]? objects = array as object[];
+                    if (objects == null)
+                    {
+                        throw new ArgumentException();
+                    }
+
+                    int count = _myLinearMap._count;
+                    MyEntry[]? entries = _myLinearMap._entries;
+
+                    try
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            if (entries![i].next >= -1)
+                            {
+                                objects[index++] = (object)entries[i].key;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(ex.Message);
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+
             }
 
             void ICollection<TKey>.Add(TKey item) => throw new NotSupportedException();
