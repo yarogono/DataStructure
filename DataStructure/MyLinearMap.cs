@@ -670,7 +670,7 @@ namespace DataStructure
             throw new NotImplementedException();
         }
 
-        public struct MyEntry
+        private struct MyEntry
         {
             public uint hashCode;
 
@@ -725,7 +725,7 @@ namespace DataStructure
                     if (entries![i].next >= -1) array[index++] = entries[i].key;
                 }
             }
-            public void CopyTo(Array array, int index)
+            void ICollection.CopyTo(Array array, int index)
             {
                 if (array == null || array.Length == 0)
                 {
@@ -738,7 +738,6 @@ namespace DataStructure
                 }
                 else if (array is object[] objects)
                 {
-                    //object[]? objects = array as object[];
                     if (objects == null)
                     {
                         throw new ArgumentException();
@@ -753,7 +752,7 @@ namespace DataStructure
                         {
                             if (entries![i].next >= -1)
                             {
-                                objects[index++] = (object)entries[i].key;
+                                objects[index++] = entries[i].key;
                             }
                         }
                     }
@@ -766,7 +765,6 @@ namespace DataStructure
                 {
                     throw new ArgumentException();
                 }
-
             }
 
             void ICollection<TKey>.Add(TKey item) => throw new NotSupportedException();
@@ -881,9 +879,46 @@ namespace DataStructure
                 }
             }
 
-            public void CopyTo(Array array, int index)
+            void ICollection.CopyTo(Array array, int index)
             {
-                throw new NotImplementedException();
+                if (array == null || array.Length == 0)
+                {
+                    throw new ArgumentException();
+                }
+
+                if (array is TValue[] values)
+                {
+                    CopyTo(values, index);
+                }
+                else if (array is object[] objects)
+                {
+                    if (objects == null)
+                    {
+                        throw new ArgumentException();
+                    }
+
+                    int count = _myLinearMap._count;
+                    MyEntry[]? entries = _myLinearMap._entries;
+
+                    try
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            if (entries![i].next >= -1)
+                            {
+                                objects[index++] = entries[i].key;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(ex.Message);
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
             }
 
             void ICollection<TValue>.Add(TValue item) => throw new NotSupportedException();
