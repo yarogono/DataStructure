@@ -44,6 +44,7 @@ public class MyArrayList<T> : List<T>, IList<T>
         Array.Resize(ref _arrList, newcapacity);
     }
 
+    // 시간 복잡도 : O(1)
     public void Add(T element)
     {
         if (_arrList.Length == 0 || _arrList == null)
@@ -58,6 +59,7 @@ public class MyArrayList<T> : List<T>, IList<T>
         _size++;
     }
 
+    // 시간 복잡도 : O(n) + O(n) => Grow된 Length 길이 더하기
     public void AddRange(List<T> list)
     {
         if (_arrList.Length - (_arrList.Length + list.Count) <= 0)
@@ -92,6 +94,7 @@ public class MyArrayList<T> : List<T>, IList<T>
         _size = 0;
     }
 
+    // 시간 복잡도 : O(n)
     public bool Contains(T item)
     {
         if (_arrList.Length <= 0)
@@ -120,6 +123,7 @@ public class MyArrayList<T> : List<T>, IList<T>
         return enumerator;
     }
 
+    //  시간 복잡도 : O(n)
     public int IndexOf(T item)
     {
         if (_arrList.Length <= 0)
@@ -138,6 +142,7 @@ public class MyArrayList<T> : List<T>, IList<T>
         return -1;
     }
 
+    // 시간 복잡도 : O(n)
     public int LastIndexOf(T item)
     {
         if (_arrList.Length <= 0)
@@ -163,6 +168,7 @@ public class MyArrayList<T> : List<T>, IList<T>
         return EqualityComparer<T>.Default.Equals(x, y);
     }
 
+    // 시간 복잡도 : O(n)
     public void Insert(int index, T item)
     {
         // 추가하려는 index의 값이 ArrayList의 범위를 벗어나는지 확인
@@ -186,6 +192,7 @@ public class MyArrayList<T> : List<T>, IList<T>
         _size++;
     }
 
+    // 시간 복잡도 : O(n)
     public bool Remove(T item)
     {
         if (_arrList == null || _arrList.Length <= 0)
@@ -220,6 +227,7 @@ public class MyArrayList<T> : List<T>, IList<T>
         return true;
     }
 
+    // 시간 복잡도 : O(n)
     public T RemoveAt(int index)
     {
         if (_arrList.Length <= 0 || _arrList == null)
@@ -268,6 +276,7 @@ public class MyArrayList<T> : List<T>, IList<T>
         return isEmpty;
     }
 
+    // 시간 복잡도 : O(n)
     public T[] ToArray()
     {
         T[] newArray = new T[_size];
