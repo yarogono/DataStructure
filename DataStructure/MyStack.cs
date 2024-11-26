@@ -55,6 +55,7 @@ namespace DataStructure
             _size = 0;
         }
 
+        // 시간 복잡도 : O(n)
         public bool Contains(T item)
         {
             if (_myStackArr == null || _myStackArr.Length <= 0)
@@ -78,21 +79,12 @@ namespace DataStructure
         {
         }
 
-
-        // Returns an IEnumerator for this Stack.
-        //public Enumerator GetEnumerator()
-        //{
-        //    return new Enumerator(this);
-        //}
-
-
         public void TrimExcess()
         {
 
         }
 
-        // Returns the top object on the stack without removing it.  If the stack
-        // is empty, Peek throws an InvalidOperationException.
+        // 시간 복잡도 : O(1)
         public T Peek()
         {
             if (_myStackArr == null || _myStackArr.Length <= 0)
@@ -110,12 +102,8 @@ namespace DataStructure
             return default(T);
         }
 
-        //public bool TryPeek([MaybeNullWhen(false)] out T result)
-        //{
-        //}
 
-        // Pops an item from the top of the stack.  If the stack is empty, Pop
-        // throws an InvalidOperationException.
+        // 시간 복잡도 : O(1)
         public T Pop()
         {
             if (_myStackArr == null)
@@ -134,11 +122,7 @@ namespace DataStructure
             return popedItem;
         }
 
-        //public bool TryPop([MaybeNullWhen(false)] out T result)
-        //{
-        //}
-
-        // Pushes an item to the top of the stack.
+        // 시간 복잡도 : O(1)
         public void Push(T item)
         {
             if (_myStackArr == null)
@@ -156,19 +140,13 @@ namespace DataStructure
         }
 
 
-        /// <summary>
-        /// Ensures that the capacity of this Stack is at least the specified <paramref name="capacity"/>.
-        /// If the current capacity of the Stack is less than specified <paramref name="capacity"/>,
-        /// the capacity is increased by continuously twice current capacity until it is at least the specified <paramref name="capacity"/>.
-        /// </summary>
-        /// <param name="capacity">The minimum capacity to ensure.</param>
         public int EnsureCapacity(int capacity)
         {
             return 1;
         }
 
 
-        // Copies the Stack to an array, in the same order Pop would return the items.
+        // 시간 복잡도 : O(n)
         public T[] ToArray()
         {
             T[] newArr = new T[_size];
