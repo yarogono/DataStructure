@@ -99,6 +99,7 @@ namespace DataStructure
 
         }
 
+        // 시간 복잡도 : O(n)
         public T Dequeue()
         {
             if (_array[_head] == null)
@@ -119,7 +120,8 @@ namespace DataStructure
 
             return result;
         }
-
+        
+        // 시간 복잡도 : O(1)
         public void Enqueue(T item)
         {
 
@@ -150,6 +152,7 @@ namespace DataStructure
             SetCapacity(newcapacity);
         }
 
+        // 시간 복잡도 : O(n)
         // ArrayList는 Resize를 사용하지만 Queue의 _head 값은 인덱스가 가변적이기 때문에 Array.Copy를 사용
         private void SetCapacity(int capacity)
         {
@@ -192,6 +195,7 @@ namespace DataStructure
             return new Enumerator();
         }
 
+        // 시간 복잡도 : O(1)
         public T Peek()
         {
             if (_array[_head] == null)
@@ -204,6 +208,7 @@ namespace DataStructure
             return result;
         }
 
+        // 시간 복잡도 : O(n)
         public T[] ToArray()
         {
             if (_size == 0)
@@ -217,11 +222,7 @@ namespace DataStructure
             return result;
         }
 
-        public void TrimExcess()
-        {
-
-        }
-
+        // 시간 복잡도 : O(1)
         public bool TryDequeue([MaybeNullWhen(false)] out T result)
         {
             if (_size == 0 || _array[_head] == null)
@@ -238,6 +239,7 @@ namespace DataStructure
             return true;
         }
 
+        // 시간 복잡도 : O(1)
         public bool TryPeek([MaybeNullWhen(false)] out T result)
         {
             if (_size == 0 || _array[_head] == null)
