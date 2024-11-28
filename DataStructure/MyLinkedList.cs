@@ -1,4 +1,4 @@
-﻿namespace DataStructure
+namespace DataStructure
 {
     public class MyLinkedListNode<T>
     {
@@ -59,6 +59,7 @@
         {
         }
 
+        // 시간 복잡도 : O(n)
         public void AddAll(MyLinkedList<T> list)
         {
             if (head == null)
@@ -112,6 +113,7 @@
             AddAfterNode(newNode, node);
         }
 
+        // 시간 복잡도 : O(1)
         public MyLinkedListNode<T> AddAfter(MyLinkedListNode<T> node, T value)
         {
             if (node == null || value == null)
@@ -135,6 +137,7 @@
             return newNode;
         }
 
+        // 시간 복잡도 : O(1)
         private void AddAfterNode(MyLinkedListNode<T> newNode, MyLinkedListNode<T> node)
         {
             newNode.next = node.next;
@@ -144,6 +147,7 @@
             count++;
         }
 
+        // 시간 복잡도 : O(1)
         public void AddBefore(MyLinkedListNode<T> node, MyLinkedListNode<T> newNode)
         {
             if (head == null)
@@ -159,6 +163,7 @@
             AddBeforeNode(newNode, node);
         }
 
+        // 시간 복잡도 : O(1)
         public MyLinkedListNode<T> AddBefore(MyLinkedListNode<T> node, T value)
         {
             if (node == null || value == null)
@@ -182,6 +187,7 @@
             return newNode;
         }
 
+        // 시간 복잡도 : O(1)
         private void AddBeforeNode(MyLinkedListNode<T> newNode, MyLinkedListNode<T> node)
         {
             newNode.prev = node.prev;
@@ -192,6 +198,7 @@
             count++;
         }
 
+        // 시간 복잡도 : O(1)
         public MyLinkedListNode<T> AddFirst(T value)
         {
             if (value == null)
@@ -221,6 +228,7 @@
             return head;
         }
 
+        // 시간 복잡도 : O(1)
         public MyLinkedListNode<T> AddLast(T value)
         {
             if (value == null)
@@ -264,6 +272,7 @@
             count = 0;
         }
 
+        // 시간 복잡도 : O(n)
         public bool Contains(T value)
         {
             if (head == null)
@@ -291,6 +300,7 @@
             return true;
         }
 
+        // 시간 복잡도 : O(n)
         public bool Contains(MyLinkedListNode<T> node)
         {
             bool isContains = false;
@@ -330,6 +340,7 @@
 
         }
 
+        // 시간 복잡도 : O(n)
         public MyLinkedListNode<T>? Find(T value)
         {
             if (value == null)
@@ -356,7 +367,8 @@
             }
             return tempNode;
         }
-
+        
+        // 시간 복잡도 : O(n)
         public MyLinkedListNode<T>? FindLast(T value)
         {
             if (head == null)
@@ -390,7 +402,7 @@
             return new MyLinkedList<T>.Enumerator();
         }
 
-
+        // 시간 복잡도 : O(n)
         public bool Remove(T value)
         {
             if (head == null)
@@ -430,6 +442,7 @@
             return true;
         }
 
+        // 시간 복잡도 : O(1)
         public void RemoveFirst()
         {
             if (head == null)
@@ -451,6 +464,7 @@
             count--;
         }
 
+        // 시간 복잡도 : O(1)
         public void RemoveLast()
         {
             if (head == null)
