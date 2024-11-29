@@ -155,6 +155,7 @@ namespace DataStructure
             TryInsert(key, value);
         }
 
+        // 시간 복잡도 : O(n)
         private bool TryInsert(TKey key, TValue value)
         {
             if (key == null)
@@ -302,6 +303,7 @@ namespace DataStructure
 
         private void Resize() => Resize(HashHelpers.ExpandPrime(_count), false);
 
+        // 시간 복잡도 : O(n)
         private void Resize(int size, bool forceNewHash)
         {
             Array.Resize(ref _entries, size);
@@ -345,6 +347,8 @@ namespace DataStructure
             return size;
         }
 
+
+        // 시간 복잡도 : O(n)
         internal ref TValue FindValue(TKey key)
         {
             if (key == null)
@@ -476,6 +480,7 @@ namespace DataStructure
             _count = 0;
         }
 
+        // 시간 복잡도 : O(n)
         public bool Remove(TKey key)
         {
             if (key == null)
@@ -546,6 +551,7 @@ namespace DataStructure
         public bool ContainsKey(TKey key) =>
             !Unsafe.IsNullRef(ref FindValue(key));
 
+        // 시간 복잡도 : O(n)
         public bool ContainsValue(TValue value)
         {
             MyEntry[]? entries = _entries;
